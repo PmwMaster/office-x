@@ -32,6 +32,19 @@ export interface HybridCart {
   total: number;
 }
 
+// ==================== REAL PRODUCT CATALOG TYPE ====================
+
+export interface RealProduct {
+  id: string;
+  brand: string;
+  name: string;
+  category: 'teclado' | 'mouse' | 'audio' | 'pecas' | 'locacao';
+  price: number;
+  specs: Record<string, string>;
+  image_url: string;
+  description: string;
+}
+
 // ==================== ADMIN TYPES ====================
 
 export type OSStatus = 'triage' | 'waiting_parts' | 'modding_bench' | 'done';
