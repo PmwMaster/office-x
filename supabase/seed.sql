@@ -1,40 +1,147 @@
 -- =====================================================
--- SEED DATA - Execute após criar as tabelas
+-- OFFICE-X - Catálogo Real de Produtos
+-- Marcas: Cherry, Gateron, GMK, Keychron, Logitech, etc.
+-- Execute após 001_schema.sql
 -- =====================================================
 
--- Products
-INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
-('NEON-V4 LINEAR', 389.00, 'ATUAÇÃO LINEAR 45G', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCYCTejiGbJrYTzYeYJsee_SPODSZGNX4hjUsrYOAEuKzFJxexd5ZsN8GQPu_9nrY47HrR2ldPq7MS9AKYPBFQpOmghXwR8D1L1u-S7i61bcoAGMf9sajDv0GJWZIr8fJGa_qfdBBHgVVZVnDaCZO7A0LHOvxIDdawTGsSnzhvOo1naVdHfTpKFMQevNFo3W38Oc5hsp5DeHbINSkoUC1d_9ZWl-tydUR1BgFP2nRZqZR10o0xC-vXB2UlzQ3NqB_YVt9pcA1pCHd2v', 'Close-up de switch mecânico premium.', 'switches'),
-('VOID SHIFT PBT', 549.00, 'DOUBLE-SHOT CHERRY', 'https://lh3.googleusercontent.com/aida-public/AB6AXuBphHnjvLSLjSkDzR6AyhhhtlAdx0rniXwZfoN9go66zR8PCuQJOB6-icKVSKulr7Jg1DieaEhsTwkmJ2IvYcujFssKHpD63dzOp71L8uawkxWKU5Ki7iM9_Sh3UA6ckNbBHCMXDn5uphgk4bcAZsA32YLO-2sPeSMYswq8Rp6HbwddGJU_0cXj3rYsUdH8KlXEHzWcjdMG_cqQ5uXPdAUtPNLLgaSM3fO21JmR1DSPBDDxvpP0X00DWi-lARgwPb58JebiVrM3qnJo', 'Keycaps artisans purple/neon green.', 'keycaps'),
-('KRYTOX 205G0', 125.00, 'LUBRIFICANTE GRAU 0', 'https://lh3.googleusercontent.com/aida-public/AB6AXuB8OEwIq6DHRBNHGk4JbwEWGvjSzVMpJfXjh5WMR8J9e5gh6na_vCY4ZMwI0ElD9bNy3XMiQ1lauETHhpr5R6nBOLYmmbsuYOAmS7_kHVhKgrDiiUg_QU1wtlPWYZcEPmTHaIAYs9sgV0R5FKIRtDGA9BdtITGzqsd1xMqU-xSmOQewHbGSH9PD4j65dp33DdLJLCQInNkwn1wkF2jiK4VTJxMHbT9wPTC9V9A4pKI-xhNUjugo06jUNMOHi_IXBhU2HG4NYfr8Oz52', 'Pote de lubrificante Krytox.', 'lubricants'),
-('PLATE DE LATÃO 65%', 299.00, 'PRECISÃO CNC', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAN2IH_5Umf0S99ThEOVJOVvlvBfnDpJQN1xLF3kmyhiSYE8wXVtZkSe0UvOYFqffHEvud_JcE0Uomjzp61pdzLA-_UQqnrezVbJhB2cJak3f0trd5y7YE86_3Se7ZJYQCTEs5vZCFhk-px6THxoytZhbDFGUuO861FBOKWYE23cnZO9lf2dPBBCS7vPHT1X9zKJET4Bzloe-KHtIrS2AV5W4529ttmpgG_tkeYJodU5zf3qZyI-YT36PLmInJFcpBOhBpej-p4ZAp3', 'Plate de latão CNC 65%.', 'plates'),
-('DUROCK V2 GOLD', 189.00, 'CONJUNTO SCREW-IN', 'https://lh3.googleusercontent.com/aida-public/AB6AXuDddAcpp-4h6KqMvHl-WQr5ls-lPqEyGXkw8AzHke176Lijmup-z-nCPlk65UXndv79K6G8p0ZyrgYTiNZjEpqLpuGcr0zfneHOBRfmkJwiuf2OEUwKC_gJdGgcBp9KvTB1RZPK0p-DS-PqLiiZ0n1V7uYtPzlJapAmSpop1APiJ6LcQm0XrDIX00Qmv_dZhsiPI9Ks-9l5qIa-k0TjHbBnEJnb3NQ-3jKB50-B4G7ZCi19DVJzXjvtmKnAJzHEGlrQ-xFFgOyE9OSX', 'Stabilizers Durock V2 Gold.', 'stabilizers'),
-('X-COIL AVIATOR', 245.00, 'REVESTIMENTO PARACORD', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAdufLMGQ3KI5hDZuBIpmTKajOQwqFfNhhILFla5WKRG5Ci-YIo0mTWhQBZuU7aUGhqMIeq6cHv9AzVZE3DUyFG-nupmFu_5Mqz25Z6qDRK03OETcdhlyzxLBehjq7Px4v-S1IzU-5ybTdwfgtGoyOCTcc9UtfdB1RK5JDZWkh4o7QMuHcA9j1z8bwSgMxNGMarcawybsp_w7WGGA999cNf7w9BHQMbmAEdQq4BdzeFhs17JDdMq09z5R6f6AOnYUY9e3PXlFSPEowP', 'Cabo paracord aviator.', 'cables'),
-('OFFICE-X MK-01 "PHANTOM"', 1450.00, 'SWITCHES GATERON BLACK INK V2', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCWiJZguQAOxp7mZHCir-rFsTaOdsDnm0yL2WYrTXZOWAmCHinAOV-lz-LLMelITPpFRtPOh2o3Dp3gqcdkWivXhMNASp_oWPC3mSjKywyIUBT5sYgX-JlfNsLFvjnp-UJkCZ-RDsve90D-R4CUwDbpuHQx6o7m3qQy-hxiKt1-nYUP0fLgGePLa-f0u1GVe_ORhjhm0r9lzn7wAsk0bi9hKyKoMuN0BvFodKxSOpmjP-9OUtOjiNEfDw-Dsp__Mek9cXhcCdc03_oJ', 'Teclado mecânico custom premium.', 'keyboards'),
-('PRECISION MOUSE X-GHOST', 890.00, 'POLLING RATE 8000HZ - CARBON FIBER SHELL', 'https://lh3.googleusercontent.com/aida-public/AB6AXuBwI21J3KRsKZJ3AMNUcmdcWvBjMO-4FAhltWvRxAglfr52BVQbYnmIcBkJ_VmRtzuofuZUaZ4Ku5TMpQOlKJ__1h1SDZB-rAa_WWN_u3bYWl6L6_-72KF3eD_wN-KhGALJDuCHbX3aC1InyvqHTcFxiQUKJPamH3NWhF3UNQyoFy1_mk4-_TpdyA6CfNYoGUdlt7nsicKC7drVeViIBO3LmDex45-fDWf_hyCP3z3NIebzuYIhyJ9ePoCQDfKRZlAfVUSkTkqA027w', 'Mouse gaming fibra de carbono.', 'mice'),
-('ULTRA-WIDE 4K STUDIO PANEL', 5800.00, '99% DCI-P3 - 144HZ - HDR10+', 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5JqTOLFLGrXait4ocKA7YHV6sYknQOU8Vs6NCzHwnITmAZuINHM0Qu_hQ7VxBxZL6Or5QM-nv5kC6sPyt_mdkaD_VtZq0XQaVNAcZ6J4rqOlVXlNgFLH9wpGb-dArj0JatQTLL2zvMARGhvl5FwESqquVCcvCxMIRcqQMv0qRPnt6xTUtb4SVKoRfR9zO_uFX_KYaqN_r6YAiACnosE81I0GrTh3ZBKkubg6TXmGRUBUzjgisEpvRHNzSDGRrhObH67timXy0aiFI', 'Monitor 4K profissional.', 'monitors'),
-('OFFICE-X AUDIO SENTRY', 1890.00, 'NOISE CANCELING MK.II - DRIVERS 50MM', 'https://lh3.googleusercontent.com/aida-public/AB6AXuBgpDs0bw8nackOloNHM9RhINRsZXoIyMsKLAmOau2Uea53x1zN8eyiHi848TW3lVZU_ySdQm-tzlYinHKbnBl914xurqAYKatgNJcYnmsvdtAWo3Wv3tLXOdOhDUdoa-LApbsEj4yrbAHPIULMmL_1-FLRPJ62u5RvoDaZ-5X8JNSpLtimbIW5SQT_UObEHXvGKT0m3ySr4H6xv3SzELGxqX6p7Rnjxv8cdOldOV1KlMMSUyqOsyHW0cFuv9-xk1vaOpQChM1_iy8N', 'Headphones premium noise canceling.', 'audio');
+-- ==================== SWITCHES (14) ====================
 
--- Services
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Cherry MX Red', 45.00, 'LINEAR 45G - 5 PINOS - ALEMÃO', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Switch Cherry MX Red - linear suave para gaming.', 'switches'),
+('Cherry MX Speed Silver', 48.00, 'LINEAR 45G - ATUAÇÃO 1.2MM - GAMING', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Switch Cherry MX Speed Silver - atuação ultra rápida.', 'switches'),
+('Gateron Black Ink V2', 65.00, 'LINEAR 60G - HOUSING PRETO SEDA', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Switch Gateron Black Ink V2 - linear premium.', 'switches'),
+('Gateron Milky Yellow Pro', 35.00, 'LINEAR 50G - PRÉ-LUBRIFICADO FÁBRICA', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Switch Gateron Milky Yellow Pro - custo-benefício.', 'switches'),
+('Gateron Oil King', 72.00, 'LINEAR 55G - HOUSING NYLON PRETO - PVD GOLD', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Switch Gateron Oil King - topo de linha linear.', 'switches'),
+('Gateron Baby Kangaroo', 68.00, 'TÁCTIL 59G - EARLY BUMP - HOUSING VERMELHO', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Switch Gateron Baby Kangaroo - tátil premium.', 'switches'),
+('Kailh Box Jade', 42.00, 'CLICKY 50G - BARRA CLICK THICK - IP56', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Switch Kailh Box Jade - clicky com proteção IP56.', 'switches'),
+('Kailh Box Navy', 42.00, 'CLICKY 60G - BARRA CLICK THICC - IP56', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Switch Kailh Box Navy - clicky pesado IP56.', 'switches'),
+('TTC Gold Pink', 55.00, 'LINEAR 37G - ULTRALIGHT - PRÉ-LUBRIFICADO', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Switch TTC Gold Pink - ultra leve para digitação.', 'switches'),
+('Durock POM Linears', 58.00, 'LINEAR 63.5G - STEM POM - HOUSING TRANSPARENTE', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Switch Durock POM - linear suave com stem POM.', 'switches'),
+('Drop + Invyr Holy Panda', 85.00, 'TÁCTIL 67G - HOUSING INVYR - O.G. TÁCTIL', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Switch Holy Panda - o lendário switch tátil.', 'switches'),
+('Cherry MX Brown', 45.00, 'TÁCTIL 45G - 5 PINOS - CLÁSSICO', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Switch Cherry MX Brown - tátil clássico universal.', 'switches'),
+('WS Morandi', 62.00, 'LINEAR 63.5G - STEM UPE - HOUSING CINZA', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Switch WS Morandi - linear premium com stem UPE.', 'switches'),
+('HMX Xinhai', 48.00, 'LINEAR 52G - STEM LY - HOUSING AZUL-TRANSPARENTE', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Switch HMX Xinhai - linear com stem LY de baixa fricção.', 'switches');
+
+-- ==================== KEYCAPS (8) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('GMK Olivia++', 980.00, 'DOUBLE-SHOT ABS - CHERRY PROFILE - 134 KEYS', 'https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=600&q=80', 'Keycap set GMK Olivia++ - rosa escuro com legendas brancas.', 'keycaps'),
+('GMK Botanical 2', 950.00, 'DOUBLE-SHOT ABS - CHERRY PROFILE - 147 KEYS', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80', 'Keycap set GMK Botanical 2 - verde botânico.', 'keycaps'),
+('GMK Dracula v2.0', 1020.00, 'DOUBLE-SHOT ABS - CHERRY PROFILE - 168 KEYS', 'https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=600&q=80', 'Keycap set GMK Dracula - dark mode premium.', 'keycaps'),
+('ePBT Grand Tour', 590.00, 'DYE-SUB PBT - CHERRY PROFILE - 137 KEYS', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80', 'Keycap set ePBT Grand Tour - PBT dye-sub premium.', 'keycaps'),
+('PBTfans Spark', 480.00, 'DOUBLE-SHOT PBT - CHERRY PROFILE - 131 KEYS', 'https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=600&q=80', 'Keycap set PBTfans Spark - PBT double-shot acessível.', 'keycaps'),
+('PBTfans Twist', 520.00, 'DOUBLE-SHOT PBT - CHERRY PROFILE - 140 KEYS', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80', 'Keycap set PBTfans Twist - design torcido colorido.', 'keycaps'),
+('Drop + MiTo SA Laser', 350.00, 'DOUBLE-SHOT ABS - SA PROFILE - 112 KEYS', 'https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=600&q=80', 'Keycap set SA Laser - perfil SA alto estilo retrowave.', 'keycaps'),
+('EnjoyPBT Less But Better', 380.00, 'DYE-SUB PBT - CHERRY PROFILE - 119 KEYS', 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80', 'Keycap set EPBT Less But Better - minimalista Dieter Rams.', 'keycaps');
+
+-- ==================== LUBRICANTS (4) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Krytox GPL 205g0', 85.00, 'GRAU 0 - 5G - TEFLON/PFPE - SWITCHES + STABS', 'https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80', 'Pote de lubrificante Krytox GPL 205g0 - padrão ouro.', 'lubricants'),
+('Krytox GPL 105', 75.00, 'ÓLEO - 5ML - TEFLON/PFPE - MOLAS', 'https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80', 'Frasco de óleo Krytox GPL 105 para molas.', 'lubricants'),
+('Tribosys 3204', 55.00, 'GRAU 0 - 3G - SINTÉTICO - TÁCTEIS', 'https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80', 'Lubrificante Tribosys 3204 para switches táteis.', 'lubricants'),
+('Tribosys 3203', 55.00, 'GRAU 0 - 3G - SINTÉTICO - LINEARES', 'https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80', 'Lubrificante Tribosys 3203 para switches lineares.', 'lubricants');
+
+-- ==================== PLATES (5) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Aluminum Plate 60%', 120.00, 'ALUMÍNIO 5052 - ANODIZADO PRETO - 1.5MM', 'https://images.unsplash.com/photo-1595045051853-05ef47bdbd52?w=600&q=80', 'Plate de alumínio anodizado preto para teclado 60%.', 'plates'),
+('Brass Plate 65%', 190.00, 'LATÃO POLIDO - PVD GOLD - 1.5MM', 'https://images.unsplash.com/photo-1595045051853-05ef47bdbd52?w=600&q=80', 'Plate de latão polido PVD gold para teclado 65%.', 'plates'),
+('FR4 Plate 75%', 85.00, 'FIBRA DE VIDRO PRETA - FLEX CUT - 1.6MM', 'https://images.unsplash.com/photo-1595045051853-05ef47bdbd52?w=600&q=80', 'Plate FR4 fibra de vidro flex cut para teclado 75%.', 'plates'),
+('Polycarbonate Plate TKL', 90.00, 'POLICARBONATO TRANSPARENTE - 1.5MM', 'https://images.unsplash.com/photo-1595045051853-05ef47bdbd52?w=600&q=80', 'Plate de policarbonato transparente para teclado TKL.', 'plates'),
+('POM Plate Full Size', 95.00, 'POM BRANCO LEITOSO - AUTO LUBRIFICANTE - 1.5MM', 'https://images.unsplash.com/photo-1595045051853-05ef47bdbd52?w=600&q=80', 'Plate POM branco auto lubricante para Full Size.', 'plates');
+
+-- ==================== STABILIZERS (4) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Durock V2 Stabilizers', 85.00, 'SCREW-IN - HOUSING PC - GOLD WIRE - 6.25U/7U', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Kit Durock V2 stabilizers screw-in gold wire.', 'stabilizers'),
+('TX Stabilizers AP', 110.00, 'SCREW-IN - HOUSING ALUMÍNIO - POM STEM - WKL', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Kit TX Stabilizers AP com housing de alumínio.', 'stabilizers'),
+('OwlLab Stabilizers', 95.00, 'SCREW-IN - HOUSING NYLON - TI WIRE - SUPERLUBE', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Kit OwlLab stabilizers com wire de titânio.', 'stabilizers'),
+('Cherry Screw-In Stabilizers', 45.00, 'SCREW-IN - HOUSING NYLON - STEEL WIRE - OEM', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Kit Cherry stabilizers screw-in originais OEM.', 'stabilizers');
+
+-- ==================== CABLES (4) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Coiled Aviator Cable Pro', 180.00, 'PARACORD - GX16 AVIATOR - USB-C/A - 1.8M', 'https://images.unsplash.com/photo-1605773527852-c546a8584ea3?w=600&q=80', 'Cabo coiled paracord com conector aviator GX16.', 'cables'),
+('LEMO Straight Cable', 320.00, 'SLEEVED - LEMO 0B - USB-C/A - 2.0M - PUSH-PULL', 'https://images.unsplash.com/photo-1605773527852-c546a8584ea3?w=600&q=80', 'Cabo reto com conector LEMO 0B push-pull premium.', 'cables'),
+('YC8 Straight Cable', 150.00, 'PARACORD - YC8 - USB-C/A - 1.5M - DETACHABLE', 'https://images.unsplash.com/photo-1605773527852-c546a8584ea3?w=600&q=80', 'Cabo reto paracord com conector YC8 removível.', 'cables'),
+('Dual-Tone Coiled Cable', 220.00, 'DOUBLE-SLEEVED - GX12 - USB-C/A - 2.0M - RÁPIDO', 'https://images.unsplash.com/photo-1605773527852-c546a8584ea3?w=600&q=80', 'Cabo coiled dual-tone com conector GX12.', 'cables');
+
+-- ==================== KEYBOARDS (8) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Wooting 60HE+', 1490.00, 'HALL EFFECT - RAPID TRIGGER - 60% - ALUMÍNIO', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Teclado Wooting 60HE+ com switches magnéticos.', 'keyboards'),
+('Wooting 80HE', 2190.00, 'HALL EFFECT - 80% - ALUMÍNIO - 8KHZ - RGB', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Teclado Wooting 80HE 80% Hall effect premium.', 'keyboards'),
+('Keychron Q1 Pro', 1290.00, '75% - GASKET MOUNT - ALUMÍNIO CNC - QMK/VIA', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Teclado Keychron Q1 Pro 75% alumínio gasket mount.', 'keyboards'),
+('Keychron V1 Max', 690.00, '75% - GASKET MOUNT - ABS COM ESPUMA - QMK/VIA', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Teclado Keychron V1 Max custo-benefício 75%.', 'keyboards'),
+('Mode Envoy', 2100.00, '65% - ISOLATED TOP MOUNT - ALUMÍNIO - STACK MOUNT', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Teclado Mode Envoy 65% premium stack mount.', 'keyboards'),
+('Tofu60 Redux', 590.00, '60% - CASE ALUMÍNIO CNC - O-RING MOUNT - 2.2KG', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Case Tofu60 Redux alumínio para custom 60%.', 'keyboards'),
+('Neo Ergo', 1450.00, 'ALICE/ARISU - ALUMÍNIO - GASKET MOUNT - TRI-MODE', 'https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&q=80', 'Teclado Neo Ergo layout Alice ergonômico premium.', 'keyboards'),
+('Rainy75', 780.00, '75% - ALUMÍNIO CNC - GASKET - HMX/PBS - RGB', 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80', 'Teclado Rainy75 alumínio 75% com switches HMX.', 'keyboards');
+
+-- ==================== MICE (6) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Logitech G Pro X Superlight 2', 1290.00, 'HERO 2 - 44K DPI - 60G - USB-C - 95H BATERIA', 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80', 'Mouse Logitech G Pro X Superlight 2 - 60g.', 'mice'),
+('Razer DeathAdder V3 Pro', 1190.00, 'FOCUS PRO 30K - 63G - ERGONÔMICO - 8KHZ HYPERPOLLING', 'https://images.unsplash.com/photo-1605773527852-c546a8584ea3?w=600&q=80', 'Mouse Razer DeathAdder V3 Pro - ergonômico 63g.', 'mice'),
+('Razer Viper V3 Pro', 1390.00, 'FOCUS PRO 35K - 54G - AMBIDESTRO - 8KHZ', 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80', 'Mouse Razer Viper V3 Pro - 54g ambidestro competitivo.', 'mice'),
+('Lamzu Maya X', 780.00, 'PAW3950 - 47G - 8KHZ - AMBIDESTRO - TAMANHO MÉDIO', 'https://images.unsplash.com/photo-1605773527852-c546a8584ea3?w=600&q=80', 'Mouse Lamzu Maya X - ultra leve 47g para FPS.', 'mice'),
+('Pulsar X2V2 Mini', 650.00, 'PAW3395 - 51G - SYMMETRICAL - 4KHZ POLLING', 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80', 'Mouse Pulsar X2V2 Mini - simétrico compacto 51g.', 'mice'),
+('Finalmouse UltralightX', 1590.00, 'ULX SENSOR - 29G - CARBON FIBER - 8KHZ - WIRELESS', 'https://images.unsplash.com/photo-1605773527852-c546a8584ea3?w=600&q=80', 'Mouse Finalmouse UltralightX - 29g fibra de carbono.', 'mice');
+
+-- ==================== MONITORS (4) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('LG 27GP950-B UltraGear', 3450.00, '4K UHD - 160HZ - IPS - 1MS - HDMI 2.1 - HDR600', 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80', 'Monitor LG 27GP950 4K 160Hz IPS gamer.', 'monitors'),
+('Dell U2723QE UltraSharp', 3100.00, '4K UHD - 60HZ - IPS BLACK - FACTORY CALIBRATED', 'https://images.unsplash.com/photo-1547119957-637f8679db1e?w=600&q=80', 'Monitor Dell U2723QE 4K IPS Black com calibração de fábrica.', 'monitors'),
+('ASUS ROG Swift PG27AQDM', 4800.00, 'OLED 240HZ - 0.03MS - 1440P - G-SYNC - ANTI-GLARE', 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80', 'Monitor ASUS ROG Swift OLED 240Hz gaming.', 'monitors'),
+('Samsung Odyssey G8 OLED', 4100.00, 'OLED 175HZ - 3440X1440 - 21:9 - CURVO 1800R', 'https://images.unsplash.com/photo-1547119957-637f8679db1e?w=600&q=80', 'Monitor Samsung Odyssey G8 OLED curvo ultrawide.', 'monitors');
+
+-- ==================== AUDIO (5) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Beyerdynamic DT 900 Pro X', 1890.00, 'ABERTO BACK - STELLAR.45 - 48Ω - 5-40KHZ - STUDIO', 'https://images.unsplash.com/photo-1505740420928-b5e5601f4c41?w=600&q=80', 'Fone Beyerdynamic DT 900 Pro X aberto para estúdio.', 'audio'),
+('Beyerdynamic DT 700 Pro X', 1690.00, 'FECHADO - STELLAR.45 - 48Ω - ESTÚDIO - DETACHABLE', 'https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=600&q=80', 'Fone Beyerdynamic DT 700 Pro X fechado para estúdio.', 'audio'),
+('Sennheiser HD 660S2', 2490.00, 'ABERTO - 150Ω - ALEMÃO - TRANSDUCER 42MM - REFERENCE', 'https://images.unsplash.com/photo-1505740420928-b5e5601f4c41?w=600&q=80', 'Fone Sennheiser HD 660S2 referência audiófila.', 'audio'),
+('Audio-Technica ATH-M50x', 890.00, 'FECHADO - 45MM DRIVERS - 38Ω - DOBRÁVEL - STUDIO', 'https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=600&q=80', 'Fone Audio-Technica ATH-M50x monitor de estúdio.', 'audio'),
+('Moondrop Blessing 3', 1690.00, 'IEM - 2DD+4BA - HYBRID - 14.8MM DD - ESTÚDIO REF', 'https://images.unsplash.com/photo-1505740420928-b5e5601f4c41?w=600&q=80', 'IEM Moondrop Blessing 3 híbrido referência.', 'audio');
+
+-- ==================== PCBS (2) ====================
+
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('Mechlovin Infinity PCB', 320.00, 'SOLDER - QMK/VIA - USB-C - FLEX CUT - 1.6MM', 'https://images.unsplash.com/photo-1595045051853-05ef47bdbd52?w=600&q=80', 'PCB Mechlovin Infinity soldável QMK/VIA.', 'plates'),
+('Wilba.Tech Salvation PCB', 380.00, 'HOT-SWAP - QMK/VIA - USB-C - 1.2MM - RGB PER-KEY', 'https://images.unsplash.com/photo-1595045051853-05ef47bdbd52?w=600&q=80', 'PCB Wilba Salvation hot-swap RGB per-key.', 'plates');
+
+-- ==================== SERVICES (mantidos) ====================
+
 INSERT INTO services (name, price, peripheral_brand, peripheral_model, description, category, details) VALUES
 ('LUBRIFICAÇÃO COMPLETA', 150.00, 'Custom', 'Todos os modelos', 'Desmontagem completa, lubrificação de switches e stabilizers com Krytox 205G0.', 'maintenance', ARRAY['Desmontagem e limpeza ultrassônica', 'Lubrificação Krytox 205G0 em todos os switches', 'Lubrificação de stabilizers', 'Remontagem e teste de digitação']),
 ('TROCA DE SWITCHES', 280.00, 'Custom', 'Hot-swap / Soldável', 'Substituição completa de switches. Dessoldagem e soldagem inclusas para PCBs não hot-swap.', 'customization', ARRAY['Remoção de switches antigos', 'Dessoldagem profissional (se necessário)', 'Instalação de novos switches', 'Teste completo de todas as teclas']),
 ('TAPE MOD + FOAM MOD', 120.00, 'Custom', '60% / 65% / 75% / TKL', 'Modificação acústica com fita adesiva na PCB e espumas de isolamento para som premium.', 'customization', ARRAY['Aplicação de Tape Mod (3 camadas)', 'Instalação de espuma entre PCB e Plate', 'Espuma de case para redução de eco', 'Teste acústico comparativo']),
 ('CASE SWAP + MONTAGEM', 450.00, 'Custom', 'Tofu60 / Tofu65 / KBDfans', 'Transferência de componentes para case de alumínio premium. Inclui montagem completa.', 'assembly', ARRAY['Transferência de PCB e Plate', 'Instalação em case de alumínio', 'Ajuste de estabilizadores', 'Montagem final e teste de qualidade']),
 ('MODDING ESTÉTICO', 350.00, 'Custom', 'Todos os modelos', 'Pintura de case, troca de keycaps artesanais e customização visual completa.', 'customization', ARRAY['Pintura e acabamento do case', 'Instalação de keycaps artesanais', 'Cabo customizado combinando', 'Foto profissional do resultado']),
-('DIAGNÓSTICO + ORÇAMENTO', 0.00, 'Todos', 'Todos os modelos', 'Análise técnica completa do periférico com orçamento detalhado dos reparos necessários.', 'maintenance', ARRAY['Teste completo de funcionamento', 'Diagnóstico de falhas', 'Orçamento detalhado sem compromisso', 'Prazo de 48h para entrega do laudo']);
+('DIAGNÓSTICO + ORÇAMENTO', 0.00, 'Todos', 'Todos os modelos', 'Análise técnica completa do periférico com orçamento detalhado dos reparos necessários.', 'maintenance', ARRAY['Teste completo de funcionamento', 'Diagnóstico de falhas', 'Orçamento detalhado sem compromisso', 'Prazo de 48h para entrega do laudo']),
+('SPRING SWAP + FILM MOD', 100.00, 'Custom', 'Todos os modelos', 'Troca de molas por peso customizado + aplicação de films para reduzir wobble do stem.', 'customization', ARRAY['Abertura de todos os switches', 'Troca de molas (spring swap)', 'Aplicação de deskeys switch films', 'Lubrificação leve e reassembly']),
+('DESSOLDAGEM + RESGATE', 200.00, 'Custom', 'PCB Soldados', 'Dessoldagem profissional de switches com estação de vácuo. Recuperação de switches e PCB.', 'maintenance', ARRAY['Dessoldagem com bomba de vácuo', 'Limpeza dos pads da PCB', 'Teste de continuidade elétrica', 'Switches recuperados e limpos']);
 
--- Service Orders
+-- ==================== SERVICE ORDERS ====================
+
 INSERT INTO service_orders (title, description, status, priority, technician, tracking, progress) VALUES
-('Keychron Q1 Modding', 'Troca de switches para Tangerine 62g + Lubrificação completa e Tape Mod.', 'triage', 'urgent', 'JD', NULL, NULL),
-('Logitech G Pro X Superlight', 'Double click no M1. Necessário substituição por microswitch Kailh GM 8.0.', 'triage', 'normal', 'AL', NULL, NULL),
-('Ducky One 3 SF', 'Aguardando importação do PCB original. Estimativa 15 dias.', 'waiting_parts', 'warranty', 'JD', 'OFFICE-BR-1293', NULL),
-('Custom Cable Paracord', 'Coiled cable com conector Aviator GX16. Estética Purple/Neon Green.', 'modding_bench', 'normal', 'MK', NULL, 75),
-('Wooting 60HE Case Swap', 'Transferência para Case de Alumínio Tofu60 Redux + Lub de Stabs.', 'modding_bench', 'urgent', 'AL', NULL, NULL),
-('Glorious Model O- Wireless', 'Limpeza ultrassônica + substituição de bateria.', 'done', 'normal', 'JD', NULL, NULL);
+('Keychron Q1 Pro - Mod Switch', 'Troca de switches Gateron Red para Baby Kangaroo + Lubrificação completa Krytox 205g0.', 'triage', 'urgent', 'JD', NULL, NULL),
+('Logitech G Pro X Superlight RMA', 'Double click no M1. Substituição por microswitch Omron D2F-F-3-7 Japão.', 'triage', 'normal', 'AL', NULL, NULL),
+('Ducky One 3 SF - Importação PCB', 'Aguardando importação do PCB original da Ducky Taiwan. Prazo estimado 15 dias.', 'waiting_parts', 'warranty', 'JD', 'BR-2024-1293-TW', NULL),
+('Custom Cable Paracord Commission', 'Coiled cable paracord roxo com neon green. Conector Aviator GX16 cromado. 1.8m.', 'modding_bench', 'normal', 'MK', NULL, 75),
+('Wooting 60HE Case Swap', 'Transferência para Tofu60 Redux anodizado Black + Lubrificação de stabilizers Durock V2.', 'modding_bench', 'urgent', 'AL', NULL, 45),
+('Glorious Model O- Wireless RMA', 'Limpeza ultrassônica da PCB + substituição de bateria + troca de skates para Corepad.', 'done', 'normal', 'JD', NULL, NULL),
+('Razer Huntsman V2 - Switch Óptico', 'Substituição de switches ópticos roxos com defeito. 3 teclas não registram.', 'triage', 'urgent', 'MK', NULL, NULL),
+('GMK Set Cleaning Service', 'Limpeza ultrassônica de keycaps GMK ABS. 134 teclas. Remoção de shine.', 'done', 'normal', 'AL', NULL, NULL);
 
--- Purchase History
+-- ==================== PURCHASE HISTORY ====================
+
 INSERT INTO purchase_history (item, item_sub, transaction_id, date, status, value, icon, icon_color) VALUES
-('X-GLITCH 65% Custom', 'Switches: Linear Purple', '#TRX-8821', '12 ABR 2024', 'ENTREGUE', 1250.00, 'keyboard', 'text-primary-fixed'),
-('RADIAL ULTRALIGHT', 'Sensor: Optical Gen-3', '#TRX-7742', '05 MAR 2024', 'ENTREGUE', 680.00, 'mouse', 'text-secondary'),
-('COILED CABLE PRO', 'Color: Cyber Neon', '#TRX-6610', '28 JAN 2024', 'ENTREGUE', 210.00, 'cable', 'text-on-surface-variant');
+('Wooting 60HE+', 'Switches: Lekker L60 + Tofu60 Redux', '#TRX-9102', '28 MAI 2024', 'ENTREGUE', 2350.00, 'keyboard', 'text-primary-fixed'),
+('GMK Botanical 2', 'Base + Novelties + Spacebars', '#TRX-8821', '15 ABR 2024', 'ENTREGUE', 1250.00, 'keyboard', 'text-primary-fixed'),
+('Logitech G Pro X Superlight 2', 'Sensor: HERO 2 - White Edition', '#TRX-7742', '05 MAR 2024', 'ENTREGUE', 1290.00, 'mouse', 'text-secondary'),
+('Durock V2 + Krytox Kit', 'Stabs + 205g0 + 105 Oil + Brush Set', '#TRX-6610', '28 JAN 2024', 'ENTREGUE', 210.00, 'cable', 'text-on-surface-variant'),
+('Rainy75 Pro', 'Switches: HMX Violet - ISO Layout', '#TRX-5501', '10 DEZ 2023', 'ENTREGUE', 780.00, 'keyboard', 'text-primary-fixed'),
+('Coiled Aviator Cable Pro', 'Color: Cyber Neon Green - LEMO 0B', '#TRX-4490', '22 NOV 2023', 'ENTREGUE', 320.00, 'cable', 'text-on-surface-variant');
