@@ -1,0 +1,40 @@
+-- =====================================================
+-- SEED DATA - Execute após criar as tabelas
+-- =====================================================
+
+-- Products
+INSERT INTO products (name, price, specs, image, image_alt, category) VALUES
+('NEON-V4 LINEAR', 389.00, 'ATUAÇÃO LINEAR 45G', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCYCTejiGbJrYTzYeYJsee_SPODSZGNX4hjUsrYOAEuKzFJxexd5ZsN8GQPu_9nrY47HrR2ldPq7MS9AKYPBFQpOmghXwR8D1L1u-S7i61bcoAGMf9sajDv0GJWZIr8fJGa_qfdBBHgVVZVnDaCZO7A0LHOvxIDdawTGsSnzhvOo1naVdHfTpKFMQevNFo3W38Oc5hsp5DeHbINSkoUC1d_9ZWl-tydUR1BgFP2nRZqZR10o0xC-vXB2UlzQ3NqB_YVt9pcA1pCHd2v', 'Close-up de switch mecânico premium.', 'switches'),
+('VOID SHIFT PBT', 549.00, 'DOUBLE-SHOT CHERRY', 'https://lh3.googleusercontent.com/aida-public/AB6AXuBphHnjvLSLjSkDzR6AyhhhtlAdx0rniXwZfoN9go66zR8PCuQJOB6-icKVSKulr7Jg1DieaEhsTwkmJ2IvYcujFssKHpD63dzOp71L8uawkxWKU5Ki7iM9_Sh3UA6ckNbBHCMXDn5uphgk4bcAZsA32YLO-2sPeSMYswq8Rp6HbwddGJU_0cXj3rYsUdH8KlXEHzWcjdMG_cqQ5uXPdAUtPNLLgaSM3fO21JmR1DSPBDDxvpP0X00DWi-lARgwPb58JebiVrM3qnJo', 'Keycaps artisans purple/neon green.', 'keycaps'),
+('KRYTOX 205G0', 125.00, 'LUBRIFICANTE GRAU 0', 'https://lh3.googleusercontent.com/aida-public/AB6AXuB8OEwIq6DHRBNHGk4JbwEWGvjSzVMpJfXjh5WMR8J9e5gh6na_vCY4ZMwI0ElD9bNy3XMiQ1lauETHhpr5R6nBOLYmmbsuYOAmS7_kHVhKgrDiiUg_QU1wtlPWYZcEPmTHaIAYs9sgV0R5FKIRtDGA9BdtITGzqsd1xMqU-xSmOQewHbGSH9PD4j65dp33DdLJLCQInNkwn1wkF2jiK4VTJxMHbT9wPTC9V9A4pKI-xhNUjugo06jUNMOHi_IXBhU2HG4NYfr8Oz52', 'Pote de lubrificante Krytox.', 'lubricants'),
+('PLATE DE LATÃO 65%', 299.00, 'PRECISÃO CNC', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAN2IH_5Umf0S99ThEOVJOVvlvBfnDpJQN1xLF3kmyhiSYE8wXVtZkSe0UvOYFqffHEvud_JcE0Uomjzp61pdzLA-_UQqnrezVbJhB2cJak3f0trd5y7YE86_3Se7ZJYQCTEs5vZCFhk-px6THxoytZhbDFGUuO861FBOKWYE23cnZO9lf2dPBBCS7vPHT1X9zKJET4Bzloe-KHtIrS2AV5W4529ttmpgG_tkeYJodU5zf3qZyI-YT36PLmInJFcpBOhBpej-p4ZAp3', 'Plate de latão CNC 65%.', 'plates'),
+('DUROCK V2 GOLD', 189.00, 'CONJUNTO SCREW-IN', 'https://lh3.googleusercontent.com/aida-public/AB6AXuDddAcpp-4h6KqMvHl-WQr5ls-lPqEyGXkw8AzHke176Lijmup-z-nCPlk65UXndv79K6G8p0ZyrgYTiNZjEpqLpuGcr0zfneHOBRfmkJwiuf2OEUwKC_gJdGgcBp9KvTB1RZPK0p-DS-PqLiiZ0n1V7uYtPzlJapAmSpop1APiJ6LcQm0XrDIX00Qmv_dZhsiPI9Ks-9l5qIa-k0TjHbBnEJnb3NQ-3jKB50-B4G7ZCi19DVJzXjvtmKnAJzHEGlrQ-xFFgOyE9OSX', 'Stabilizers Durock V2 Gold.', 'stabilizers'),
+('X-COIL AVIATOR', 245.00, 'REVESTIMENTO PARACORD', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAdufLMGQ3KI5hDZuBIpmTKajOQwqFfNhhILFla5WKRG5Ci-YIo0mTWhQBZuU7aUGhqMIeq6cHv9AzVZE3DUyFG-nupmFu_5Mqz25Z6qDRK03OETcdhlyzxLBehjq7Px4v-S1IzU-5ybTdwfgtGoyOCTcc9UtfdB1RK5JDZWkh4o7QMuHcA9j1z8bwSgMxNGMarcawybsp_w7WGGA999cNf7w9BHQMbmAEdQq4BdzeFhs17JDdMq09z5R6f6AOnYUY9e3PXlFSPEowP', 'Cabo paracord aviator.', 'cables'),
+('OFFICE-X MK-01 "PHANTOM"', 1450.00, 'SWITCHES GATERON BLACK INK V2', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCWiJZguQAOxp7mZHCir-rFsTaOdsDnm0yL2WYrTXZOWAmCHinAOV-lz-LLMelITPpFRtPOh2o3Dp3gqcdkWivXhMNASp_oWPC3mSjKywyIUBT5sYgX-JlfNsLFvjnp-UJkCZ-RDsve90D-R4CUwDbpuHQx6o7m3qQy-hxiKt1-nYUP0fLgGePLa-f0u1GVe_ORhjhm0r9lzn7wAsk0bi9hKyKoMuN0BvFodKxSOpmjP-9OUtOjiNEfDw-Dsp__Mek9cXhcCdc03_oJ', 'Teclado mecânico custom premium.', 'keyboards'),
+('PRECISION MOUSE X-GHOST', 890.00, 'POLLING RATE 8000HZ - CARBON FIBER SHELL', 'https://lh3.googleusercontent.com/aida-public/AB6AXuBwI21J3KRsKZJ3AMNUcmdcWvBjMO-4FAhltWvRxAglfr52BVQbYnmIcBkJ_VmRtzuofuZUaZ4Ku5TMpQOlKJ__1h1SDZB-rAa_WWN_u3bYWl6L6_-72KF3eD_wN-KhGALJDuCHbX3aC1InyvqHTcFxiQUKJPamH3NWhF3UNQyoFy1_mk4-_TpdyA6CfNYoGUdlt7nsicKC7drVeViIBO3LmDex45-fDWf_hyCP3z3NIebzuYIhyJ9ePoCQDfKRZlAfVUSkTkqA027w', 'Mouse gaming fibra de carbono.', 'mice'),
+('ULTRA-WIDE 4K STUDIO PANEL', 5800.00, '99% DCI-P3 - 144HZ - HDR10+', 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5JqTOLFLGrXait4ocKA7YHV6sYknQOU8Vs6NCzHwnITmAZuINHM0Qu_hQ7VxBxZL6Or5QM-nv5kC6sPyt_mdkaD_VtZq0XQaVNAcZ6J4rqOlVXlNgFLH9wpGb-dArj0JatQTLL2zvMARGhvl5FwESqquVCcvCxMIRcqQMv0qRPnt6xTUtb4SVKoRfR9zO_uFX_KYaqN_r6YAiACnosE81I0GrTh3ZBKkubg6TXmGRUBUzjgisEpvRHNzSDGRrhObH67timXy0aiFI', 'Monitor 4K profissional.', 'monitors'),
+('OFFICE-X AUDIO SENTRY', 1890.00, 'NOISE CANCELING MK.II - DRIVERS 50MM', 'https://lh3.googleusercontent.com/aida-public/AB6AXuBgpDs0bw8nackOloNHM9RhINRsZXoIyMsKLAmOau2Uea53x1zN8eyiHi848TW3lVZU_ySdQm-tzlYinHKbnBl914xurqAYKatgNJcYnmsvdtAWo3Wv3tLXOdOhDUdoa-LApbsEj4yrbAHPIULMmL_1-FLRPJ62u5RvoDaZ-5X8JNSpLtimbIW5SQT_UObEHXvGKT0m3ySr4H6xv3SzELGxqX6p7Rnjxv8cdOldOV1KlMMSUyqOsyHW0cFuv9-xk1vaOpQChM1_iy8N', 'Headphones premium noise canceling.', 'audio');
+
+-- Services
+INSERT INTO services (name, price, peripheral_brand, peripheral_model, description, category, details) VALUES
+('LUBRIFICAÇÃO COMPLETA', 150.00, 'Custom', 'Todos os modelos', 'Desmontagem completa, lubrificação de switches e stabilizers com Krytox 205G0.', 'maintenance', ARRAY['Desmontagem e limpeza ultrassônica', 'Lubrificação Krytox 205G0 em todos os switches', 'Lubrificação de stabilizers', 'Remontagem e teste de digitação']),
+('TROCA DE SWITCHES', 280.00, 'Custom', 'Hot-swap / Soldável', 'Substituição completa de switches. Dessoldagem e soldagem inclusas para PCBs não hot-swap.', 'customization', ARRAY['Remoção de switches antigos', 'Dessoldagem profissional (se necessário)', 'Instalação de novos switches', 'Teste completo de todas as teclas']),
+('TAPE MOD + FOAM MOD', 120.00, 'Custom', '60% / 65% / 75% / TKL', 'Modificação acústica com fita adesiva na PCB e espumas de isolamento para som premium.', 'customization', ARRAY['Aplicação de Tape Mod (3 camadas)', 'Instalação de espuma entre PCB e Plate', 'Espuma de case para redução de eco', 'Teste acústico comparativo']),
+('CASE SWAP + MONTAGEM', 450.00, 'Custom', 'Tofu60 / Tofu65 / KBDfans', 'Transferência de componentes para case de alumínio premium. Inclui montagem completa.', 'assembly', ARRAY['Transferência de PCB e Plate', 'Instalação em case de alumínio', 'Ajuste de estabilizadores', 'Montagem final e teste de qualidade']),
+('MODDING ESTÉTICO', 350.00, 'Custom', 'Todos os modelos', 'Pintura de case, troca de keycaps artesanais e customização visual completa.', 'customization', ARRAY['Pintura e acabamento do case', 'Instalação de keycaps artesanais', 'Cabo customizado combinando', 'Foto profissional do resultado']),
+('DIAGNÓSTICO + ORÇAMENTO', 0.00, 'Todos', 'Todos os modelos', 'Análise técnica completa do periférico com orçamento detalhado dos reparos necessários.', 'maintenance', ARRAY['Teste completo de funcionamento', 'Diagnóstico de falhas', 'Orçamento detalhado sem compromisso', 'Prazo de 48h para entrega do laudo']);
+
+-- Service Orders
+INSERT INTO service_orders (title, description, status, priority, technician, tracking, progress) VALUES
+('Keychron Q1 Modding', 'Troca de switches para Tangerine 62g + Lubrificação completa e Tape Mod.', 'triage', 'urgent', 'JD', NULL, NULL),
+('Logitech G Pro X Superlight', 'Double click no M1. Necessário substituição por microswitch Kailh GM 8.0.', 'triage', 'normal', 'AL', NULL, NULL),
+('Ducky One 3 SF', 'Aguardando importação do PCB original. Estimativa 15 dias.', 'waiting_parts', 'warranty', 'JD', 'OFFICE-BR-1293', NULL),
+('Custom Cable Paracord', 'Coiled cable com conector Aviator GX16. Estética Purple/Neon Green.', 'modding_bench', 'normal', 'MK', NULL, 75),
+('Wooting 60HE Case Swap', 'Transferência para Case de Alumínio Tofu60 Redux + Lub de Stabs.', 'modding_bench', 'urgent', 'AL', NULL, NULL),
+('Glorious Model O- Wireless', 'Limpeza ultrassônica + substituição de bateria.', 'done', 'normal', 'JD', NULL, NULL);
+
+-- Purchase History
+INSERT INTO purchase_history (item, item_sub, transaction_id, date, status, value, icon, icon_color) VALUES
+('X-GLITCH 65% Custom', 'Switches: Linear Purple', '#TRX-8821', '12 ABR 2024', 'ENTREGUE', 1250.00, 'keyboard', 'text-primary-fixed'),
+('RADIAL ULTRALIGHT', 'Sensor: Optical Gen-3', '#TRX-7742', '05 MAR 2024', 'ENTREGUE', 680.00, 'mouse', 'text-secondary'),
+('COILED CABLE PRO', 'Color: Cyber Neon', '#TRX-6610', '28 JAN 2024', 'ENTREGUE', 210.00, 'cable', 'text-on-surface-variant');
