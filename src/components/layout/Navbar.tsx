@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, ShoppingCart } from 'lucide-react';
+import { Search, ShoppingCart, User, LogOut } from 'lucide-react';
 import { useCartStore } from '../../stores/cartStore';
+import { useAuthStore } from '../../stores/authStore';
 
 interface NavLink {
   path: string;
@@ -19,6 +21,9 @@ export function Navbar() {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + '/');
   const totalItems = useCartStore((s) => s.getTotalItems());
+  const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="fixed top-0 w-full z-50 bg-surface/30 backdrop-blur-xl border-b border-white/10">
@@ -56,9 +61,45 @@ export function Navbar() {
               </span>
             )}
           </Link>
-          <button className="text-label-md uppercase text-on-surface-variant hover:text-primary transition-all duration-300 active:scale-95">
-            ENTRAR
-          </button>
+
+          {user ? (
+            <div className="relative">
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="flex items-center gap-2 text-label-md uppercase text-primary-fixed hover:text-primary transition-all duration-300 active:scale-95"
+              >
+                <User size={18} />
+                <span className="hidden lg:inline truncate max-w-[100px]">
+                  {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                </span>
+              </button>
+              {menuOpen && (
+                <div className="absolute right-0 top-full mt-2 glass-surface rounded-lg border border-white/5 py-2 min-w-[180px] shadow-lg">
+                  <Link
+                    to="/meu-painel"
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-4 py-2 text-label-md text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors"
+                  >
+                    Meu Painel
+                  </Link>
+                  <button
+                    onClick={() => { logout(); setMenuOpen(false); }}
+                    className="w-full text-left px-4 py-2 text-label-md text-on-surface-variant hover:text-error hover:bg-white/5 transition-colors flex items-center gap-2"
+                  >
+                    <LogOut size={16} />
+                    Sair
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="text-label-md uppercase text-on-surface-variant hover:text-primary transition-all duration-300 active:scale-95"
+            >
+              ENTRAR
+            </Link>
+          )}
         </div>
       </nav>
     </header>
