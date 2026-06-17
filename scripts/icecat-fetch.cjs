@@ -21,9 +21,6 @@ function fetch(url) {
 function downloadImage(url) {
   return new Promise((resolve, reject) => {
     https.get(url, { timeout: 15000 }, (res) => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        return downloadImage(res.headers.location).then(resolve).catch(reject);
-      }
       const chunks = [];
       res.on('data', c => chunks.push(c));
       res.on('end', () => resolve(Buffer.concat(chunks)));
@@ -33,7 +30,6 @@ function downloadImage(url) {
 }
 
 const PRODUCTS = [
-  // MONITORS (15)
   { brand: 'LG', mpn: '27GN650-B', cat: 'monitors' },
   { brand: 'LG', mpn: '34WP550-B', cat: 'monitors' },
   { brand: 'LG', mpn: '32UN880-B', cat: 'monitors' },
@@ -49,7 +45,6 @@ const PRODUCTS = [
   { brand: 'BenQ', mpn: '9H.LJELE.Q81', cat: 'monitors' },
   { brand: 'AOC', mpn: '24G2/BK', cat: 'monitors' },
   { brand: 'Gigabyte', mpn: 'M27Q-SA', cat: 'monitors' },
-  // KEYBOARDS (12)
   { brand: 'Logitech', mpn: '920-009292', cat: 'keyboards' },
   { brand: 'Logitech', mpn: '920-012134', cat: 'keyboards' },
   { brand: 'Logitech', mpn: '920-009495', cat: 'keyboards' },
@@ -62,7 +57,6 @@ const PRODUCTS = [
   { brand: 'Keychron', mpn: 'K2-A1', cat: 'keyboards' },
   { brand: 'Redragon', mpn: 'K552-RGB', cat: 'keyboards' },
   { brand: 'ASUS', mpn: '90MP0310-BKUA00', cat: 'keyboards' },
-  // MICE (12)
   { brand: 'Logitech', mpn: '910-006557', cat: 'mice' },
   { brand: 'Logitech', mpn: '910-006178', cat: 'mice' },
   { brand: 'Logitech', mpn: '910-006628', cat: 'mice' },
@@ -75,7 +69,6 @@ const PRODUCTS = [
   { brand: 'BenQ', mpn: '9H.N3CBB.A2E', cat: 'mice' },
   { brand: 'Glorious', mpn: 'GLO-MS-OW-MW', cat: 'mice' },
   { brand: 'Redragon', mpn: 'M711', cat: 'mice' },
-  // AUDIO (11)
   { brand: 'HyperX', mpn: 'HHSC2X-BA-RD/G', cat: 'audio' },
   { brand: 'HyperX', mpn: 'HX-HSCAS-BL/WW', cat: 'audio' },
   { brand: 'Logitech', mpn: '981-001262', cat: 'audio' },
@@ -91,11 +84,7 @@ const PRODUCTS = [
 
 async function main() {
   // Remove old icecat images
-  const oldFiles = fs.readdirSync(OUT_DIR).filter(f => f.startsWith('icecat-'));
-  oldFiles.forEach(f => fs.unlinkSync(`${OUT_DIR}/${f}`));
-  console.log(`Removed ${oldFiles.length} old icecat images`);
-
-  // Remove old catalog
+  fs.readdirSync(OUT_DIR).filter(f => f.startsWith('icecat-')).forEach(f => fs.unlinkSync(`${OUT_DIR}/${f}`));
   if (fs.existsSync(CATALOG_OUT)) fs.unlinkSync(CATALOG_OUT);
 
   const catalog = [];
@@ -104,55 +93,59 @@ async function main() {
   for (const p of PRODUCTS) {
     const url = `https://live.icecat.biz/api/?shopname=pmwmaster&lang=pt&Brand=${encodeURIComponent(p.brand)}&ProductCode=${encodeURIComponent(p.mpn)}`;
     try {
-      console.log(`Fetching ${p.brand} ${p.mpn}...`);
+      process.stdout.write(`${p.brand} ${p.mpn}... `);
       const json = await fetch(url);
       const data = JSON.parse(json);
-      if (data.msg !== 'OK' || !data.data) { console.log(`  SKIP: ${data.msg}`); fail++; continue; }
+      if (data.msg !== 'OK' || !data.data) { console.log(`SKIP`); fail++; continue; }
 
       const info = data.data.GeneralInfo || {};
-      const gallery = data.data.ImageGallery || [];
-      let mainImg = gallery.length > 0 ? gallery[0].HighPic || gallery[0].LowPic : '';
+      const img = data.data.Image || {};
+      const highPic = img.HighPic || '';
+      const title = info.Title || `${p.brand} ${p.mpn}`;
 
       // Download image
-      let localImg = '';
-      if (mainImg) {
+      let localImg = '/images/products/placeholder.svg';
+      if (highPic) {
         try {
-          const imgData = await downloadImage(mainImg);
-          const ext = mainImg.split('.').pop().split('?')[0] || 'jpg';
-          const filename = `icecat-${p.mpn.replace(/[^a-zA-Z0-9]/g,'-')}.${ext}`;
+          const imgData = await downloadImage(highPic);
+          const ext = highPic.split('.').pop().split('?')[0] || 'jpg';
+          const safeName = p.mpn.replace(/[^a-zA-Z0-9]/g, '-');
+          const filename = `icecat-${safeName}.${ext}`;
           fs.writeFileSync(`${OUT_DIR}/${filename}`, imgData);
           localImg = `/images/products/${filename}`;
-        } catch { localImg = mainImg; }
+        } catch { /* keep placeholder */ }
       }
 
-      // Extract specs summary
-      const specs = data.data.Specs || [];
-      const keySpecs = specs.slice(0, 6).map(s => `${s.Name}: ${s.Value}`).join(' | ') || p.mpn;
+      // Extract specs summary from FeaturesGroups
+      const featGroups = data.data.FeaturesGroups || [];
+      const specs = [];
+      for (const g of featGroups) {
+        for (const f of (g.Features || [])) {
+          if (f.PresentationValue) specs.push(`${f.Feature.Name}: ${f.PresentationValue}`);
+          if (specs.length >= 6) break;
+        }
+        if (specs.length >= 6) break;
+      }
+      const specsStr = specs.join(' | ') || p.mpn;
 
+      const id = `ic-${p.brand.toLowerCase()}-${p.mpn.replace(/[^a-zA-Z0-9]/g, '-')}`;
       catalog.push({
-        id: `ic-${p.brand.toLowerCase()}-${p.mpn.replace(/[^a-zA-Z0-9]/g,'-')}`,
-        name: info.Title || `${p.brand} ${p.mpn}`,
-        price: 0,
-        type: 'sale',
-        specs: keySpecs.substring(0, 200),
-        image: localImg || '/images/products/placeholder.svg',
-        imageAlt: info.Title || `${p.brand} ${p.mpn}`,
-        category: p.cat,
-        brand: p.brand,
-        mpn: p.mpn,
+        id, name: title, price: 0, type: 'sale',
+        specs: specsStr.substring(0, 200),
+        image: localImg, imageAlt: title, category: p.cat,
+        brand: p.brand, mpn: p.mpn,
       });
 
       ok++;
-      console.log(`  OK [${ok}/50]: ${info.Title?.substring(0, 60) || p.mpn}`);
+      console.log(`OK [${ok}]`);
     } catch (e) {
-      console.log(`  FAIL ${p.brand} ${p.mpn}: ${e.message}`);
+      console.log(`FAIL: ${e.message}`);
       fail++;
     }
-    // Small delay to avoid rate limiting
-    await new Promise(r => setTimeout(r, 200));
+    await new Promise(r => setTimeout(r, 300));
   }
 
-  const ts = `// Icecat catalog - ${new Date().toISOString()}\n// ${ok} products from live API\n\nexport const ICECAT_PRODUCTS = ${JSON.stringify(catalog, null, 2)};\nexport default ICECAT_PRODUCTS;\n`;
+  const ts = `// Icecat catalog - ${new Date().toISOString()}\n// ${ok} products, ${fail} failed\n\nexport const ICECAT_PRODUCTS = ${JSON.stringify(catalog, null, 2)};\nexport default ICECAT_PRODUCTS;\n`;
   fs.writeFileSync(CATALOG_OUT, ts);
   console.log(`\nDone: ${ok} OK, ${fail} failed`);
 }
