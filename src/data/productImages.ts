@@ -24,19 +24,19 @@ const IMG: Record<string, string> = {
   'keychron-v1-max':        local('keychron-v1-max.jpg'),
   'beyerdynamic-dt700px':   local('beyerdynamic-dt700px.png'),
 
-  // ===== UNIFIED PLACEHOLDER (local SVG) =====
-  'logitech-gpx2':              local('placeholder.svg'),
-  'logitech-gpx2-dex':          local('placeholder.svg'),
-  'wooting-80he':              local('placeholder.svg'),
-  'wooting-60he':              local('placeholder.svg'),
-  'corsair-k70-pro-tkl':       local('placeholder.svg'),
-  'lamzu-maya-x':              local('placeholder.svg'),
-  'pulsar-x2v2':               local('placeholder.svg'),
-  'pulsar-x3':                 local('placeholder.svg'),
-  'wlmouse-beast-x-max':       local('placeholder.svg'),
-  'endgame-op1-8k':            local('placeholder.svg'),
-  'samsung-odyssey-g8-oled':   local('placeholder.svg'),
-  'fiio-ka17':                 local('placeholder.svg'),
+  // ===== BRANDED PLACEHOLDERS (local SVG with product name) =====
+  'logitech-gpx2':              local('logitech-gpx2.svg'),
+  'logitech-gpx2-dex':          local('logitech-gpx2-dex.svg'),
+  'wooting-80he':              local('wooting-80he.svg'),
+  'wooting-60he':              local('wooting-60he.svg'),
+  'corsair-k70-pro-tkl':       local('corsair-k70-pro-tkl.svg'),
+  'lamzu-maya-x':              local('lamzu-maya-x.svg'),
+  'pulsar-x2v2':               local('pulsar-x2v2.svg'),
+  'pulsar-x3':                 local('pulsar-x3.svg'),
+  'wlmouse-beast-x-max':       local('wlmouse-beast-x-max.svg'),
+  'endgame-op1-8k':            local('endgame-op1-8k.svg'),
+  'samsung-odyssey-g8-oled':   local('samsung-odyssey-g8-oled.svg'),
+  'fiio-ka17':                 local('fiio-ka17.svg'),
   'default':                   local('placeholder.svg'),
 };
 
