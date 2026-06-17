@@ -11,6 +11,7 @@ const AdminKanban = lazy(() => import('./pages/AdminKanban').then(m => ({ defaul
 const Carrinho = lazy(() => import('./pages/Carrinho').then(m => ({ default: m.Carrinho })));
 const LocacaoEquipamentos = lazy(() => import('./pages/LocacaoEquipamentos').then(m => ({ default: m.LocacaoEquipamentos })));
 const Marcas = lazy(() => import('./pages/Marcas').then(m => ({ default: m.Marcas })));
+const ProdutoDetalhe = lazy(() => import('./pages/ProdutoDetalhe').then(m => ({ default: m.ProdutoDetalhe })));
 const Login = lazy(() => import('./pages/Login').then(m => ({ default: m.Login })));
 const Cadastro = lazy(() => import('./pages/Cadastro').then(m => ({ default: m.Cadastro })));
 
@@ -45,6 +46,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/loja" replace />} />
           <Route path="/loja" element={<LojaDePecas />} />
+          <Route path="/loja/:id" element={<ProdutoDetalhe />} />
           <Route path="/servicos" element={<Servicos />} />
           <Route path="/equipamentos" element={<LocacaoEquipamentos />} />
           <Route path="/marcas" element={<Marcas />} />

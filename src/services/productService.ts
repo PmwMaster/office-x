@@ -2,15 +2,18 @@ import { useEffect, useState, useCallback } from 'react';
 import { supabase, isSupabaseReady } from '../lib/supabase';
 import type { ProductItem } from '../types';
 import { PRODUCTS as MOCK_PRODUCTS } from '../mock/data';
+import { ICECAT_PRODUCTS } from '../data/icecat-catalog';
+
+const ALL_PRODUCTS = [...ICECAT_PRODUCTS, ...MOCK_PRODUCTS] as ProductItem[];
 
 export function useProducts() {
-  const [products, setProducts] = useState<ProductItem[]>(MOCK_PRODUCTS);
+  const [products, setProducts] = useState<ProductItem[]>(ALL_PRODUCTS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchProducts = useCallback(async () => {
     if (!isSupabaseReady()) {
-      setProducts(MOCK_PRODUCTS);
+      setProducts(ALL_PRODUCTS);
       setLoading(false);
       return;
     }

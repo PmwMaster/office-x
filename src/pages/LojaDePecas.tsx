@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import {
   Bolt, Palette, FlaskConical, Cog, Scale, Cable, Check, Minus, Plus,
   Keyboard, Mouse, Monitor, Headphones,
@@ -168,22 +168,24 @@ function ProductCard({ product, index }: { product: ProductItem; index: number }
 
   return (
     <GlassCard className="group flex flex-col h-full">
-      <div className={`relative ${isEquipment ? 'h-48' : 'h-64'} mb-6 flex items-center justify-center overflow-hidden`}>
+      <Link to={`/loja/${product.id}`} className={`relative ${isEquipment ? 'h-48' : 'h-64'} mb-6 flex items-center justify-center overflow-hidden`}>
         <img
           alt={product.imageAlt}
           src={product.image}
           loading="lazy"
           decoding="async"
-          className={`${isEquipment ? 'w-full h-full' : 'w-48 h-48'} object-cover rounded-lg`}
+          className={`${isEquipment ? 'w-full h-full' : 'w-48 h-48'} object-cover rounded-lg group-hover:scale-105 transition-transform duration-500`}
         />
         {!isEquipment && (
           <div className="absolute inset-0 filter drop-shadow-[0_20px_50px_rgba(204,255,0,0.15)] group-hover:scale-110 transition-transform duration-700 floating-animation pointer-events-none" />
         )}
-      </div>
+      </Link>
       <div className="flex-1">
-        <h3 className="text-headline-md font-semibold text-primary mb-2 font-bold leading-tight">
-          {product.name}
-        </h3>
+        <Link to={`/loja/${product.id}`} className="hover:text-primary-fixed transition-colors">
+          <h3 className="text-headline-md font-semibold text-primary mb-2 font-bold leading-tight">
+            {product.name}
+          </h3>
+        </Link>
         <p className="text-label-sm text-on-secondary-fixed-variant mb-4 flex items-center gap-2">
           <SpecIcon size={14} />
           {product.specs}
