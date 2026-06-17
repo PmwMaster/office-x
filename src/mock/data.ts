@@ -17,7 +17,7 @@ const CAT_IMG: Record<string, string> = {
   audio: IMG['beyerdynamic-dt900px'],
 };
 
-const img = (cat: string) => CAT_IMG[cat] || `https://placehold.co/600x400/0D0D0D/c3f400?text=OFFICE-X`;
+const img = (cat: string) => CAT_IMG[cat] || `https://dummyimage.com/600x400/0a0a0a/ccff00.png&text=OFFICE-X`;
 
 // Override images for specific equipment products
 const pi = (key: string) => (IMG as Record<string, string>)[key] || img(key.split('-')[0]);

@@ -1,16 +1,12 @@
-// Real product images from VERIFIED manufacturer CDNs
-// Sources: Shopify CDN, Logitech CDN, Razer CDN, RTINGS CDN, Amazon CDN
-// All URLs verified working Jun 2026
+// Product image URLs - verified manufacturer CDNs + fallback placeholders
+// Sources: Shopify CDN, Razer CDN, RTINGS CDN, Amazon CDN
+// Verified working Jun 2026
 
 const U = (n: string) =>
-  `https://placehold.co/600x400/0A0A0A/CCFF00.png?text=${encodeURIComponent(n)}&font=JetBrains+Mono`;
+  `https://dummyimage.com/600x400/0a0a0a/ccff00.png&text=${encodeURIComponent(n)}`;
 
 const IMG: Record<string, string> = {
   // ===== VERIFIED MANUFACTURER IMAGES =====
-  'logitech-gpx2':
-    U('Logitech G Pro X Superlight 2'),
-  'logitech-gpx2-dex':
-    U('Logitech G Pro X Superlight 2 Dex'),
   'shure-sm7b':
     'https://m.media-amazon.com/images/I/61l87ZX08LL._AC_SL1500_.jpg',
   'asus-pg32ucdm':
@@ -23,33 +19,35 @@ const IMG: Record<string, string> = {
     'https://assets2.razerzone.com/images/pnx.assets/24970f67be4ba9644e28720377d91cfb/razer-viper-v3-pro-1200x630.webp',
 
   // ===== PLACEHOLDERS (upload real images to Supabase Storage) =====
+  'logitech-gpx2':              U('Logitech Superlight 2'),
+  'logitech-gpx2-dex':          U('Logitech Superlight 2 Dex'),
   'wooting-80he':              U('Wooting 80HE'),
   'wooting-60he':              U('Wooting 60HE+'),
-  'asus-azoth-extreme':        U('ASUS ROG Azoth Extreme'),
+  'asus-azoth-extreme':        U('Asus Azoth Extreme'),
   'keychron-v1-max':           U('Keychron V1 Max'),
   'nuphy-air75-he':            U('NuPhy Air75 HE'),
   'corsair-k70-pro-tkl':       U('Corsair K70 Pro TKL'),
 
-  'razer-dav3-pro':            U('Razer DeathAdder V3 Pro'),
+  'razer-dav3-pro':            U('Razer DeathAdder V3'),
   'lamzu-maya-x':              U('Lamzu Maya X'),
-  'pulsar-x2v2':               U('Pulsar X2V2 Mini'),
+  'pulsar-x2v2':               U('Pulsar X2V2'),
   'pulsar-x3':                 U('Pulsar X3'),
-  'wlmouse-beast-x-max':       U('WLmouse Beast X Max'),
-  'endgame-op1-8k':            U('Endgame Gear OP1 8K'),
-  'finalmouse-ulx':            U('Finalmouse UltralightX'),
+  'wlmouse-beast-x-max':       U('WLmouse Beast X'),
+  'endgame-op1-8k':            U('Endgame OP1 8K'),
+  'finalmouse-ulx':            U('Finalmouse ULX'),
 
-  'samsung-odyssey-g8-oled':   U('Samsung Odyssey G8 OLED'),
+  'samsung-odyssey-g8-oled':   U('Samsung Odyssey G8'),
   'lg-32gs95ue':               U('LG 32GS95UE'),
   'benq-pd3225u':              U('BenQ PD3225U'),
 
-  'beyerdynamic-dt900px':      U('Beyerdynamic DT 900 Pro X'),
-  'beyerdynamic-dt700px':      U('Beyerdynamic DT 700 Pro X'),
-  'sennheiser-hd660s2':        U('Sennheiser HD 660S2'),
-  'audio-technica-m50x':       U('Audio-Technica ATH-M50x'),
+  'beyerdynamic-dt900px':      U('Beyerdynamic DT900'),
+  'beyerdynamic-dt700px':      U('Beyerdynamic DT700'),
+  'sennheiser-hd660s2':        U('Sennheiser HD660S2'),
+  'audio-technica-m50x':       U('Audio Technica M50x'),
   'fiio-ka17':                 U('FiiO KA17'),
   'moondrop-blessing3':        U('Moondrop Blessing 3'),
 
-  'default':                   'https://placehold.co/600x400/0A0A0A/CCFF00.png?text=OFFICE-X&font=JetBrains+Mono',
+  'default':                   'https://dummyimage.com/600x400/0a0a0a/ccff00.png&text=OFFICE-X',
 };
 
 export default IMG;
