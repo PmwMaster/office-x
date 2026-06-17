@@ -15,6 +15,8 @@ const IMG: Record<string, string> = {
   'finalmouse-ulx':         'https://finalmouse.com/cdn/shop/files/clicks.png',
   'beyerdynamic-dt900px':   'https://api.beyerdynamic.de/media/catalog/product/b/e/beyerdynamic-dt-900-pro-x-perspective_transparent.png',
   'sennheiser-hd660s2':     'https://us.sennheiser-hearing.com/cdn/shop/files/Sennheiser_HD_660_S_2_Open_Back_Audiophile_Headphones_Main_Image.jpg',
+  'razer-dav3-pro':         'https://assets2.razerzone.com/images/pnx.assets/a0427959a82f1f5d1c27c2463008e5a8/razer-deathadder-v3-og.jpg',
+  'lg-32gs95ue':            'https://media.us.lg.com/transform/ecomm-PDPGalleryThumbnail-350x350/a20f4e18-225e-45e3-a2d4-8997f04b3fe1/32GS95UE-B_gallery_01_5000x5000',
 
   // ===== PLACEHOLDERS =====
   'logitech-gpx2':              U('Logitech Superlight 2'),
@@ -25,7 +27,6 @@ const IMG: Record<string, string> = {
   'keychron-v1-max':           U('Keychron V1 Max'),
   'corsair-k70-pro-tkl':       U('Corsair K70 Pro TKL'),
 
-  'razer-dav3-pro':            U('Razer DeathAdder V3'),
   'lamzu-maya-x':              U('Lamzu Maya X'),
   'pulsar-x2v2':               U('Pulsar X2V2'),
   'pulsar-x3':                 U('Pulsar X3'),
@@ -33,7 +34,7 @@ const IMG: Record<string, string> = {
   'endgame-op1-8k':            U('Endgame OP1 8K'),
 
   'samsung-odyssey-g8-oled':   U('Samsung Odyssey G8'),
-  'lg-32gs95ue':               U('LG 32GS95UE'),
+
   'benq-pd3225u':              U('BenQ PD3225U'),
 
   'beyerdynamic-dt700px':      U('Beyerdynamic DT700'),
