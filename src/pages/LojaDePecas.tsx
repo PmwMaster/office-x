@@ -28,6 +28,7 @@ export function LojaDePecas() {
   const [priceRange, setPriceRange] = useState(6000);
   const [activeCategory, setActiveCategory] = useState('all');
   const [inStockOnly, setInStockOnly] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(12);
   const { products, loading } = useProducts();
 
   const filtered = products.filter((p) => {
@@ -35,6 +36,9 @@ export function LojaDePecas() {
     if (p.price > priceRange) return false;
     return true;
   });
+
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
 
   return (
     <Layout>
@@ -44,7 +48,7 @@ export function LojaDePecas() {
             <h3 className="text-headline-md font-semibold text-primary mb-8">CATEGORIAS</h3>
             <div className="flex flex-col gap-3 mb-10 max-h-[400px] overflow-y-auto pr-2">
               <button
-                onClick={() => setActiveCategory('all')}
+                  onClick={() => { setActiveCategory('all'); setVisibleCount(12); }}
                 className={`w-full text-left px-6 py-3 rounded-full border transition-all text-label-md uppercase font-medium ${
                   activeCategory === 'all'
                     ? 'border-primary-fixed bg-primary-fixed/10 text-primary-fixed'
@@ -56,7 +60,7 @@ export function LojaDePecas() {
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
+                    onClick={() => { setActiveCategory(cat.id); setVisibleCount(12); }}
                   className={`w-full text-left px-6 py-3 rounded-full border transition-all text-label-md uppercase font-medium ${
                     activeCategory === cat.id
                       ? 'border-primary-fixed bg-primary-fixed/10 text-primary-fixed'
@@ -112,16 +116,25 @@ export function LojaDePecas() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-                {filtered.map((product, i) => (
+              <div className="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                {visible.map((product, i) => (
                   <ProductCard key={product.id} product={product} index={i} />
                 ))}
               </div>
-              {filtered.length === 0 && (
+              {visible.length === 0 ? (
                 <p className="text-on-surface-variant text-body-lg text-center py-20">
                   Nenhum produto encontrado.
                 </p>
-              )}
+              ) : hasMore ? (
+                <div className="flex justify-center mt-10">
+                  <button
+                    onClick={() => setVisibleCount((c) => c + 12)}
+                    className="px-8 py-4 border border-white/10 hover:border-primary-fixed text-on-surface-variant hover:text-primary-fixed transition-all uppercase tracking-widest text-label-md"
+                  >
+                    Carregar mais ({filtered.length - visibleCount} produtos)
+                  </button>
+                </div>
+              ) : null}
             </>
           )}
         </section>

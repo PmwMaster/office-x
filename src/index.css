@@ -200,6 +200,12 @@
   border-radius: 2px;
 }
 
+/* Performance: skip rendering off-screen product cards */
+.product-grid > * {
+  content-visibility: auto;
+  contain-intrinsic-size: 480px;
+}
+
 /* ===================== KEYFRAMES ===================== */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
