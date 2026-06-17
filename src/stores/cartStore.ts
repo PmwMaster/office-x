@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { ProductItem, ServiceItem, InvoiceItem } from '../types';
+import type { ProductItem, ServiceItem, RentalItem, InvoiceItem } from '../types';
 
 /* ==================== CART ENTRY ==================== */
 
@@ -13,11 +13,18 @@ interface ServiceCartEntry {
   item: ServiceItem;
 }
 
+interface RentalCartEntry {
+  item: RentalItem;
+  pickupDate: string;
+  returnDate: string;
+}
+
 /* ==================== STORE STATE ==================== */
 
 interface CartState {
   products: ProductCartEntry[];
   services: ServiceCartEntry[];
+  rentals: RentalCartEntry[];
 
   /* --- Product actions --- */
   addProduct: (product: ProductItem) => void;
@@ -29,10 +36,15 @@ interface CartState {
   addService: (service: ServiceItem) => void;
   removeService: (id: string) => void;
 
+  /* --- Rental actions --- */
+  addRental: (rental: RentalItem, pickupDate: string, returnDate: string) => void;
+  removeRental: (id: string) => void;
+
   /* --- Derived --- */
   clearCart: () => void;
   getProductCount: () => number;
   getServiceCount: () => number;
+  getRentalCount: () => number;
   getTotalItems: () => number;
   getSubtotal: () => number;
   getInvoiceItems: () => InvoiceItem[];
@@ -46,6 +58,7 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       products: [],
       services: [],
+      rentals: [],
 
       /* ---------- PRODUCTS ---------- */
       addProduct: (product) => {
@@ -107,18 +120,42 @@ export const useCartStore = create<CartState>()(
         }));
       },
 
+      /* ---------- RENTALS ---------- */
+      addRental: (rental, pickupDate, returnDate) => {
+        set((state) => {
+          const exists = state.rentals.find((r) => r.item.id === rental.id);
+          if (exists) return state;
+          return {
+            rentals: [...state.rentals, { item: rental, pickupDate, returnDate }],
+          };
+        });
+      },
+
+      removeRental: (id) => {
+        set((state) => ({
+          rentals: state.rentals.filter((r) => r.item.id !== id),
+        }));
+      },
+
       /* ---------- DERIVED ---------- */
-      clearCart: () => set({ products: [], services: [] }),
+      clearCart: () => set({ products: [], services: [], rentals: [] }),
 
       getProductCount: () => get().products.reduce((acc, p) => acc + p.quantity, 0),
       getServiceCount: () => get().services.length,
-      getTotalItems: () => get().getProductCount() + get().getServiceCount(),
+      getRentalCount: () => get().rentals.length,
+      getTotalItems: () => get().getProductCount() + get().getServiceCount() + get().getRentalCount(),
 
       getSubtotal: () => {
         const s = get();
         const productTotal = s.products.reduce((acc, p) => acc + p.item.price * p.quantity, 0);
         const serviceTotal = s.services.reduce((acc, srv) => acc + srv.item.price, 0);
-        return productTotal + serviceTotal;
+        const rentalTotal = s.rentals.reduce((acc, r) => {
+          const pickup = new Date(r.pickupDate);
+          const ret = new Date(r.returnDate);
+          const days = Math.max(1, Math.ceil((ret.getTime() - pickup.getTime()) / (1000 * 60 * 60 * 24)));
+          return acc + r.item.pricePerDay * days;
+        }, 0);
+        return productTotal + serviceTotal + rentalTotal;
       },
 
       getInvoiceItems: () => {
@@ -140,6 +177,21 @@ export const useCartStore = create<CartState>()(
             label: '+ SERVIÇOS TÉCNICOS',
             description: desc,
             amount: s.services.reduce((acc, srv) => acc + srv.item.price, 0),
+          });
+        }
+
+        if (s.rentals.length > 0) {
+          const desc = s.rentals.map((r) => r.item.name).join(', ');
+          const rentalAmount = s.rentals.reduce((acc, r) => {
+            const pickup = new Date(r.pickupDate);
+            const ret = new Date(r.returnDate);
+            const days = Math.max(1, Math.ceil((ret.getTime() - pickup.getTime()) / (1000 * 60 * 60 * 24)));
+            return acc + r.item.pricePerDay * days;
+          }, 0);
+          items.push({
+            label: '+ DIÁRIAS DE LOCAÇÃO',
+            description: desc,
+            amount: rentalAmount,
           });
         }
 
@@ -176,6 +228,21 @@ export const useCartStore = create<CartState>()(
             category: s.item.category,
             details: s.item.details,
           },
+        })),
+        rentals: state.rentals.map((r) => ({
+          item: {
+            id: r.item.id,
+            name: r.item.name,
+            pricePerDay: r.item.pricePerDay,
+            type: 'rental' as const,
+            specs: r.item.specs,
+            image: r.item.image,
+            imageAlt: r.item.imageAlt,
+            category: r.item.category,
+            status: r.item.status,
+          },
+          pickupDate: r.pickupDate,
+          returnDate: r.returnDate,
         })),
       }),
     },

@@ -101,3 +101,23 @@ export interface Invoice {
   items: InvoiceItem[];
   total: number;
 }
+
+// ==================== RENTAL TYPES ====================
+
+export interface RentalItem {
+  id: string;
+  name: string;
+  pricePerDay: number;
+  status: 'available' | 'in_use';
+  specs: string;
+  image: string;
+  imageAlt: string;
+  category: 'keyboards' | 'mice' | 'monitors' | 'audio';
+  type: 'rental';
+}
+
+export interface RentalCartEntry {
+  item: RentalItem;
+  pickupDate: string;
+  returnDate: string;
+}

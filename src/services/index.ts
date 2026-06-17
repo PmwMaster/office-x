@@ -6,3 +6,4 @@ export {
   createServiceOrder,
   updateServiceOrderStatus,
 } from './orderService';
+export { useRentals } from './rentalService';

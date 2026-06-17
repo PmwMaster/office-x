@@ -5,6 +5,7 @@ import { PagamentoSeguro } from './pages/PagamentoSeguro';
 import { Servicos } from './pages/Servicos';
 import { AdminKanban } from './pages/AdminKanban';
 import { Carrinho } from './pages/Carrinho';
+import { LocacaoEquipamentos } from './pages/LocacaoEquipamentos';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/loja" replace />} />
         <Route path="/loja" element={<LojaDePecas />} />
         <Route path="/servicos" element={<Servicos />} />
+        <Route path="/equipamentos" element={<LocacaoEquipamentos />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/meu-painel" element={<MeuPainel />} />
         <Route path="/pagamento" element={<PagamentoSeguro />} />

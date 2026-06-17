@@ -1,22 +1,26 @@
-import type { ProductItem, ServiceItem, ServiceOrder, KPIStats, ProgressStep, PurchaseHistory, Invoice } from '../types';
+import type { ProductItem, ServiceItem, ServiceOrder, KPIStats, ProgressStep, PurchaseHistory, Invoice, RentalItem } from '../types';
+import IMG from '../data/productImages';
 
 // ==================== PRODUCTS (Parts + Equipment) ====================
 
-// Imagens AI reais dos protótipos (Google AIDA) - mapeadas por categoria
+// Imagens reais dos produtos por categoria (CDNs verificados)
 const CAT_IMG: Record<string, string> = {
-  switches: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCYCTejiGbJrYTzYeYJsee_SPODSZGNX4hjUsrYOAEuKzFJxexd5ZsN8GQPu_9nrY47HrR2ldPq7MS9AKYPBFQpOmghXwR8D1L1u-S7i61bcoAGMf9sajDv0GJWZIr8fJGa_qfdBBHgVVZVnDaCZO7A0LHOvxIDdawTGsSnzhvOo1naVdHfTpKFMQevNFo3W38Oc5hsp5DeHbINSkoUC1d_9ZWl-tydUR1BgFP2nRZqZR10o0xC-vXB2UlzQ3NqB_YVt9pcA1pCHd2v',
-  keycaps: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBphHnjvLSLjSkDzR6AyhhhtlAdx0rniXwZfoN9go66zR8PCuQJOB6-icKVSKulr7Jg1DieaEhsTwkmJ2IvYcujFssKHpD63dzOp71L8uawkxWKU5Ki7iM9_Sh3UA6ckNbBHCMXDn5uphgk4bcAZsA32YLO-2sPeSMYswq8Rp6HbwddGJU_0cXj3rYsUdH8KlXEHzWcjdMG_cqQ5uXPdAUtPNLLgaSM3fO21JmR1DSPBDDxvpP0X00DWi-lARgwPb58JebiVrM3qnJo',
-  lubricants: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB8OEwIq6DHRBNHGk4JbwEWGvjSzVMpJfXjh5WMR8J9e5gh6na_vCY4ZMwI0ElD9bNy3XMiQ1lauETHhpr5R6nBOLYmmbsuYOAmS7_kHVhKgrDiiUg_QU1wtlPWYZcEPmTHaIAYs9sgV0R5FKIRtDGA9BdtITGzqsd1xMqU-xSmOQewHbGSH9PD4j65dp33DdLJLCQInNkwn1wkF2jiK4VTJxMHbT9wPTC9V9A4pKI-xhNUjugo06jUNMOHi_IXBhU2HG4NYfr8Oz52',
-  plates: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAN2IH_5Umf0S99ThEOVJOVvlvBfnDpJQN1xLF3kmyhiSYE8wXVtZkSe0UvOYFqffHEvud_JcE0Uomjzp61pdzLA-_UQqnrezVbJhB2cJak3f0trd5y7YE86_3Se7ZJYQCTEs5vZCFhk-px6THxoytZhbDFGUuO861FBOKWYE23cnZO9lf2dPBBCS7vPHT1X9zKJET4Bzloe-KHtIrS2AV5W4529ttmpgG_tkeYJodU5zf3qZyI-YT36PLmInJFcpBOhBpej-p4ZAp3',
-  stabilizers: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDddAcpp-4h6KqMvHl-WQr5ls-lPqEyGXkw8AzHke176Lijmup-z-nCPlk65UXndv79K6G8p0ZyrgYTiNZjEpqLpuGcr0zfneHOBRfmkJwiuf2OEUwKC_gJdGgcBp9KvTB1RZPK0p-DS-PqLiiZ0n1V7uYtPzlJapAmSpop1APiJ6LcQm0XrDIX00Qmv_dZhsiPI9Ks-9l5qIa-k0TjHbBnEJnb3NQ-3jKB50-B4G7ZCi19DVJzXjvtmKnAJzHEGlrQ-xFFgOyE9OSX',
-  cables: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAdufLMGQ3KI5hDZuBIpmTKajOQwqFfNhhILFla5WKRG5Ci-YIo0mTWhQBZuU7aUGhqMIeq6cHv9AzVZE3DUyFG-nupmFu_5Mqz25Z6qDRK03OETcdhlyzxLBehjq7Px4v-S1IzU-5ybTdwfgtGoyOCTcc9UtfdB1RK5JDZWkh4o7QMuHcA9j1z8bwSgMxNGMarcawybsp_w7WGGA999cNf7w9BHQMbmAEdQq4BdzeFhs17JDdMq09z5R6f6AOnYUY9e3PXlFSPEowP',
-  keyboards: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCWiJZguQAOxp7mZHCir-rFsTaOdsDnm0yL2WYrTXZOWAmCHinAOV-lz-LLMelITPpFRtPOh2o3Dp3gqcdkWivXhMNASp_oWPC3mSjKywyIUBT5sYgX-JlfNsLFvjnp-UJkCZ-RDsve90D-R4CUwDbpuHQx6o7m3qQy-hxiKt1-nYUP0fLgGePLa-f0u1GVe_ORhjhm0r9lzn7wAsk0bi9hKyKoMuN0BvFodKxSOpmjP-9OUtOjiNEfDw-Dsp__Mek9cXhcCdc03_oJ',
-  mice: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBwI21J3KRsKZJ3AMNUcmdcWvBjMO-4FAhltWvRxAglfr52BVQbYnmIcBkJ_VmRtzuofuZUaZ4Ku5TMpQOlKJ__1h1SDZB-rAa_WWN_u3bYWl6L6_-72KF3eD_wN-KhGALJDuCHbX3aC1InyvqHTcFxiQUKJPamH3NWhF3UNQyoFy1_mk4-_TpdyA6CfNYoGUdlt7nsicKC7drVeViIBO3LmDex45-fDWf_hyCP3z3NIebzuYIhyJ9ePoCQDfKRZlAfVUSkTkqA027w',
-  monitors: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5JqTOLFLGrXait4ocKA7YHV6sYknQOU8Vs6NCzHwnITmAZuINHM0Qu_hQ7VxBxZL6Or5QM-nv5kC6sPyt_mdkaD_VtZq0XQaVNAcZ6J4rqOlVXlNgFLH9wpGb-dArj0JatQTLL2zvMARGhvl5FwESqquVCcvCxMIRcqQMv0qRPnt6xTUtb4SVKoRfR9zO_uFX_KYaqN_r6YAiACnosE81I0GrTh3ZBKkubg6TXmGRUBUzjgisEpvRHNzSDGRrhObH67timXy0aiFI',
-  audio: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBgpDs0bw8nackOloNHM9RhINRsZXoIyMsKLAmOau2Uea53x1zN8eyiHi848TW3lVZU_ySdQm-tzlYinHKbnBl914xurqAYKatgNJcYnmsvdtAWo3Wv3tLXOdOhDUdoa-LApbsEj4yrbAHPIULMmL_1-FLRPJ62u5RvoDaZ-5X8JNSpLtimbIW5SQT_UObEHXvGKT0m3ySr4H6xv3SzELGxqX6p7Rnjxv8cdOldOV1KlMMSUyqOsyHW0cFuv9-xk1vaOpQChM1_iy8N',
+  switches: IMG['wooting-80he'],
+  keycaps: IMG['nuphy-air75-he'],
+  lubricants: IMG['fiio-ka17'],
+  plates: IMG['keychron-q1-pro'],
+  stabilizers: IMG['corsair-k70-pro-tkl'],
+  cables: IMG['logitech-gpx2-dex'],
+  keyboards: IMG['wooting-80he'],
+  mice: IMG['logitech-gpx2-dex'],
+  monitors: IMG['asus-pg32ucdm'],
+  audio: IMG['beyerdynamic-dt900px'],
 };
 
 const img = (cat: string) => CAT_IMG[cat] || `https://placehold.co/600x400/0D0D0D/c3f400?text=OFFICE-X`;
+
+// Override images for specific equipment products
+const pi = (key: string) => (IMG as Record<string, string>)[key] || img(key.split('-')[0]);
 
 export const PRODUCTS: ProductItem[] = [
   // SWITCHES
@@ -65,32 +69,44 @@ export const PRODUCTS: ProductItem[] = [
   { id: 'cb-003', name: 'YC8 Straight Cable', price: 150.00, type: 'sale', specs: 'YC8 - USB-C/A - 1.5M', image: img('cables'), imageAlt: 'Cabo YC8.', category: 'cables' },
   { id: 'cb-004', name: 'Dual-Tone Coiled Cable', price: 220.00, type: 'sale', specs: 'GX12 - DOUBLE-SLEEVED - 2.0M', image: img('cables'), imageAlt: 'Cabo coiled dual-tone.', category: 'cables' },
   // KEYBOARDS
-  { id: 'kb-001', name: 'Wooting 60HE+', price: 1490.00, type: 'sale', specs: 'HALL EFFECT - RAPID TRIGGER - 60%', image: img('keyboards'), imageAlt: 'Wooting 60HE+.', category: 'keyboards' },
-  { id: 'kb-002', name: 'Wooting 80HE', price: 2190.00, type: 'sale', specs: 'HALL EFFECT - 80% - 8KHZ - RGB', image: img('keyboards'), imageAlt: 'Wooting 80HE.', category: 'keyboards' },
-  { id: 'kb-003', name: 'Keychron Q1 Pro', price: 1290.00, type: 'sale', specs: '75% - GASKET - ALUMÍNIO CNC - QMK/VIA', image: img('keyboards'), imageAlt: 'Keychron Q1 Pro.', category: 'keyboards' },
-  { id: 'kb-004', name: 'Keychron V1 Max', price: 690.00, type: 'sale', specs: '75% - GASKET - QMK/VIA', image: img('keyboards'), imageAlt: 'Keychron V1 Max.', category: 'keyboards' },
-  { id: 'kb-005', name: 'Mode Envoy', price: 2100.00, type: 'sale', specs: '65% - STACK MOUNT - ALUMÍNIO', image: img('keyboards'), imageAlt: 'Mode Envoy.', category: 'keyboards' },
+  { id: 'kb-001', name: 'Wooting 60HE+', price: 1490.00, type: 'sale', specs: 'HALL EFFECT - RAPID TRIGGER - 60%', image: pi('wooting-60he'), imageAlt: 'Wooting 60HE+ gaming keyboard with Lekker switches.', category: 'keyboards' },
+  { id: 'kb-002', name: 'Wooting 80HE', price: 2190.00, type: 'sale', specs: 'HALL EFFECT - 80% - 8KHZ - RGB', image: pi('wooting-80he'), imageAlt: 'Wooting 80HE mechanical keyboard.', category: 'keyboards' },
+  { id: 'kb-003', name: 'Keychron Q1 Pro', price: 1290.00, type: 'sale', specs: '75% - GASKET - ALUMÍNIO CNC - QMK/VIA', image: pi('keychron-q1-pro'), imageAlt: 'Keychron Q1 Pro.', category: 'keyboards' },
+  { id: 'kb-004', name: 'Keychron V1 Max', price: 690.00, type: 'sale', specs: '75% - GASKET - QMK/VIA', image: pi('keychron-v1-max'), imageAlt: 'Keychron V1 Max.', category: 'keyboards' },
+  { id: 'kb-005', name: 'Mode Envoy', price: 2100.00, type: 'sale', specs: '65% - STACK MOUNT - ALUMÍNIO', image: img('keyboards'), imageAlt: 'Mode Envoy custom keyboard.', category: 'keyboards' },
   { id: 'kb-006', name: 'Tofu60 Redux', price: 590.00, type: 'sale', specs: '60% - CASE ALUMÍNIO CNC - O-RING', image: img('keyboards'), imageAlt: 'Tofu60 Redux.', category: 'keyboards' },
-  { id: 'kb-007', name: 'Neo Ergo', price: 1450.00, type: 'sale', specs: 'ALICE/ARISU - GASKET - TRI-MODE', image: img('keyboards'), imageAlt: 'Neo Ergo.', category: 'keyboards' },
+  { id: 'kb-007', name: 'Neo Ergo', price: 1450.00, type: 'sale', specs: 'ALICE/ARISU - GASKET - TRI-MODE', image: img('keyboards'), imageAlt: 'Neo Ergo ergonomic keyboard.', category: 'keyboards' },
   { id: 'kb-008', name: 'Rainy75', price: 780.00, type: 'sale', specs: '75% - ALUMÍNIO CNC - HMX/PBS', image: img('keyboards'), imageAlt: 'Rainy75.', category: 'keyboards' },
+  { id: 'kb-009', name: 'Asus ROG Azoth Extreme', price: 2490.00, type: 'sale', specs: '75% - GASKET - OLED 2" - HOT-SWAP', image: pi('asus-azoth-extreme'), imageAlt: 'Asus ROG Azoth Extreme.', category: 'keyboards' },
+  { id: 'kb-010', name: 'NuPhy Air75 HE', price: 890.00, type: 'sale', specs: '75% LOW-PROFILE - HALL EFFECT - QMK', image: pi('nuphy-air75-he'), imageAlt: 'NuPhy Air75 HE.', category: 'keyboards' },
+  { id: 'kb-011', name: 'Corsair K70 Pro TKL', price: 1490.00, type: 'sale', specs: 'TKL - MGX MAGNÉTICO - RAPID TRIGGER', image: pi('corsair-k70-pro-tkl'), imageAlt: 'Corsair K70 Pro TKL.', category: 'keyboards' },
   // MICE
-  { id: 'ms-001', name: 'Logitech G Pro X Superlight 2', price: 1290.00, type: 'sale', specs: 'HERO 2 - 44K DPI - 60G - USB-C', image: img('mice'), imageAlt: 'Logitech G Pro X Superlight 2.', category: 'mice' },
-  { id: 'ms-002', name: 'Razer DeathAdder V3 Pro', price: 1190.00, type: 'sale', specs: 'FOCUS PRO 30K - 63G - 8KHZ', image: img('mice'), imageAlt: 'Razer DeathAdder V3 Pro.', category: 'mice' },
-  { id: 'ms-003', name: 'Razer Viper V3 Pro', price: 1390.00, type: 'sale', specs: 'FOCUS PRO 35K - 54G - 8KHZ', image: img('mice'), imageAlt: 'Razer Viper V3 Pro.', category: 'mice' },
-  { id: 'ms-004', name: 'Lamzu Maya X', price: 780.00, type: 'sale', specs: 'PAW3950 - 47G - 8KHZ', image: img('mice'), imageAlt: 'Lamzu Maya X.', category: 'mice' },
-  { id: 'ms-005', name: 'Pulsar X2V2 Mini', price: 650.00, type: 'sale', specs: 'PAW3395 - 51G - 4KHZ', image: img('mice'), imageAlt: 'Pulsar X2V2 Mini.', category: 'mice' },
-  { id: 'ms-006', name: 'Finalmouse UltralightX', price: 1590.00, type: 'sale', specs: 'ULX - 29G - CARBON FIBER - 8KHZ', image: img('mice'), imageAlt: 'Finalmouse UltralightX.', category: 'mice' },
+  { id: 'ms-001', name: 'Logitech G Pro X Superlight 2', price: 1290.00, type: 'sale', specs: 'HERO 2 - 44K DPI - 60G - USB-C', image: pi('logitech-gpx2'), imageAlt: 'Logitech G Pro X Superlight 2.', category: 'mice' },
+  { id: 'ms-002', name: 'Razer DeathAdder V3 Pro', price: 1190.00, type: 'sale', specs: 'FOCUS PRO 30K - 63G - 8KHZ', image: pi('razer-dav3-pro'), imageAlt: 'Razer DeathAdder V3 Pro.', category: 'mice' },
+  { id: 'ms-003', name: 'Razer Viper V3 Pro', price: 1390.00, type: 'sale', specs: 'FOCUS PRO 35K - 54G - 8KHZ', image: pi('razer-viper-v3-pro'), imageAlt: 'Razer Viper V3 Pro.', category: 'mice' },
+  { id: 'ms-004', name: 'Lamzu Maya X', price: 780.00, type: 'sale', specs: 'PAW3950 - 47G - 8KHZ', image: pi('lamzu-maya-x'), imageAlt: 'Lamzu Maya X.', category: 'mice' },
+  { id: 'ms-005', name: 'Pulsar X2V2 Mini', price: 650.00, type: 'sale', specs: 'PAW3395 - 51G - 4KHZ', image: pi('pulsar-x2v2'), imageAlt: 'Pulsar X2V2 Mini.', category: 'mice' },
+  { id: 'ms-006', name: 'Finalmouse UltralightX', price: 1590.00, type: 'sale', specs: 'ULX - 29G - CARBON FIBER - 8KHZ', image: pi('finalmouse-ulx'), imageAlt: 'Finalmouse UltralightX.', category: 'mice' },
+  { id: 'ms-007', name: 'Logitech G Pro X Superlight 2 Dex', price: 1390.00, type: 'sale', specs: 'HERO 2 - 44K DPI - 60G - ERGO', image: pi('logitech-gpx2-dex'), imageAlt: 'Logitech G Pro X Superlight 2 Dex.', category: 'mice' },
+  { id: 'ms-008', name: 'Pulsar X3', price: 850.00, type: 'sale', specs: 'XS-1 32K - 55G - 4KHZ - ERGO', image: pi('pulsar-x3'), imageAlt: 'Pulsar X3.', category: 'mice' },
+  { id: 'ms-009', name: 'WLmouse Beast X Max', price: 980.00, type: 'sale', specs: 'PAW3950 - 39G - 8KHZ - MAGNÉSIO', image: pi('wlmouse-beast-x-max'), imageAlt: 'WLmouse Beast X Max.', category: 'mice' },
+  { id: 'ms-010', name: 'Endgame Gear OP1 8K', price: 480.00, type: 'sale', specs: 'PAW3395 - 51G - 8KHZ - CABEADO', image: pi('endgame-op1-8k'), imageAlt: 'Endgame Gear OP1 8K.', category: 'mice' },
   // MONITORS
   { id: 'mn-001', name: 'LG 27GP950-B UltraGear', price: 3450.00, type: 'sale', specs: '4K UHD - 160HZ - IPS - HDMI 2.1', image: img('monitors'), imageAlt: 'Monitor LG 27GP950-B.', category: 'monitors' },
   { id: 'mn-002', name: 'Dell U2723QE UltraSharp', price: 3100.00, type: 'sale', specs: '4K UHD - IPS BLACK - FACTORY CALIB', image: img('monitors'), imageAlt: 'Dell U2723QE.', category: 'monitors' },
-  { id: 'mn-003', name: 'ASUS ROG Swift PG27AQDM', price: 4800.00, type: 'sale', specs: 'OLED 240HZ - 0.03MS - 1440P', image: img('monitors'), imageAlt: 'ASUS ROG Swift OLED.', category: 'monitors' },
-  { id: 'mn-004', name: 'Samsung Odyssey G8 OLED', price: 4100.00, type: 'sale', specs: 'OLED 175HZ - 3440X1440 - 21:9', image: img('monitors'), imageAlt: 'Samsung Odyssey G8 OLED.', category: 'monitors' },
+  { id: 'mn-003', name: 'ASUS ROG Swift PG27AQDM', price: 4800.00, type: 'sale', specs: 'OLED 240HZ - 0.03MS - 1440P', image: img('monitors'), imageAlt: 'ASUS ROG Swift OLED 27".', category: 'monitors' },
+  { id: 'mn-004', name: 'Samsung Odyssey G8 OLED', price: 4100.00, type: 'sale', specs: 'OLED 175HZ - 3440X1440 - 21:9', image: pi('samsung-odyssey-g8-oled'), imageAlt: 'Samsung Odyssey G8 OLED.', category: 'monitors' },
+  { id: 'mn-005', name: 'ASUS ROG Swift OLED PG32UCDM', price: 7990.00, type: 'sale', specs: '32" 4K 240HZ - QD-OLED - 0.03MS', image: pi('asus-pg32ucdm'), imageAlt: 'ASUS ROG Swift OLED PG32UCDM.', category: 'monitors' },
+  { id: 'mn-006', name: 'LG UltraGear 32GS95UE', price: 7290.00, type: 'sale', specs: '32" 4K240/1080P480 - DUAL-MODE OLED', image: pi('lg-32gs95ue'), imageAlt: 'LG UltraGear 32GS95UE.', category: 'monitors' },
   // AUDIO
-  { id: 'au-001', name: 'Beyerdynamic DT 900 Pro X', price: 1890.00, type: 'sale', specs: 'ABERTO - STELLAR.45 - 48Ω', image: img('audio'), imageAlt: 'Beyerdynamic DT 900 Pro X.', category: 'audio' },
-  { id: 'au-002', name: 'Beyerdynamic DT 700 Pro X', price: 1690.00, type: 'sale', specs: 'FECHADO - STELLAR.45 - 48Ω', image: img('audio'), imageAlt: 'Beyerdynamic DT 700 Pro X.', category: 'audio' },
-  { id: 'au-003', name: 'Sennheiser HD 660S2', price: 2490.00, type: 'sale', specs: 'ABERTO - 150Ω - TRANSDUCER 42MM', image: img('audio'), imageAlt: 'Sennheiser HD 660S2.', category: 'audio' },
-  { id: 'au-004', name: 'Audio-Technica ATH-M50x', price: 890.00, type: 'sale', specs: 'FECHADO - 45MM - 38Ω', image: img('audio'), imageAlt: 'Audio-Technica ATH-M50x.', category: 'audio' },
-  { id: 'au-005', name: 'Moondrop Blessing 3', price: 1690.00, type: 'sale', specs: 'IEM - 2DD+4BA - HYBRID', image: img('audio'), imageAlt: 'Moondrop Blessing 3.', category: 'audio' },
+  { id: 'au-001', name: 'Beyerdynamic DT 900 Pro X', price: 1890.00, type: 'sale', specs: 'ABERTO - STELLAR.45 - 48Ω', image: pi('beyerdynamic-dt900px'), imageAlt: 'Beyerdynamic DT 900 Pro X.', category: 'audio' },
+  { id: 'au-002', name: 'Beyerdynamic DT 700 Pro X', price: 1690.00, type: 'sale', specs: 'FECHADO - STELLAR.45 - 48Ω', image: pi('beyerdynamic-dt700px'), imageAlt: 'Beyerdynamic DT 700 Pro X.', category: 'audio' },
+  { id: 'au-003', name: 'Sennheiser HD 660S2', price: 2490.00, type: 'sale', specs: 'ABERTO - 150Ω - TRANSDUCER 42MM', image: pi('sennheiser-hd660s2'), imageAlt: 'Sennheiser HD 660S2.', category: 'audio' },
+  { id: 'au-004', name: 'Audio-Technica ATH-M50x', price: 890.00, type: 'sale', specs: 'FECHADO - 45MM - 38Ω', image: pi('audio-technica-m50x'), imageAlt: 'Audio-Technica ATH-M50x.', category: 'audio' },
+  { id: 'au-005', name: 'Moondrop Blessing 3', price: 1690.00, type: 'sale', specs: 'IEM - 2DD+4BA - HYBRID', image: pi('moondrop-blessing3'), imageAlt: 'Moondrop Blessing 3.', category: 'audio' },
+  { id: 'au-006', name: 'Audeze Maxwell', price: 2490.00, type: 'sale', specs: 'PLANAR MAGNÉTICO - WIRELESS - 80H BATERIA', image: pi('audeze-maxwell'), imageAlt: 'Audeze Maxwell.', category: 'audio' },
+  { id: 'au-007', name: 'FiiO KA17', price: 690.00, type: 'sale', specs: 'DAC/AMP USB-C - ES9069Q - BAL 4.4MM', image: pi('fiio-ka17'), imageAlt: 'FiiO KA17 DAC.', category: 'audio' },
+  { id: 'au-008', name: 'Shure SM7B', price: 2690.00, type: 'sale', specs: 'DINÂMICO CARDIOIDE - BROADCAST - XLR', image: pi('shure-sm7b'), imageAlt: 'Shure SM7B.', category: 'audio' },
 ];
 
 // ==================== SERVICES ====================
@@ -404,3 +420,118 @@ export const CATEGORIES = [
   { id: 'monitors', label: 'MONITORES' },
   { id: 'audio', label: 'ÁUDIO' },
 ] as const;
+
+// ==================== RENTALS ====================
+
+export const RENTALS: RentalItem[] = [
+  {
+    id: 'rn-001',
+    name: 'Wooting 80HE',
+    pricePerDay: 79,
+    status: 'available',
+    specs: 'RAPID TRIGGER 0.1MM - MAGNÉTICO - 8KHZ - 80%',
+    image: IMG['wooting-80he'],
+    imageAlt: 'Wooting 80HE mechanical keyboard with analog Lekker switches, RGB backlight, dark cyberpunk aesthetic.',
+    category: 'keyboards',
+    type: 'rental',
+  },
+  {
+    id: 'rn-002',
+    name: 'Asus ROG Azoth Extreme',
+    pricePerDay: 89,
+    status: 'available',
+    specs: 'GASKET-MOUNT - OLED 2" - HOT-SWAP - 75%',
+    image: IMG['asus-azoth-extreme'],
+    imageAlt: 'Asus ROG Azoth Extreme premium wireless mechanical keyboard with CNC aluminum case and OLED display.',
+    category: 'keyboards',
+    type: 'rental',
+  },
+  {
+    id: 'rn-003',
+    name: 'Logitech G Pro X Superlight 2 Dex',
+    pricePerDay: 32,
+    status: 'available',
+    specs: 'HERO 2 - 44K DPI - 60G - 8KHZ - LIGHTSPEED',
+    image: IMG['logitech-gpx2-dex'],
+    imageAlt: 'Logitech G Pro X Superlight 2 Dex wireless ergonomic gaming mouse.',
+    category: 'mice',
+    type: 'rental',
+  },
+  {
+    id: 'rn-004',
+    name: 'Razer Viper V3 Pro',
+    pricePerDay: 39,
+    status: 'in_use',
+    specs: 'FOCUS PRO 35K - 54G - 8KHZ HYPERPOLLING',
+    image: IMG['razer-viper-v3-pro'],
+    imageAlt: 'Razer Viper V3 Pro ultralight competitive gaming mouse.',
+    category: 'mice',
+    type: 'rental',
+  },
+  {
+    id: 'rn-005',
+    name: 'Pulsar X3',
+    pricePerDay: 36,
+    status: 'available',
+    specs: 'XS-1 32K - 55G - 4KHZ WIRELESS - ERGO',
+    image: IMG['pulsar-x3'],
+    imageAlt: 'Pulsar X3 lightweight ergonomic wireless gaming mouse.',
+    category: 'mice',
+    type: 'rental',
+  },
+  {
+    id: 'rn-006',
+    name: 'ASUS ROG Swift OLED PG32UCDM',
+    pricePerDay: 290,
+    status: 'available',
+    specs: '32" 4K 240HZ QD-OLED - 0.03MS - G-SYNC',
+    image: IMG['asus-pg32ucdm'],
+    imageAlt: 'ASUS ROG Swift OLED PG32UCDM 32-inch 4K 240Hz QD-OLED gaming monitor.',
+    category: 'monitors',
+    type: 'rental',
+  },
+  {
+    id: 'rn-007',
+    name: 'Samsung Odyssey OLED G8 34"',
+    pricePerDay: 210,
+    status: 'available',
+    specs: '34" UWQHD 175HZ QD-OLED - 99.3% DCI-P3',
+    image: IMG['samsung-odyssey-g8-oled'],
+    imageAlt: 'Samsung Odyssey OLED G8 34-inch ultrawide curved gaming monitor.',
+    category: 'monitors',
+    type: 'rental',
+  },
+  {
+    id: 'rn-008',
+    name: 'BenQ PD3225U',
+    pricePerDay: 185,
+    status: 'available',
+    specs: '32" 4K IPS BLACK - 98% DCI-P3 - TB3 - DESIGNER',
+    image: IMG['benq-pd3225u'],
+    imageAlt: 'BenQ PD3225U 32-inch 4K professional designer monitor with IPS Black panel.',
+    category: 'monitors',
+    type: 'rental',
+  },
+  {
+    id: 'rn-009',
+    name: 'Shure SM7B',
+    pricePerDay: 89,
+    status: 'available',
+    specs: 'DINÂMICO CARDIOIDE - PADRÃO BROADCAST - XLR',
+    image: IMG['shure-sm7b'],
+    imageAlt: 'Shure SM7B professional broadcast dynamic microphone.',
+    category: 'audio',
+    type: 'rental',
+  },
+  {
+    id: 'rn-010',
+    name: 'Beyerdynamic DT 900 Pro X',
+    pricePerDay: 69,
+    status: 'available',
+    specs: 'ABERTO 48Ω - STELLAR.45 DRIVER - 5-40KHZ',
+    image: IMG['beyerdynamic-dt900px'],
+    imageAlt: 'Beyerdynamic DT 900 Pro X open-back studio reference headphones.',
+    category: 'audio',
+    type: 'rental',
+  },
+];

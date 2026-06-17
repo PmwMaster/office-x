@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Trash2, Minus, Plus, ArrowLeft, ShoppingCart, Wrench, Package } from 'lucide-react';
+import { Trash2, Minus, Plus, ArrowLeft, ShoppingCart, Wrench, Package, CalendarRange } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { GlassCard } from '../components/ui/GlassCard';
 import { Layout } from '../components/layout/Layout';
@@ -9,10 +9,12 @@ export function Carrinho() {
   const {
     products,
     services,
+    rentals,
     removeProduct,
     increaseProductQty,
     decreaseProductQty,
     removeService,
+    removeRental,
     clearCart,
     getTotalItems,
     getSubtotal,
@@ -155,6 +157,55 @@ export function Carrinho() {
               </div>
             </section>
           )}
+
+          {/* RENTALS */}
+          {rentals.length > 0 && (
+            <section>
+              <div className="flex items-center gap-3 mb-6">
+                <CalendarRange size={20} className="text-secondary-container" />
+                <h2 className="text-headline-md font-semibold text-primary uppercase tracking-widest">
+                  Locação de Equipamentos
+                </h2>
+              </div>
+              <div className="space-y-4">
+                {rentals.map(({ item, pickupDate, returnDate }) => {
+                  const pickup = new Date(pickupDate);
+                  const ret = new Date(returnDate);
+                  const days = Math.max(1, Math.ceil((ret.getTime() - pickup.getTime()) / (1000 * 60 * 60 * 24)));
+                  return (
+                    <GlassCard key={item.id} className="flex items-center gap-6">
+                      <img
+                        src={item.image}
+                        alt={item.imageAlt}
+                        className="w-20 h-20 object-cover rounded"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-body-md font-semibold text-primary">{item.name}</h3>
+                        <p className="text-label-sm text-on-surface-variant">{item.specs}</p>
+                        <p className="text-label-sm text-on-surface-variant mt-1">
+                          {new Intl.DateTimeFormat('pt-BR').format(pickup)} → {new Intl.DateTimeFormat('pt-BR').format(ret)} · {days} {days === 1 ? 'dia' : 'dias'}
+                        </p>
+                      </div>
+                      <div className="text-right min-w-[100px]">
+                        <p className="text-body-md font-bold text-primary-fixed">
+                          R$ {(item.pricePerDay * days).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        </p>
+                        <p className="text-label-sm text-on-surface-variant">
+                          R$ {item.pricePerDay.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/dia
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => removeRental(item.id)}
+                        className="text-on-surface-variant hover:text-error transition-colors p-2"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </GlassCard>
+                  );
+                })}
+              </div>
+            </section>
+          )}
         </div>
 
         {/* Summary Sidebar */}
@@ -189,6 +240,25 @@ export function Carrinho() {
                     </span>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {rentals.length > 0 && (
+              <div className="space-y-2">
+                <span className="text-label-sm text-on-surface-variant uppercase tracking-widest">Locação</span>
+                {rentals.map(({ item, pickupDate, returnDate }) => {
+                  const pickup = new Date(pickupDate);
+                  const ret = new Date(returnDate);
+                  const days = Math.max(1, Math.ceil((ret.getTime() - pickup.getTime()) / (1000 * 60 * 60 * 24)));
+                  return (
+                    <div key={item.id} className="flex justify-between text-body-md">
+                      <span className="text-on-surface-variant truncate mr-4">{item.name} ({days}d)</span>
+                      <span className="text-primary font-mono">
+                        R$ {(item.pricePerDay * days).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             )}
 

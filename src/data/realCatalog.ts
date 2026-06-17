@@ -1,9 +1,10 @@
 import type { RealProduct } from '../types';
+import IMG from './productImages';
 
 // ============================================================
 // OFFICE-X | Catálogo Real de Periféricos
-// Marcas reais, specs reais, preços em BRL (média mercado 2024)
-// Imagens: CDN dos fabricantes / Amazon (estáveis, sem IA)
+// Marcas reais, specs reais, preços em BRL (atualizado 2026)
+// Imagens: Amazon CDN / Manufacturer CDN (verificados)
 // ============================================================
 
 export const REAL_CATALOG: RealProduct[] = [
@@ -24,7 +25,7 @@ export const REAL_CATALOG: RealProduct[] = [
       'Conexão': 'Razer HyperSpeed Wireless + USB-C',
       'Formato': 'Ambidestro simétrico',
     },
-    image_url: 'https://assets2.razerzone.com/images/pnx.assets/7f88e9f8b5d9a5b1b1c2e7a3/razer-viper-v3-pro-black-500x500.png',
+    image_url: IMG['razer-viper-v3-pro'],
     description: 'Mouse competitivo ultraleve de 54g com polling rate de 8000Hz nativo via HyperPolling. Sensor Focus Pro 35K e switches ópticos de 3ª geração garantem precisão absoluta em torneios FPS.',
   },
   {
@@ -43,7 +44,7 @@ export const REAL_CATALOG: RealProduct[] = [
       'Conexão': 'LIGHTSPEED Wireless + USB-C',
       'Formato': 'Ambidestro simétrico',
     },
-    image_url: 'https://resource.logitechg.com/w_600,c_limit,q_auto,f_auto/dpr_1.0/d_lossless/content/dam/gaming/en/non-braid/hydro/pro-x-superlight-2-black-gallery-1.png',
+    image_url: IMG['logitech-gpx2'],
     description: 'Sucessor do mouse mais usado por pros de FPS. Sensor HERO 2 com 44K DPI, switches híbridos óptico-mecânicos Lightforce, 60g e bateria de 95h. O padrão ouro do competitivo.',
   },
   {
@@ -62,7 +63,7 @@ export const REAL_CATALOG: RealProduct[] = [
       'Conexão': 'Razer HyperSpeed Wireless + USB-C',
       'Formato': 'Ergonômico (destro)',
     },
-    image_url: 'https://assets2.razerzone.com/images/pnx.assets/8a9bf0c6e7d8f4a2a3b5c1d0/razer-deathadder-v3-pro-black-500x500.png',
+    image_url: IMG['razer-dav3-pro'],
     description: 'Mouse ergonômico mais leve já feito pela Razer (63g). Sensor Focus Pro 30K, formato icônico DeathAdder refinado por esports pros, switches ópticos de 3ª geração.',
   },
   {
@@ -102,7 +103,7 @@ export const REAL_CATALOG: RealProduct[] = [
       'Conexão': 'USB-C removível',
       'Compatibilidade': 'QMK/VIA/Web',
     },
-    image_url: 'https://wooting.io/cdn/shop/files/60HE_Module_Black_Stealth_Angle_1600x.png',
+    image_url: IMG['wooting-60he'],
     description: 'Teclado magnético com Rapid Trigger de 0.1mm — a tecnologia que domina o cenário competitivo de Valorant e CS2. Switches Lekker Hall Effect com actuation ajustável por tecla e polling 8KHz.',
   },
   {
@@ -121,7 +122,7 @@ export const REAL_CATALOG: RealProduct[] = [
       'Bateria': '4000mAh (até 300h sem RGB)',
       'Peso': '1.8kg totalmente montado',
     },
-    image_url: 'https://www.keychron.com/cdn/shop/files/Keychron-Q1-Pro-carbon-black-1000x1000.jpg',
+    image_url: IMG['keychron-q1-pro'],
     description: 'Teclado mecânico premium 75% em alumínio CNC com gasket mount duplo. Hot-swap, QMK/VIA, Bluetooth 5.1, bateria de 4000mAh. O equilíbrio perfeito entre custom e daily driver.',
   },
   {
@@ -140,7 +141,7 @@ export const REAL_CATALOG: RealProduct[] = [
       'Conexão': 'USB-C removível',
       'Extra': 'Modo Gamepad (analógico WASD)',
     },
-    image_url: 'https://wooting.io/cdn/shop/files/80HE_Black_Angle_Stealth_1600x.png',
+    image_url: IMG['wooting-80he'],
     description: 'Irmão maior do 60HE com layout TKL (80%). Mesma tecnologia Rapid Trigger 0.1mm, switches magnéticos Lekker e polling 8KHz. Inclui modo analógico para corridas e simuladores.',
   },
   {
