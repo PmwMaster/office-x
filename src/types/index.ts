@@ -27,27 +27,7 @@ export interface ServiceItem {
 
 export type CartItem = ProductItem | ServiceItem;
 
-export interface HybridCart {
-  items: CartItem[];
-  total: number;
-}
-
-// ==================== REAL PRODUCT CATALOG TYPE ====================
-
-export interface RealProduct {
-  id: string;
-  brand: string;
-  name: string;
-  category: 'teclado' | 'mouse' | 'audio' | 'pecas' | 'locacao';
-  price: number;
-  specs: Record<string, string>;
-  image_url: string;
-  description: string;
-}
-
 // ==================== ADMIN TYPES ====================
-
-export type OSStatus = 'triage' | 'waiting_parts' | 'modding_bench' | 'done';
 export type OSPriority = 'normal' | 'urgent' | 'warranty';
 
 export interface ServiceOrder {
