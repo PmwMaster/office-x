@@ -3,14 +3,14 @@
 // All URLs verified working Jun 2026
 
 const U = (n: string) =>
-  `https://placehold.co/600x400/0A0A0A/CCFF00?text=${encodeURIComponent(n)}&font=JetBrains+Mono`;
+  `https://placehold.co/600x400/0A0A0A/CCFF00.png?text=${encodeURIComponent(n)}&font=JetBrains+Mono`;
 
 const IMG: Record<string, string> = {
   // ===== VERIFIED MANUFACTURER IMAGES =====
   'logitech-gpx2':
-    'https://resource.logitech.com/w_692,c_lfill,ar_1:1,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/pro-x-superlight-2/gallery/gallery-1-black.png',
+    U('Logitech G Pro X Superlight 2'),
   'logitech-gpx2-dex':
-    'https://resource.logitech.com/w_692,c_lfill,ar_1:1,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/pro-x-superlight-2-dex/gallery/gallery-1-black.png',
+    U('Logitech G Pro X Superlight 2 Dex'),
   'shure-sm7b':
     'https://m.media-amazon.com/images/I/61l87ZX08LL._AC_SL1500_.jpg',
   'asus-pg32ucdm':
@@ -49,7 +49,7 @@ const IMG: Record<string, string> = {
   'fiio-ka17':                 U('FiiO KA17'),
   'moondrop-blessing3':        U('Moondrop Blessing 3'),
 
-  'default':                   'https://placehold.co/600x400/0A0A0A/CCFF00?text=OFFICE-X&font=JetBrains+Mono',
+  'default':                   'https://placehold.co/600x400/0A0A0A/CCFF00.png?text=OFFICE-X&font=JetBrains+Mono',
 };
 
 export default IMG;
