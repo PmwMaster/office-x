@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from './stores/authStore';
-import { isSupabaseReady } from './lib/supabase';
+import { isSupabaseReady } from './lib/supabaseReady';
 
 const LojaDePecas = lazy(() => import('./pages/LojaDePecas').then(m => ({ default: m.LojaDePecas })));
 const MeuPainel = lazy(() => import('./pages/MeuPainel').then(m => ({ default: m.MeuPainel })));
