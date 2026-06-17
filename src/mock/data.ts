@@ -3,18 +3,22 @@ import IMG from '../data/productImages';
 
 // ==================== PRODUCTS (Parts + Equipment) ====================
 
-// Imagens reais dos produtos por categoria (CDNs verificados)
+// Imagens por categoria - placeholders com nome da categoria para peças,
+// imagens reais de produto para equipamentos
+const pc = (cat: string) =>
+  `https://dummyimage.com/600x400/0a0a0a/ccff00.png&text=OFFICE-X+${encodeURIComponent(cat.toUpperCase())}`;
+
 const CAT_IMG: Record<string, string> = {
-  switches: IMG['wooting-80he'],
-  keycaps: IMG['nuphy-air75-he'],
-  lubricants: IMG['fiio-ka17'],
-  plates: IMG['keychron-q1-pro'],
-  stabilizers: IMG['corsair-k70-pro-tkl'],
-  cables: IMG['logitech-gpx2-dex'],
-  keyboards: IMG['wooting-80he'],
-  mice: IMG['logitech-gpx2-dex'],
-  monitors: IMG['asus-pg32ucdm'],
-  audio: IMG['beyerdynamic-dt900px'],
+  switches:     pc('switches'),
+  keycaps:      pc('keycaps'),
+  lubricants:   pc('lubrificantes'),
+  plates:       pc('plates'),
+  stabilizers:  pc('stabs'),
+  cables:       pc('cabos'),
+  keyboards:    IMG['wooting-80he'],
+  mice:         IMG['logitech-gpx2-dex'],
+  monitors:     IMG['asus-pg32ucdm'],
+  audio:        IMG['beyerdynamic-dt900px'],
 };
 
 const img = (cat: string) => CAT_IMG[cat] || `https://dummyimage.com/600x400/0a0a0a/ccff00.png&text=OFFICE-X`;
