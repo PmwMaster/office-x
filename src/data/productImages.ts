@@ -21,13 +21,14 @@ const IMG: Record<string, string> = {
   'benq-pd3225u':           'https://image.benq.com/is/image/benqco/pd3200u-right45-1?$ResponsivePreset$',
   'moondrop-blessing3':     'https://cdn.prod.website-files.com/627128d862c9a44234848dda/6440b2b621093331fce44fc9_B3.jpg',
   'asus-azoth-extreme':     'https://dlcdnwebimgs.asus.com/gain/36C55451-FF60-40AE-A455-21DFC4AD23D5/w1000/h732',
+  'keychron-v1-max':        'https://www.keychron.com/cdn/shop/files/V1-Max-Iconic-Features.jpg',
+  'beyerdynamic-dt700px':   'https://api.beyerdynamic.de/media/catalog/product/d/t/dt-700-pro-x-beyerdynamic-perspective_transparent_2_1.png',
 
   // ===== PLACEHOLDERS =====
   'logitech-gpx2':              U('Logitech Superlight 2'),
   'logitech-gpx2-dex':          U('Logitech Superlight 2 Dex'),
   'wooting-80he':              U('Wooting 80HE'),
   'wooting-60he':              U('Wooting 60HE+'),
-  'keychron-v1-max':           U('Keychron V1 Max'),
   'corsair-k70-pro-tkl':       U('Corsair K70 Pro TKL'),
 
   'lamzu-maya-x':              U('Lamzu Maya X'),
@@ -38,7 +39,6 @@ const IMG: Record<string, string> = {
 
   'samsung-odyssey-g8-oled':   U('Samsung Odyssey G8'),
 
-  'beyerdynamic-dt700px':      U('Beyerdynamic DT700'),
   'fiio-ka17':                 U('FiiO KA17'),
 
   'default':                   U('OFFICE-X'),
