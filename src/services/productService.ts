@@ -1,10 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 import { supabase, isSupabaseReady } from '../lib/supabase';
 import type { ProductItem } from '../types';
-import { PRODUCTS as MOCK_PRODUCTS } from '../mock/data';
 import { ICECAT_PRODUCTS } from '../data/icecat-catalog';
 
-const ALL_PRODUCTS = [...ICECAT_PRODUCTS, ...MOCK_PRODUCTS] as ProductItem[];
+const ALL_PRODUCTS = ICECAT_PRODUCTS as ProductItem[];
 
 export function useProducts() {
   const [products, setProducts] = useState<ProductItem[]>(ALL_PRODUCTS);

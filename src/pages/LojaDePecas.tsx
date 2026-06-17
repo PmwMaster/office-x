@@ -5,12 +5,19 @@ import {
   Keyboard, Mouse, Monitor, Headphones,
 } from 'lucide-react';
 import type { ProductItem } from '../types';
-import { CATEGORIES } from '../mock/data';
 import { Button } from '../components/ui/Button';
 import { GlassCard } from '../components/ui/GlassCard';
 import { Layout } from '../components/layout/Layout';
 import { useCartStore } from '../stores/cartStore';
 import { useProducts } from '../services';
+
+const CATEGORIES = [
+  { id: 'all', label: 'TODOS' },
+  { id: 'monitors', label: 'MONITORES' },
+  { id: 'keyboards', label: 'TECLADOS' },
+  { id: 'mice', label: 'MOUSES' },
+  { id: 'audio', label: 'ÁUDIO' },
+] as const;
 
 const SPEC_ICONS: Record<string, typeof Bolt> = {
   switches: Bolt,
