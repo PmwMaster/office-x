@@ -71,6 +71,8 @@ function BrandCard({ brand, compact }: { brand: typeof import('../types').Brand 
         <img
           src={brand.logo}
           alt={brand.name}
+          loading="lazy"
+          decoding="async"
           className="max-w-[80px] max-h-[80px] object-contain"
           onError={(e) => {
             (e.target as HTMLImageElement).src = '/images/products/placeholder.svg';

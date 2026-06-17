@@ -173,6 +173,8 @@ function RentalCard({
         <img
           src={equipment.image}
           alt={equipment.imageAlt}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />

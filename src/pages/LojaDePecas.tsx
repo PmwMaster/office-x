@@ -150,6 +150,8 @@ function ProductCard({ product, index }: { product: ProductItem; index: number }
         <img
           alt={product.imageAlt}
           src={product.image}
+          loading="lazy"
+          decoding="async"
           className={`${isEquipment ? 'w-full h-full' : 'w-48 h-48'} object-cover rounded-lg`}
         />
         {!isEquipment && (

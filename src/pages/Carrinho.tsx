@@ -77,6 +77,8 @@ export function Carrinho() {
                     <img
                       src={item.image}
                       alt={item.imageAlt}
+                      loading="lazy"
+                      decoding="async"
                       className="w-20 h-20 object-cover rounded"
                     />
                     <div className="flex-1 min-w-0">
@@ -177,6 +179,8 @@ export function Carrinho() {
                       <img
                         src={item.image}
                         alt={item.imageAlt}
+                        loading="lazy"
+                        decoding="async"
                         className="w-20 h-20 object-cover rounded"
                       />
                       <div className="flex-1 min-w-0">
