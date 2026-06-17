@@ -121,3 +121,15 @@ export interface RentalCartEntry {
   pickupDate: string;
   returnDate: string;
 }
+
+// ==================== BRAND TYPES ====================
+
+export interface Brand {
+  id: string;
+  name: string;
+  logo: string;
+  description: string;
+  category: string;
+  website: string;
+  featured: boolean;
+}

@@ -7,3 +7,4 @@ export {
   updateServiceOrderStatus,
 } from './orderService';
 export { useRentals } from './rentalService';
+export { useBrands } from './brandService';

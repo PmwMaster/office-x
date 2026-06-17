@@ -6,6 +6,7 @@ import { Servicos } from './pages/Servicos';
 import { AdminKanban } from './pages/AdminKanban';
 import { Carrinho } from './pages/Carrinho';
 import { LocacaoEquipamentos } from './pages/LocacaoEquipamentos';
+import { Marcas } from './pages/Marcas';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/loja" element={<LojaDePecas />} />
         <Route path="/servicos" element={<Servicos />} />
         <Route path="/equipamentos" element={<LocacaoEquipamentos />} />
+        <Route path="/marcas" element={<Marcas />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/meu-painel" element={<MeuPainel />} />
         <Route path="/pagamento" element={<PagamentoSeguro />} />

@@ -11,6 +11,7 @@ const NAV_LINKS: NavLink[] = [
   { path: '/loja', label: 'LOJA' },
   { path: '/servicos', label: 'SERVIÇOS' },
   { path: '/equipamentos', label: 'EQUIPAMENTOS' },
+  { path: '/marcas', label: 'MARCAS' },
   { path: '/admin', label: 'ADMIN' },
 ];
 
