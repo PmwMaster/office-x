@@ -3,25 +3,23 @@ import IMG from '../data/productImages';
 
 // ==================== PRODUCTS (Parts + Equipment) ====================
 
-// Imagens por categoria - placeholders com nome da categoria para peças,
-// imagens reais de produto para equipamentos
-const pc = (cat: string) =>
-  `https://dummyimage.com/600x400/0a0a0a/ccff00.png&text=OFFICE-X+${encodeURIComponent(cat.toUpperCase())}`;
+// Imagens por categoria - local SVGs para peças, imagens reais para equipamentos
+const pc = (cat: string) => `/images/products/cat-${cat}.svg`;
 
 const CAT_IMG: Record<string, string> = {
-  switches:     pc('switches'),
-  keycaps:      pc('keycaps'),
-  lubricants:   pc('lubrificantes'),
-  plates:       pc('plates'),
-  stabilizers:  pc('stabs'),
-  cables:       pc('cabos'),
-  keyboards:    IMG['keychron-q1-pro'],
-  mice:         IMG['razer-viper-v3-pro'],
-  monitors:     IMG['asus-pg32ucdm'],
-  audio:        IMG['beyerdynamic-dt900px'],
+  switches:        pc('switches'),
+  keycaps:         pc('keycaps'),
+  lubricants:      pc('lubricants'),
+  plates:          pc('plates'),
+  stabilizers:     pc('stabs'),
+  cables:          pc('cables'),
+  keyboards:       IMG['keychron-q1-pro'],
+  mice:            IMG['razer-viper-v3-pro'],
+  monitors:        IMG['asus-pg32ucdm'],
+  audio:           IMG['beyerdynamic-dt900px'],
 };
 
-const img = (cat: string) => CAT_IMG[cat] || `https://dummyimage.com/600x400/0a0a0a/ccff00.png&text=OFFICE-X`;
+const img = (cat: string) => CAT_IMG[cat] || '/images/products/placeholder.svg';
 
 // Override images for specific equipment products
 const pi = (key: string) => (IMG as Record<string, string>)[key] || img(key.split('-')[0]);

@@ -73,7 +73,7 @@ function BrandCard({ brand, compact }: { brand: typeof import('../types').Brand 
           alt={brand.name}
           className="max-w-[80px] max-h-[80px] object-contain"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = `https://dummyimage.com/200x200/0a0a0a/ccff00.png&text=${encodeURIComponent(brand.name.slice(0, 10))}`;
+            (e.target as HTMLImageElement).src = '/images/products/placeholder.svg';
           }}
         />
       </div>
