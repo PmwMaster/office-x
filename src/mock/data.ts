@@ -15,8 +15,8 @@ const CAT_IMG: Record<string, string> = {
   plates:       pc('plates'),
   stabilizers:  pc('stabs'),
   cables:       pc('cabos'),
-  keyboards:    IMG['wooting-80he'],
-  mice:         IMG['logitech-gpx2-dex'],
+  keyboards:    IMG['keychron-q1-pro'],
+  mice:         IMG['razer-viper-v3-pro'],
   monitors:     IMG['asus-pg32ucdm'],
   audio:        IMG['beyerdynamic-dt900px'],
 };
