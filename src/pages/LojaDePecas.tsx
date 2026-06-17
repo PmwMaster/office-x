@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   Bolt, Palette, FlaskConical, Cog, Scale, Cable, Check, Minus, Plus,
   Keyboard, Mouse, Monitor, Headphones,
@@ -25,17 +26,20 @@ const SPEC_ICONS: Record<string, typeof Bolt> = {
 };
 
 export function LojaDePecas() {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('q') || '';
   const [priceRange, setPriceRange] = useState(6000);
   const [activeCategory, setActiveCategory] = useState('all');
   const [inStockOnly, setInStockOnly] = useState(false);
   const [visibleCount, setVisibleCount] = useState(12);
   const { products, loading } = useProducts();
 
-  const filtered = products.filter((p) => {
+  const filtered = useMemo(() => products.filter((p) => {
+    if (query && !p.name.toLowerCase().includes(query.toLowerCase()) && !p.specs.toLowerCase().includes(query.toLowerCase())) return false;
     if (activeCategory !== 'all' && p.category !== activeCategory) return false;
     if (p.price > priceRange) return false;
     return true;
-  });
+  }), [products, query, activeCategory, priceRange]);
 
   const visible = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
@@ -102,6 +106,11 @@ export function LojaDePecas() {
         </aside>
 
         <section className="flex-1">
+          {query && (
+            <p className="text-body-lg text-on-surface-variant mb-6">
+              Resultados para: <span className="text-primary-fixed font-bold">"{query}"</span> — {filtered.length} produto{filtered.length !== 1 ? 's' : ''}
+            </p>
+          )}
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
               {Array.from({ length: 6 }).map((_, i) => (

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Search, ShoppingCart, User, LogOut } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Search, ShoppingCart, User, LogOut, X } from 'lucide-react';
 import { useCartStore } from '../../stores/cartStore';
 import { useAuthStore } from '../../stores/authStore';
 
@@ -19,11 +19,28 @@ const NAV_LINKS: NavLink[] = [
 
 export function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + '/');
   const totalItems = useCartStore((s) => s.getTotalItems());
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (searchOpen) inputRef.current?.focus();
+  }, [searchOpen]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/loja?q=${encodeURIComponent(searchTerm.trim())}`);
+      setSearchOpen(false);
+      setSearchTerm('');
+    }
+  };
 
   return (
     <header className="fixed top-0 w-full z-50 bg-surface/30 backdrop-blur-xl border-b border-white/10">
@@ -52,7 +69,26 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-6">
-          <Search size={24} className="text-on-surface-variant hover:text-primary cursor-pointer transition-colors" />
+          {searchOpen ? (
+            <form onSubmit={handleSearch} className="flex items-center gap-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Buscar..."
+                className="w-32 lg:w-48 bg-surface-container-lowest border-b border-white/10 text-on-surface text-label-md px-4 py-2 focus:outline-none focus:border-primary-fixed transition-all placeholder:text-white/20"
+              />
+              <button type="button" onClick={() => { setSearchOpen(false); setSearchTerm(''); }}>
+                <X size={20} className="text-on-surface-variant hover:text-primary transition-colors" />
+              </button>
+            </form>
+          ) : (
+            <button onClick={() => setSearchOpen(true)} aria-label="Buscar">
+              <Search size={24} className="text-on-surface-variant hover:text-primary cursor-pointer transition-colors" />
+            </button>
+          )}
+
           <Link to="/carrinho" className="relative" aria-label="Carrinho">
             <ShoppingCart size={24} className="text-on-surface-variant hover:text-primary cursor-pointer transition-colors" />
             {totalItems > 0 && (
