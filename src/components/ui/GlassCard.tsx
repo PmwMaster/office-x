@@ -1,18 +1,8 @@
 import { type ReactNode } from 'react';
 
-interface GlassCardProps {
-  children: ReactNode;
-  className?: string;
-  hover?: boolean;
-}
-
-export function GlassCard({ children, className = '', hover = true }: GlassCardProps) {
+export function GlassCard({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <div
-      className={`bg-surface/30 backdrop-blur-xl border border-white/5 rounded-2xl transition-all duration-300 ${
-        hover ? 'hover:border-white/10 hover:shadow-lg' : ''
-      } ${className}`}
-    >
+    <div className={`bg-white/[0.03] backdrop-blur-xl border border-white/5 rounded-2xl ${className}`}>
       {children}
     </div>
   );

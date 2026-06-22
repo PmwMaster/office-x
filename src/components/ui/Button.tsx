@@ -1,30 +1,16 @@
 import { type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'ghost';
   children: ReactNode;
 }
 
-const variants = {
-  primary: 'bg-primary-fixed text-on-primary-fixed hover:bg-primary-fixed/80',
-  secondary: 'border border-primary-fixed/30 text-primary hover:bg-primary-fixed/10',
-  ghost: 'text-on-surface-variant hover:text-primary hover:bg-white/5',
-  danger: 'bg-error/15 text-error hover:bg-error/25',
-};
-
-const sizes = {
-  sm: 'px-3 py-1.5 text-label-sm',
-  md: 'px-6 py-3 text-label-md',
-  lg: 'px-8 py-4 text-body-lg',
-};
-
-export function Button({ variant = 'primary', size = 'md', children, className = '', ...props }: ButtonProps) {
+export function Button({ variant = 'primary', children, className = '', ...props }: ButtonProps) {
+  const base = variant === 'primary'
+    ? 'bg-primary text-on-primary-fixed hover:bg-primary/80'
+    : 'text-on-surface-variant hover:text-primary hover:bg-white/5';
   return (
-    <button
-      className={`rounded-xl font-semibold uppercase tracking-wide transition-all duration-200 active:scale-95 ${variants[variant]} ${sizes[size]} ${className}`}
-      {...props}
-    >
+    <button className={`rounded-xl font-semibold uppercase tracking-wide text-sm px-6 py-3 transition-all duration-200 active:scale-95 ${base} ${className}`} {...props}>
       {children}
     </button>
   );
