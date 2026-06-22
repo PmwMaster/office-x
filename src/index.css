@@ -4,23 +4,23 @@
 @theme {
   /* ===================== COLORS ===================== */
   --color-primary: #ffffff;
-  --color-on-primary: #283500;
-  --color-primary-container: #c3f400;
-  --color-on-primary-container: #556d00;
-  --color-primary-fixed: #c3f400;
-  --color-primary-fixed-dim: #abd600;
-  --color-on-primary-fixed: #161e00;
-  --color-on-primary-fixed-variant: #3c4d00;
-  --color-inverse-primary: #506600;
+  --color-on-primary: #1a0033;
+  --color-primary-container: #9D00FF;
+  --color-on-primary-container: #2a0055;
+  --color-primary-fixed: #9D00FF;
+  --color-primary-fixed-dim: #7B00CC;
+  --color-on-primary-fixed: #0D0D0D;
+  --color-on-primary-fixed-variant: #3a0066;
+  --color-inverse-primary: #6600aa;
 
-  --color-secondary: #dfb7ff;
-  --color-on-secondary: #4b007e;
-  --color-secondary-container: #9d05ff;
-  --color-on-secondary-container: #f7e6ff;
-  --color-secondary-fixed: #f1daff;
-  --color-secondary-fixed-dim: #dfb7ff;
-  --color-on-secondary-fixed: #2d004f;
-  --color-on-secondary-fixed-variant: #6b00b0;
+  --color-secondary: #00CCFF;
+  --color-on-secondary: #002233;
+  --color-secondary-container: #0088AA;
+  --color-on-secondary-container: #e6f7ff;
+  --color-secondary-fixed: #00CCFF;
+  --color-secondary-fixed-dim: #00AADD;
+  --color-on-secondary-fixed: #001a22;
+  --color-on-secondary-fixed-variant: #005566;
 
   --color-tertiary: #ffffff;
   --color-on-tertiary: #313030;
@@ -40,15 +40,15 @@
   --color-surface-container-high: #2a2a2a;
   --color-surface-container-highest: #353534;
   --color-on-surface: #e5e2e1;
-  --color-on-surface-variant: #c4c9ac;
+  --color-on-surface-variant: #c4bbcc;
   --color-surface-variant: #353534;
-  --color-surface-tint: #abd600;
+  --color-surface-tint: #7B00CC;
 
   --color-background: #0D0D0D;
   --color-on-background: #e5e2e1;
 
-  --color-outline: #8e9379;
-  --color-outline-variant: #444933;
+  --color-outline: #8e8599;
+  --color-outline-variant: #443a4d;
 
   --color-inverse-surface: #e5e2e1;
   --color-inverse-on-surface: #313030;
@@ -135,12 +135,12 @@
     border-radius: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #444933;
+    background: #443a4d;
   }
 
   *::selection {
-    background-color: #c3f400;
-    color: #161e00;
+    background-color: #9D00FF;
+    color: #ffffff;
   }
 }
 
@@ -151,68 +151,22 @@
   -webkit-backdrop-filter: blur(20px);
 }
 
-@utility light-leak-border {
-  border: 1px solid;
-  border-image-source: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-  border-image-slice: 1;
-}
-
-@utility input-focus-gradient {
-  &:focus {
-    outline: none;
-    border-bottom: 2px solid;
-    border-image-source: linear-gradient(90deg, #9D00FF, #CCFF00);
-    border-image-slice: 1;
-  }
+@utility glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 @utility neon-glow {
-  box-shadow: 0 0 20px rgba(204, 255, 0, 0.15);
+  box-shadow: 0 0 20px rgba(157, 0, 255, 0.15);
 }
 
 @utility neon-pulse {
   animation: neonPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@utility floating-animation {
-  animation: float 6s ease-in-out infinite;
-}
-
-@utility step-line {
-  height: 2px;
-  background: rgba(255, 255, 255, 0.1);
-  flex-grow: 1;
-  margin: 0 1rem;
-}
-
-@utility step-line-active {
-  background: #c3f400;
-}
-
-@utility status-pill {
-  background: rgba(157, 0, 255, 0.1);
-  border: 1px solid #9D00FF;
-  color: #ffffff;
-  font-family: var(--font-family-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  padding: 4px 12px;
-  border-radius: 2px;
-}
-
-/* Performance: skip rendering off-screen product cards */
-.product-grid > * {
-  content-visibility: auto;
-  contain-intrinsic-size: 480px;
-}
-
-/* ===================== KEYFRAMES ===================== */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
 @keyframes neonPulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 10px #c3f400; }
-  50% { opacity: 0.6; box-shadow: 0 0 20px #c3f400; }
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px #9D00FF; }
+  50% { opacity: 0.6; box-shadow: 0 0 20px #9D00FF; }
 }

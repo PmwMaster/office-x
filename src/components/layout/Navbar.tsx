@@ -10,9 +10,8 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
-  { path: '/loja', label: 'LOJA' },
+  { path: '/loja', label: 'HEADPHONES' },
   { path: '/servicos', label: 'SERVIÇOS' },
-  { path: '/locacao', label: 'LOCAÇÃO' },
   { path: '/marcas', label: 'MARCAS' },
   { path: '/admin', label: 'ADMIN' },
 ];

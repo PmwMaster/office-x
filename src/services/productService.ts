@@ -1,8 +1,8 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { ProductItem } from '../types';
-import { ICECAT_PRODUCTS } from '../data/icecat-catalog';
+import { HEADSET_PRODUCTS } from '../data/headset-catalog';
 
-const MOCK_PRODUCTS = ICECAT_PRODUCTS as ProductItem[];
+const MOCK_PRODUCTS = HEADSET_PRODUCTS as ProductItem[];
 
 export async function fetchProducts(): Promise<ProductItem[]> {
   if (!isSupabaseConfigured() || !supabase) return MOCK_PRODUCTS;

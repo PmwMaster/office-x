@@ -40,7 +40,7 @@ export function Footer() {
           ))}
         </div>
         <div className="text-label-md uppercase text-on-surface-variant text-center md:text-right">
-          &copy; 2024 OFFICE-X PERIPHERALS. TODOS OS DIREITOS RESERVADOS.
+          &copy; 2026 OFFICE-X AUDIO. TODOS OS DIREITOS RESERVADOS.
         </div>
       </div>
     </footer>

@@ -3,7 +3,7 @@ import { MainLayout } from '../components/layout/MainLayout';
 import { ProductGrid } from '../components/product';
 import { Input } from '../components/ui';
 import { useProducts } from '../hooks';
-import { CATEGORIES } from '../mock/data';
+import { HEADSET_CATEGORIES } from '../data/headset-catalog';
 
 export function Loja() {
   const { products, loading } = useProducts();
@@ -38,7 +38,7 @@ export function Loja() {
             className="bg-surface-container-lowest border border-white/5 rounded-xl px-4 py-3 text-on-surface text-label-md focus:outline-none focus:border-primary-fixed/30"
           >
             <option value="all">Todas as categorias</option>
-            {CATEGORIES.map((c) => (
+            {HEADSET_CATEGORIES.map((c) => (
               <option key={c.id} value={c.id}>{c.label}</option>
             ))}
           </select>

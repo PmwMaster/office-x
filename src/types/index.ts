@@ -11,7 +11,6 @@ export interface ProductItem {
 }
 
 export type ProductCategory = 'headsets' | 'earpads' | 'cables' | 'amps' | 'microphones' | 'accessories';
-
 export interface ServiceItem {
   id: string;
   name: string;

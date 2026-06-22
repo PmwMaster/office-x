@@ -1,13 +1,13 @@
 export const COLORS = {
   background: '#0D0D0D',
   surface: 'rgba(255,255,255,0.03)',
-  primary: '#CCFF00',
-  'primary-fixed': '#CCFF00',
-  'primary-fixed-dim': 'rgba(204,255,0,0.6)',
+  primary: '#9D00FF',
+  'primary-fixed': '#9D00FF',
+  'primary-fixed-dim': 'rgba(157,0,255,0.6)',
   'on-primary-fixed': '#0D0D0D',
-  secondary: '#9D00FF',
-  'secondary-fixed': '#9D00FF',
-  'secondary-container': 'rgba(157,0,255,0.15)',
+  secondary: '#00CCFF',
+  'secondary-fixed': '#00CCFF',
+  'secondary-container': 'rgba(0,204,255,0.15)',
   'on-surface': '#FFFFFF',
   'on-surface-variant': 'rgba(255,255,255,0.6)',
   'surface-container-lowest': 'rgba(255,255,255,0.02)',
@@ -33,7 +33,7 @@ export const RADIUS = {
 
 export const SHADOWS = {
   glass: '0 8px 32px rgba(0,0,0,0.4)',
-  glow: '0 0 24px rgba(204,255,0,0.15)',
+  glow: '0 0 24px rgba(157,0,255,0.15)',
   elevated: '0 16px 48px rgba(0,0,0,0.6)',
 } as const;
 
@@ -56,11 +56,11 @@ export const TYPOGRAPHY = {
 } as const;
 
 export const HEADPHONE_PARTS = [
-  { id: 'earcushions', label: 'Almofadas', color: '#CCFF00', description: 'Espuma viscoelástica com revestimento de veludo' },
-  { id: 'earcups', label: 'Conchas', color: '#9D00FF', description: 'Alumínio CNC anodizado com isolamento acústico' },
+  { id: 'earcushions', label: 'Almofadas', color: '#9D00FF', description: 'Espuma viscoelástica com revestimento de veludo' },
+  { id: 'earcups', label: 'Conchas', color: '#00CCFF', description: 'Alumínio CNC anodizado com isolamento acústico' },
   { id: 'drivers', label: 'Drivers', color: '#FF6600', description: 'Planar magnético 100mm com ímãs de neodímio' },
-  { id: 'headband', label: 'Arco', color: '#00CCFF', description: 'Aço spring com suspensão auto-ajustável' },
-  { id: 'microphone', label: 'Microfone', color: '#FF0066', description: 'Condensador cardioide com filtro pop integrado' },
+  { id: 'headband', label: 'Arco', color: '#FF0066', description: 'Aço spring com suspensão auto-ajustável' },
+  { id: 'microphone', label: 'Microfone', color: '#00FF88', description: 'Condensador cardioide com filtro pop integrado' },
 ] as const;
 
 export const HERO_SCROLL_STEPS = [
