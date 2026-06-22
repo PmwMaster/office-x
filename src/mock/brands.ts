@@ -1,13 +1,13 @@
 import type { Brand } from '../types';
 
-const logo = (domain: string) => `https://logo.clearbit.com/${domain}?size=200`;
+const logo = (name: string) => `/images/products/brand-${name.toLowerCase().replace(/\s+/g, '-')}.svg`;
 
 export const BRANDS: Brand[] = [
   // ===== GAMING PERIPHERALS =====
   {
     id: 'br-001',
     name: 'AMD Ryzen',
-    logo: logo('amd.com'),
+    logo: logo('amd-ryzen'),
     description: 'Processadores de alto desempenho para gamers e criadores. A linha Ryzen domina o mercado com arquitetura Zen e gráficos Radeon integrados.',
     category: 'Processadores',
     website: 'https://www.amd.com',
@@ -16,7 +16,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-002',
     name: 'Logitech G',
-    logo: logo('logitechg.com'),
+    logo: logo('logitech-g'),
     description: 'Divisão gamer da Logitech. Líder global em mouses, teclados, headsets e volantes com tecnologia LIGHTSPEED e sensores HERO.',
     category: 'Periféricos',
     website: 'https://www.logitechg.com',
@@ -25,7 +25,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-003',
     name: 'Razer',
-    logo: logo('razer.com'),
+    logo: logo('razer'),
     description: 'Estilo de vida gamer. A Razer produz mouses, teclados, headsets e laptops de elite com RGB Chroma e switches ópticos de 3ª geração.',
     category: 'Periféricos',
     website: 'https://www.razer.com',
@@ -34,7 +34,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-004',
     name: 'ASUS ROG',
-    logo: logo('asus.com'),
+    logo: logo('asus-rog'),
     description: 'Republic of Gamers — a divisão premium da ASUS. Placas-mãe, GPUs, monitores OLED, teclados Azoth e laptops de alto desempenho.',
     category: 'Hardware & Periféricos',
     website: 'https://rog.asus.com',
@@ -43,7 +43,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-005',
     name: 'Corsair',
-    logo: logo('corsair.com'),
+    logo: logo('corsair'),
     description: 'Componentes e periféricos de elite. Teclados magnéticos MGX, mouses ultraleves, memória RAM Dominator e fontes RMx.',
     category: 'Hardware & Periféricos',
     website: 'https://www.corsair.com',
@@ -52,7 +52,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-006',
     name: 'Samsung',
-    logo: logo('samsung.com'),
+    logo: logo('samsung'),
     description: 'Gigante coreana de tecnologia. Monitores Odyssey OLED, SSDs 990 Pro NVMe, e smartphones Galaxy de última geração.',
     category: 'Monitores & Armazenamento',
     website: 'https://www.samsung.com',
@@ -62,7 +62,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-007',
     name: 'Wooting',
-    logo: logo('wooting.io'),
+    logo: logo('wooting'),
     description: 'Revolucionou o mercado com teclados Hall Effect de resposta instantânea. Rapid Trigger, Rappy Snappy e True 8KHz polling.',
     category: 'Teclados',
     website: 'https://wooting.io',
@@ -71,7 +71,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-008',
     name: 'Keychron',
-    logo: logo('keychron.com'),
+    logo: logo('keychron'),
     description: 'Teclados mecânicos wireless premium com QMK/VIA. De low-profile a HE magnéticos, a Keychron define o padrão de custom keyboards.',
     category: 'Teclados',
     website: 'https://www.keychron.com',
@@ -80,7 +80,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-009',
     name: 'NuPhy',
-    logo: logo('nuphy.com'),
+    logo: logo('nuphy'),
     description: 'Teclados low-profile de design refinado com switches magnéticos Hall Effect. A série Air redefine a experiência de digitação slim.',
     category: 'Teclados',
     website: 'https://nuphy.com',
@@ -90,7 +90,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-010',
     name: 'Pulsar',
-    logo: logo('pulsar.gg'),
+    logo: logo('pulsar'),
     description: 'Mouses ultraleves para esports. Sensores XS-1 de 32K DPI, 4KHz wireless e shapes ergonômicos desenhados por pro players.',
     category: 'Mouses',
     website: 'https://www.pulsar.gg',
@@ -99,7 +99,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-011',
     name: 'Finalmouse',
-    logo: logo('finalmouse.com'),
+    logo: logo('finalmouse'),
     description: 'Mouses de colecionador em fibra de carbono. A série UltralightX pesa apenas 29g e redefine o conceito de mouse competitivo.',
     category: 'Mouses',
     website: 'https://finalmouse.com',
@@ -108,7 +108,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-012',
     name: 'Lamzu',
-    logo: logo('lamzu.com'),
+    logo: logo('lamzu'),
     description: 'Mouses ultraleves de engenharia precisa. Maya X com PAW3950 e apenas 47g é referência em tracking para FPS competitivo.',
     category: 'Mouses',
     website: 'https://lamzu.com',
@@ -117,7 +117,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-013',
     name: 'Attack Shark',
-    logo: logo('attackshark.com'),
+    logo: logo('attack-shark'),
     description: 'Periféricos gamer de alto custo-benefício. Mouses leves com sensores PAW, teclados mecânicos e headsets para todos os níveis.',
     category: 'Periféricos',
     website: 'https://attackshark.com',
@@ -126,7 +126,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-014',
     name: 'Endgame Gear',
-    logo: logo('endgamegear.com'),
+    logo: logo('endgame-gear'),
     description: 'Engenharia alemã para esports. O OP1 8K é referência em mouses com fio de baixíssima latência para competitivo extremo.',
     category: 'Mouses',
     website: 'https://www.endgamegear.com',
@@ -136,7 +136,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-015',
     name: 'Beyerdynamic',
-    logo: logo('beyerdynamic.com'),
+    logo: logo('beyerdynamic'),
     description: 'Referência em áudio profissional desde 1924. Fones DT 900 Pro X com drivers STELLAR.45 entregam som de estúdio para gamers.',
     category: 'Áudio',
     website: 'https://www.beyerdynamic.com',
@@ -145,7 +145,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-016',
     name: 'Sennheiser',
-    logo: logo('sennheiser.com'),
+    logo: logo('sennheiser'),
     description: 'Excelência alemã em áudio. HD 660S2 com transdutores de 42mm e resposta de 8Hz a 51kHz é o fone definitivo para audiófilos.',
     category: 'Áudio',
     website: 'https://www.sennheiser.com',
@@ -154,7 +154,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-017',
     name: 'Audeze',
-    logo: logo('audeze.com'),
+    logo: logo('audeze'),
     description: 'Áudio planar magnético de elite. O Maxwell 2 é o headset gamer com a melhor qualidade de som do mercado, certificado para Xbox e PS.',
     category: 'Áudio',
     website: 'https://www.audeze.com',
@@ -163,7 +163,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-018',
     name: 'Shure',
-    logo: logo('shure.com'),
+    logo: logo('shure'),
     description: 'O padrão da indústria em microfones. O SM7B é o microfone dinâmico usado por todos os grandes podcasters e streamers do mundo.',
     category: 'Áudio',
     website: 'https://www.shure.com',
@@ -173,7 +173,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-019',
     name: 'LG UltraGear',
-    logo: logo('lg.com'),
+    logo: logo('lg-ultragear'),
     description: 'Monitores gaming de elite com painéis OLED dual-mode. O 32GS95UE alterna entre 4K 240Hz e 1080p 480Hz com um clique.',
     category: 'Monitores',
     website: 'https://www.lg.com',
@@ -182,7 +182,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-020',
     name: 'BenQ',
-    logo: logo('benq.com'),
+    logo: logo('benq'),
     description: 'Monitores profissionais para designers e criadores. O PD3225U com IPS Black e 98% DCI-P3 é calibrado de fábrica com Delta E < 2.',
     category: 'Monitores',
     website: 'https://www.benq.com',
@@ -192,7 +192,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-021',
     name: 'Audio-Technica',
-    logo: logo('audio-technica.com'),
+    logo: logo('audio-technica'),
     description: 'Ícone japonês do áudio. O ATH-M50x é o fone de monitoramento mais vendido do mundo, usado em estúdios profissionais desde 2007.',
     category: 'Áudio',
     website: 'https://www.audio-technica.com',
@@ -201,7 +201,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-022',
     name: 'Moondrop',
-    logo: logo('moondrop.com'),
+    logo: logo('moondrop'),
     description: 'Excelência chinesa em IEMs. O Blessing 3 com configuração híbrida 2DD+4BA entrega palco sonoro de fones que custam 3x mais.',
     category: 'Áudio',
     website: 'https://www.moondrop.com',
@@ -210,7 +210,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-023',
     name: 'FiiO',
-    logo: logo('fiio.com'),
+    logo: logo('fiio'),
     description: 'DACs e amplificadores portáteis de referência. O KA17 com chip ES9069Q e saída balanceada 4.4mm eleva o áudio de qualquer dispositivo.',
     category: 'Áudio',
     website: 'https://www.fiio.com',
@@ -220,7 +220,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-024',
     name: 'Cherry MX',
-    logo: logo('cherrymx.de'),
+    logo: logo('cherry-mx'),
     description: 'A origem dos switches mecânicos. Cherry MX Red, Brown e Blue são os switches que definiram o padrão da indústria de teclados.',
     category: 'Switches',
     website: 'https://www.cherrymx.de',
@@ -229,7 +229,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-025',
     name: 'Gateron',
-    logo: logo('gateron.com'),
+    logo: logo('gateron'),
     description: 'Switches premium com variedade imensa. Black Ink V2, Oil King, Milky Yellow Pro — a Gateron é a favorita da comunidade custom.',
     category: 'Switches',
     website: 'https://www.gateron.com',
@@ -238,7 +238,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-026',
     name: 'GMK',
-    logo: logo('gmk-electronic-design.com'),
+    logo: logo('gmk'),
     description: 'Keycaps de luxo em ABS double-shot fabricadas na Alemanha. Sets como Olivia++, Botanical e Dracula são objetos de desejo.',
     category: 'Keycaps',
     website: 'https://www.gmk-electronic-design.com',
@@ -247,7 +247,7 @@ export const BRANDS: Brand[] = [
   {
     id: 'br-027',
     name: 'Krytox',
-    logo: logo('chemours.com'),
+    logo: logo('krytox'),
     description: 'Lubrificantes de nível aeroespacial. Krytox GPL 205g0 é o padrão ouro para lubrificar switches e stabilizers no hobby de teclados.',
     category: 'Lubrificantes',
     website: 'https://www.chemours.com',

@@ -12,7 +12,7 @@ interface NavLink {
 const NAV_LINKS: NavLink[] = [
   { path: '/loja', label: 'LOJA' },
   { path: '/servicos', label: 'SERVIÇOS' },
-  { path: '/equipamentos', label: 'EQUIPAMENTOS' },
+  { path: '/locacao', label: 'LOCAÇÃO' },
   { path: '/marcas', label: 'MARCAS' },
   { path: '/admin', label: 'ADMIN' },
 ];
@@ -106,7 +106,7 @@ export function Navbar() {
               >
                 <User size={18} />
                 <span className="hidden lg:inline truncate max-w-[100px]">
-                  {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                  {user.name || user.email?.split('@')[0]}
                 </span>
               </button>
               {menuOpen && (

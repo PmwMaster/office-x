@@ -1,19 +1,36 @@
 import { PackageCheck, AlertTriangle, Plus, PackageSearch, CheckCircle } from 'lucide-react';
-import type { ServiceOrder } from '../types';
-import { KPI_DATA, KANBAN_COLUMNS } from '../mock/data';
+import type { ServiceOrder, OSPriority } from '../types';
+import { KANBAN_COLUMNS } from '../mock/data';
 import { Layout } from '../components/layout/Layout';
 import { useServiceOrders } from '../services';
 
+function computeKPI(orders: ServiceOrder[]) {
+  const openOrders = orders.filter(o => o.status !== 'done').length;
+  const delayedOrders = orders.filter(o => o.status === 'waiting_parts' || o.status === 'triage').length;
+  const completedOrders = orders.filter(o => o.status === 'done').length;
+  const openOrdersChange = orders.length > 0 ? Math.round((openOrders / orders.length) * 100) : 0;
+  return { openOrders, openOrdersChange, delayedOrders, completedOrders };
+}
+
+const STATUS_PRIORITY: Record<string, number> = { triage: 0, waiting_parts: 1, modding_bench: 2, done: 3 };
+const PRIORITY_SORT: Record<OSPriority, number> = { urgent: 0, warranty: 1, normal: 2 };
+
 export function AdminKanban() {
   const { orders, loading } = useServiceOrders();
+  const sorted = [...orders].sort((a, b) => {
+    const s = (STATUS_PRIORITY[a.status] ?? 9) - (STATUS_PRIORITY[b.status] ?? 9);
+    if (s !== 0) return s;
+    return (PRIORITY_SORT[a.priority] ?? 9) - (PRIORITY_SORT[b.priority] ?? 9);
+  });
+  const kpi = computeKPI(orders);
   return (
     <Layout>
       {/* KPI Header */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-16">
         <KPICard
           label="O.S. Abertas"
-          value={KPI_DATA.openOrders}
-          change={`+${KPI_DATA.openOrdersChange}%`}
+          value={kpi.openOrders}
+          change={`+${kpi.openOrdersChange}%`}
           changeColor="text-primary-fixed-dim"
           barColor="bg-primary-fixed"
           barWidth="w-2/3"
@@ -22,7 +39,7 @@ export function AdminKanban() {
         />
         <KPICard
           label="O.S. Atrasadas"
-          value={KPI_DATA.delayedOrders}
+          value={kpi.delayedOrders}
           change="Crítico"
           changeColor="text-error"
           barColor="bg-error"
@@ -33,7 +50,7 @@ export function AdminKanban() {
         />
         <KPICard
           label="O.S. Concluídas"
-          value={KPI_DATA.completedOrders}
+          value={kpi.completedOrders}
           change="Unidades"
           changeColor="text-on-surface-variant"
           barColor="bg-secondary-container"
@@ -57,7 +74,7 @@ export function AdminKanban() {
               title={col.label}
               count={col.count}
               color={col.color}
-              orders={orders.filter((o) => o.status === col.id)}
+              orders={sorted.filter((o) => o.status === col.id)}
             />
           ))}
         </div>

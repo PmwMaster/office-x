@@ -1,10 +1,5 @@
-export { useProducts } from './productService';
-export { useServices } from './serviceService';
-export {
-  useServiceOrders,
-  usePurchaseHistory,
-  createServiceOrder,
-  updateServiceOrderStatus,
-} from './orderService';
-export { useRentals } from './rentalService';
-export { useBrands } from './brandService';
+export { fetchProducts, fetchProductById } from './productService';
+export { fetchServices } from './serviceService';
+export { fetchServiceOrders, fetchPurchaseHistory, createServiceOrder, updateServiceOrderStatus } from './orderService';
+export { fetchRentals } from './rentalService';
+export { fetchBrands } from './brandService';

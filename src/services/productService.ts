@@ -1,50 +1,52 @@
-import { useEffect, useState, useCallback } from 'react';
-import { supabase, isSupabaseReady } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { ProductItem } from '../types';
 import { ICECAT_PRODUCTS } from '../data/icecat-catalog';
 
-const ALL_PRODUCTS = ICECAT_PRODUCTS as ProductItem[];
+const MOCK_PRODUCTS = ICECAT_PRODUCTS as ProductItem[];
 
-export function useProducts() {
-  const [products, setProducts] = useState<ProductItem[]>(ALL_PRODUCTS);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export async function fetchProducts(): Promise<ProductItem[]> {
+  if (!isSupabaseConfigured() || !supabase) return MOCK_PRODUCTS;
 
-  const fetchProducts = useCallback(async () => {
-    if (!isSupabaseReady()) {
-      setProducts(ALL_PRODUCTS);
-      setLoading(false);
-      return;
-    }
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .order('category');
 
-    setLoading(true);
-    const { data, error } = await supabase!
-      .from('products')
-      .select('*')
-      .order('category');
+  if (error || !data) return MOCK_PRODUCTS;
 
-    if (error) {
-      setError(error.message);
-    } else if (data) {
-      setProducts(
-        data.map((row) => ({
-          id: row.id,
-          name: row.name,
-          price: Number(row.price),
-          type: 'sale' as const,
-          specs: row.specs,
-          image: row.image,
-          imageAlt: row.image_alt,
-          category: row.category as ProductItem['category'],
-        })),
-      );
-    }
-    setLoading(false);
-  }, []);
+  return data.map((row) => ({
+    id: row.id,
+    name: row.name,
+    price: Number(row.price),
+    type: 'sale' as const,
+    specs: row.specs,
+    image: row.image,
+    imageAlt: row.image_alt,
+    category: row.category as ProductItem['category'],
+  }));
+}
 
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+export async function fetchProductById(id: string): Promise<ProductItem | null> {
+  if (!isSupabaseConfigured() || !supabase) {
+    return MOCK_PRODUCTS.find((p) => p.id === id) ?? null;
+  }
 
-  return { products, loading, error, refetch: fetchProducts };
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error || !data) return MOCK_PRODUCTS.find((p) => p.id === id) ?? null;
+
+  return {
+    id: data.id,
+    name: data.name,
+    price: Number(data.price),
+    type: 'sale' as const,
+    specs: data.specs,
+    image: data.image,
+    imageAlt: data.image_alt,
+    category: data.category as ProductItem['category'],
+  };
 }

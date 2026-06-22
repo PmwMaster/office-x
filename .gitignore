@@ -26,3 +26,6 @@ dist-ssr
 
 .vercel
 scripts/icecat-index.xml
+scripts/tmp
+supabase/.temp
+fonesite.mp4

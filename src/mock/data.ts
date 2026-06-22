@@ -1,4 +1,4 @@
-import type { ProductItem, ServiceItem, ServiceOrder, KPIStats, ProgressStep, PurchaseHistory, Invoice, RentalItem } from '../types';
+import type { ProductItem, ServiceItem, ServiceOrder, KPIStats, ProgressStep, PurchaseHistory, RentalItem } from '../types';
 import IMG from '../data/productImages';
 
 // ==================== PRODUCTS (Parts + Equipment) ====================

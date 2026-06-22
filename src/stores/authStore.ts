@@ -1,10 +1,5 @@
 import { create } from 'zustand';
-
-interface AuthUser {
-  id: string;
-  email?: string;
-  name?: string;
-}
+import type { AuthUser } from '../types';
 
 interface AuthState {
   user: AuthUser | null;
@@ -16,15 +11,13 @@ interface AuthState {
   logout: () => Promise<void>;
 }
 
-// Lightweight mock auth for development (no Supabase weight)
-// Replace with Supabase Auth in production via .env flag
 async function getClient() {
-  const { supabase, isSupabaseReady } = await import('../lib/supabase');
-  if (!isSupabaseReady()) return null;
+  const { supabase, isSupabaseConfigured } = await import('../lib/supabase');
+  if (!isSupabaseConfigured()) return null;
   return supabase;
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   loading: true,
   error: null,
@@ -33,7 +26,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const client = await getClient();
     if (!client) { set({ loading: false }); return; }
     const { data } = await client.auth.getSession();
-    set({ user: data.session?.user ? { id: data.session.user.id, email: data.session.user.email, name: data.session.user.user_metadata?.full_name } : null, loading: false });
+    set({
+      user: data.session?.user ? { id: data.session.user.id, email: data.session.user.email, name: data.session.user.user_metadata?.full_name } : null,
+      loading: false,
+    });
     client.auth.onAuthStateChange((_event, session) => {
       set({ user: session?.user ? { id: session.user.id, email: session.user.email, name: session.user.user_metadata?.full_name } : null });
     });

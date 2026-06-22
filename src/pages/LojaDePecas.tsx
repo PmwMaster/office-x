@@ -133,8 +133,8 @@ export function LojaDePecas() {
           ) : (
             <>
               <div className="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-                {visible.map((product, i) => (
-                  <ProductCard key={product.id} product={product} index={i} />
+                {visible.map((product) => (
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
               {visible.length === 0 ? (
@@ -159,7 +159,7 @@ export function LojaDePecas() {
   );
 }
 
-function ProductCard({ product, index }: { product: ProductItem; index: number }) {
+function ProductCard({ product }: { product: ProductItem }) {
   const addProduct = useCartStore((s) => s.addProduct);
   const products = useCartStore((s) => s.products);
   const increaseQty = useCartStore((s) => s.increaseProductQty);

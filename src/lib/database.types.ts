@@ -176,9 +176,74 @@ export interface Database {
           items?: Json;
         };
       };
+      rentals: {
+        Row: {
+          id: string;
+          name: string;
+          price_per_day: number;
+          status: string;
+          specs: string;
+          image: string;
+          image_alt: string;
+          category: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          price_per_day: number;
+          status: string;
+          specs: string;
+          image: string;
+          image_alt: string;
+          category: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          price_per_day?: number;
+          status?: string;
+          specs?: string;
+          image?: string;
+          image_alt?: string;
+          category?: string;
+        };
+      };
+      brands: {
+        Row: {
+          id: string;
+          name: string;
+          logo: string;
+          description: string;
+          category: string;
+          website: string;
+          featured: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          logo: string;
+          description: string;
+          category: string;
+          website: string;
+          featured: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          logo?: string;
+          description?: string;
+          category?: string;
+          website?: string;
+          featured?: boolean;
+        };
+      };
     };
-    Views: {};
-    Functions: {};
-    Enums: {};
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
+    Enums: Record<string, never>;
   };
 }

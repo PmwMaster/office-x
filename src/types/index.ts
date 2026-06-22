@@ -1,5 +1,3 @@
-// ==================== DOMAIN TYPES (Supabase-Ready) ====================
-
 export interface ProductItem {
   id: string;
   name: string;
@@ -8,8 +6,11 @@ export interface ProductItem {
   specs: string;
   image: string;
   imageAlt: string;
-  category: 'switches' | 'keycaps' | 'lubricants' | 'plates' | 'stabilizers' | 'cables' | 'keyboards' | 'mice' | 'monitors' | 'audio';
+  category: ProductCategory;
+  brand?: string;
 }
+
+export type ProductCategory = 'headsets' | 'earpads' | 'cables' | 'amps' | 'microphones' | 'accessories';
 
 export interface ServiceItem {
   id: string;
@@ -19,16 +20,19 @@ export interface ServiceItem {
   peripheral_model: string;
   type: 'service';
   description: string;
-  category: 'maintenance' | 'customization' | 'assembly';
+  category: ServiceCategory;
   image?: string;
   imageAlt?: string;
   details: string[];
 }
 
+export type ServiceCategory = 'maintenance' | 'customization' | 'assembly';
+
 export type CartItem = ProductItem | ServiceItem;
 
-// ==================== ADMIN TYPES ====================
 export type OSPriority = 'normal' | 'urgent' | 'warranty';
+
+export type OSStatus = 'triage' | 'waiting_parts' | 'modding_bench' | 'done';
 
 export interface ServiceOrder {
   id: string;
@@ -49,8 +53,6 @@ export interface KPIStats {
   completedOrders: number;
 }
 
-// ==================== DASHBOARD TYPES ====================
-
 export interface ProgressStep {
   label: string;
   active: boolean;
@@ -67,8 +69,6 @@ export interface PurchaseHistory {
   iconColor: string;
 }
 
-// ==================== PAYMENT TYPES ====================
-
 export type PaymentMethod = 'credit' | 'pix';
 
 export interface InvoiceItem {
@@ -82,8 +82,6 @@ export interface Invoice {
   total: number;
 }
 
-// ==================== RENTAL TYPES ====================
-
 export interface RentalItem {
   id: string;
   name: string;
@@ -92,7 +90,7 @@ export interface RentalItem {
   specs: string;
   image: string;
   imageAlt: string;
-  category: 'keyboards' | 'mice' | 'monitors' | 'audio';
+  category: ProductCategory;
   type: 'rental';
 }
 
@@ -102,8 +100,6 @@ export interface RentalCartEntry {
   returnDate: string;
 }
 
-// ==================== BRAND TYPES ====================
-
 export interface Brand {
   id: string;
   name: string;
@@ -112,4 +108,21 @@ export interface Brand {
   category: string;
   website: string;
   featured: boolean;
+}
+
+export interface AuthUser {
+  id: string;
+  email?: string;
+  name?: string;
+}
+
+export interface CartProductEntry {
+  product: ProductItem;
+  quantity: number;
+}
+
+export interface CartState {
+  products: CartProductEntry[];
+  services: ServiceItem[];
+  rentals: RentalCartEntry[];
 }

@@ -1,22 +1,17 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
+interface GlassCardProps {
   children: ReactNode;
+  className?: string;
   hover?: boolean;
-  padding?: 'sm' | 'md' | 'lg';
 }
 
-export function GlassCard({ children, className = '', hover = true, padding = 'md', ...props }: GlassCardProps) {
-  const pads: Record<string, string> = {
-    sm: 'p-4',
-    md: 'p-6',
-    lg: 'p-8',
-  };
-
+export function GlassCard({ children, className = '', hover = true }: GlassCardProps) {
   return (
     <div
-      className={`glass-surface light-leak-border rounded-xl ${pads[padding]} ${hover ? 'hover:bg-white/[0.05] transition-all duration-500' : ''} ${className}`}
-      {...props}
+      className={`bg-surface/30 backdrop-blur-xl border border-white/5 rounded-2xl transition-all duration-300 ${
+        hover ? 'hover:border-white/10 hover:shadow-lg' : ''
+      } ${className}`}
     >
       {children}
     </div>

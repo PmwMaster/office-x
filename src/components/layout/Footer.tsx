@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 const FOOTER_LINKS = [
   { path: '/privacidade', label: 'PRIVACIDADE' },
   { path: '/termos', label: 'TERMOS' },
-  { path: '/discord', label: 'DISCORD' },
-  { path: '/instagram', label: 'INSTAGRAM' },
+] as const;
+
+const FOOTER_EXTERNAL = [
+  { href: 'https://discord.gg/officex', label: 'DISCORD' },
+  { href: 'https://instagram.com/officex', label: 'INSTAGRAM' },
 ];
 
 export function Footer() {
@@ -23,6 +26,17 @@ export function Footer() {
             >
               {link.label}
             </Link>
+          ))}
+          {FOOTER_EXTERNAL.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-label-md uppercase text-on-surface-variant hover:text-secondary-fixed transition-colors opacity-80 hover:opacity-100"
+            >
+              {link.label}
+            </a>
           ))}
         </div>
         <div className="text-label-md uppercase text-on-surface-variant text-center md:text-right">
