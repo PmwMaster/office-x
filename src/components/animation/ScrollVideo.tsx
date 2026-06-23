@@ -1,83 +1,66 @@
 import { useRef, useEffect } from 'react';
 
-interface ScrollVideoProps {
-  src: string;
-  children?: React.ReactNode;
-}
-
-export function ScrollVideo({ src, children }: ScrollVideoProps) {
+export function ScrollVideo({ src, children }: { src: string; children?: React.ReactNode }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
-  const frame = useRef({ current: 0, target: 0 });
-  const raf = useRef(0);
 
   useEffect(() => {
     const video = videoRef.current;
-    const sticky = stickyRef.current;
     const container = containerRef.current;
+    const sticky = stickyRef.current;
     if (!video || !sticky || !container) return;
 
-    let videoDuration = 0;
+    let duration = 0;
+    let ticking = false;
 
-    const onLoaded = () => {
-      videoDuration = video.duration;
+    video.addEventListener('loadedmetadata', () => {
+      duration = video.duration;
       video.pause();
-    };
-    video.addEventListener('loadeddata', onLoaded);
+      video.currentTime = 0;
+    }, { once: true });
 
-    const tick = () => {
-      const f = frame.current;
-      const diff = f.target - f.current;
-      f.current += diff * 0.12;
-      if (videoDuration > 0) {
-        video.currentTime = f.current * videoDuration;
-      }
-      sticky.style.opacity = String(1);
-      raf.current = requestAnimationFrame(tick);
+    const update = () => {
+      if (duration === 0) { ticking = false; return; }
+      const rect = container.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      const maxScroll = rect.height - viewH;
+      const scrolled = Math.max(0, -rect.top);
+      const progress = maxScroll <= 0 ? 1 : Math.min(1, scrolled / maxScroll);
+      video.currentTime = progress * duration;
+      ticking = false;
     };
 
     const onScroll = () => {
-      const rect = container.getBoundingClientRect();
-      const viewH = window.innerHeight;
-      const totalH = rect.height;
-      const scrolled = Math.max(0, -rect.top);
-      const maxScroll = totalH - viewH;
-      frame.current.target = maxScroll <= 0 ? 1 : Math.min(1, scrolled / maxScroll);
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
     };
 
-    raf.current = requestAnimationFrame(tick);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    return () => {
-      cancelAnimationFrame(raf.current);
-      window.removeEventListener('scroll', onScroll);
-      video.removeEventListener('loadeddata', onLoaded);
-    };
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <div ref={containerRef} className="relative">
-      <div
-        ref={stickyRef}
-        className="sticky top-0 h-screen flex items-center justify-center overflow-hidden"
-        style={{ background: '#000' }}
-      >
+      <div ref={stickyRef} className="sticky top-0 h-screen overflow-hidden" style={{ background: '#000' }}>
         <video
           ref={videoRef}
           src={src}
-          className="absolute inset-0 w-full h-full object-contain"
-          muted playsInline preload="auto"
+          className="absolute inset-0 w-full h-full object-cover"
+          muted playsInline preload="metadata"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
         {children && (
-          <div className="relative z-10 flex flex-col items-center justify-center text-center px-6">
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6">
             {children}
           </div>
         )}
       </div>
-      <div style={{ height: '400vh' }} />
+      <div style={{ height: '300vh' }} />
     </div>
   );
 }

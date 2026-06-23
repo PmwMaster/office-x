@@ -7,39 +7,65 @@ import { Button, GlassCard } from '../components/ui';
 import { useCartStore } from '../stores/cartStore';
 import { CATALOG } from '../data/headset-catalog';
 
+const fmt = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
 export function Home() {
   const [done, setDone] = useState(false);
   const { items, remove, increase, decrease, clear, totalPrice, totalItems } = useCartStore();
-
-  const fmt = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
   return (
     <div className="min-h-screen bg-black text-text">
       <Navbar />
 
-      {/* ═══ SEÇÃO 1 · HERO ═══ */}
+      {/* ═══ VISÃO GERAL ═══ */}
       <Hero />
 
-      {/* ═══ SEÇÃO 2 · CATÁLOGO ═══ */}
-      <section id="catalogo" className="relative max-w-5xl mx-auto px-6 py-32">
+      {/* ═══ ESPECIFICAÇÕES ═══ */}
+      <section id="especificacoes" className="max-w-5xl mx-auto px-6 py-32">
+        <div className="mb-16 space-y-3">
+          <p className="text-[13px] font-medium tracking-[0.2em] uppercase text-primary/70 font-mono">Especificações</p>
+          <h2 className="text-[40px] font-bold tracking-[-0.02em] text-text leading-tight">
+            Engenharia de
+            <br />
+            <span className="text-text-secondary">precisão milimétrica.</span>
+          </h2>
+          <p className="text-[15px] text-text-secondary max-w-md leading-relaxed">
+            Drivers planar magnéticos de 100mm, resposta de 5Hz a 50kHz, ímãs de neodímio N52.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
+          {[
+            { label: 'Driver', value: '100mm', sub: 'Planar Magnético' },
+            { label: 'Resposta', value: '5Hz–50kHz', sub: 'Ultra-wide' },
+            { label: 'Impedância', value: '32Ω', sub: 'Alta sensibilidade' },
+            { label: 'Peso', value: '380g', sub: 'Fibra de carbono' },
+            { label: 'THD', value: '<0.02%', sub: 'Distorção inaudível' },
+            { label: 'Conectividade', value: '4.4mm + XLR', sub: 'Balanceado' },
+          ].map((s) => (
+            <GlassCard key={s.label} className="p-6 space-y-1">
+              <p className="text-[11px] font-mono text-text-tertiary uppercase tracking-widest">{s.label}</p>
+              <p className="text-[28px] font-bold text-text tracking-tight">{s.value}</p>
+              <p className="text-[13px] text-text-secondary">{s.sub}</p>
+            </GlassCard>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══ CATÁLOGO ═══ */}
+      <section id="catalogo" className="max-w-5xl mx-auto px-6 py-32 border-t border-border">
         <div className="mb-16 space-y-3">
           <p className="text-[13px] font-medium tracking-[0.2em] uppercase text-primary/70 font-mono">Catálogo</p>
           <h2 className="text-[40px] font-bold tracking-[-0.02em] text-text leading-tight">
-            Cada detalhe
-            <br />
-            <span className="text-text-secondary">projetado para o ouvido.</span>
+            Escolha o seu.
           </h2>
-          <p className="text-[15px] text-text-secondary max-w-md leading-relaxed">
-            Do planar magnético ao microfone de broadcast. Equipamento auditivo de referência.
-          </p>
         </div>
         <ProductGrid products={CATALOG} />
       </section>
 
-      {/* ═══ SEÇÃO 3 · COMPRAR ═══ */}
-      <section id="comprar" className="relative max-w-5xl mx-auto px-6 py-32 border-t border-border">
+      {/* ═══ COMPRAR ═══ */}
+      <section id="comprar" className="max-w-5xl mx-auto px-6 py-32 border-t border-border">
         <div className="mb-16 space-y-3">
-          <p className="text-[13px] font-medium tracking-[0.2em] uppercase text-primary/70 font-mono">Revisar</p>
+          <p className="text-[13px] font-medium tracking-[0.2em] uppercase text-primary/70 font-mono">Comprar</p>
           <h2 className="text-[40px] font-bold tracking-[-0.02em] text-text leading-tight">
             Seu carrinho
           </h2>
@@ -55,7 +81,7 @@ export function Home() {
               onClick={() => document.getElementById('catalogo')?.scrollIntoView({ behavior: 'smooth' })}
               className="text-[15px] text-primary hover:text-primary/70 transition-colors"
             >
-              Explorar catálogo ↑
+              Ver catálogo ↑
             </button>
           </div>
         ) : (
@@ -80,7 +106,6 @@ export function Home() {
                 </GlassCard>
               ))}
             </div>
-
             <GlassCard className="p-6 h-fit sticky top-20 space-y-5">
               <h3 className="text-[17px] font-semibold text-text">Resumo</h3>
               <div className="space-y-2 text-[14px]">
@@ -97,7 +122,7 @@ export function Home() {
         )}
       </section>
 
-      {/* ═══ MODAL ═══ */}
+      {/* MODAL */}
       {done && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-6" onClick={() => setDone(false)}>
           <GlassCard className="max-w-sm w-full p-8 text-center space-y-5" onClick={(e) => e.stopPropagation()}>
@@ -105,15 +130,12 @@ export function Home() {
               <span className="text-2xl">✓</span>
             </div>
             <h3 className="text-[20px] font-bold text-text">Pedido confirmado</h3>
-            <p className="text-[14px] text-text-secondary leading-relaxed">
-              {totalItems()} {totalItems() === 1 ? 'item' : 'itens'} · {fmt(totalPrice())}
-            </p>
+            <p className="text-[14px] text-text-secondary leading-relaxed">{totalItems()} {totalItems() === 1 ? 'item' : 'itens'} · {fmt(totalPrice())}</p>
             <Button className="w-full" onClick={() => { clear(); setDone(false); }}>Ok</Button>
           </GlassCard>
         </div>
       )}
 
-      {/* ═══ FOOTER ═══ */}
       <footer className="border-t border-border py-10 text-center">
         <p className="text-[11px] text-text-tertiary font-mono tracking-widest uppercase">Office‑X Audio · 2026</p>
       </footer>

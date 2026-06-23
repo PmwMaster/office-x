@@ -2,7 +2,7 @@ import { ScrollVideo } from '../animation/ScrollVideo';
 
 export function Hero() {
   return (
-    <section className="relative">
+    <section id="visao-geral" className="relative">
       <ScrollVideo src="/fonesite.mp4">
         <div className="space-y-8 max-w-2xl">
           <p className="text-[13px] font-medium tracking-[0.2em] uppercase text-primary/80 font-mono">
