@@ -27,7 +27,6 @@ export function ScrollVideo({ src, children }: ScrollVideoProps) {
       }
       rafRef.current = requestAnimationFrame(loop);
     };
-    animationRef.current = loop;
     rafRef.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(rafRef.current);
   }, []);
@@ -65,7 +64,7 @@ export function ScrollVideo({ src, children }: ScrollVideoProps) {
 
   return (
     <div ref={containerRef} className="relative">
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-black" style={{ opacity }}>
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden" style={{ opacity, background: '#000' }}>
         <video
           ref={videoRef}
           src={src}
@@ -73,8 +72,8 @@ export function ScrollVideo({ src, children }: ScrollVideoProps) {
           muted playsInline preload="auto"
           onLoadedData={handleLoaded}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-        <div className="absolute inset-0 bg-primary/5" />
+        {/* Edge blend — identical to #000 background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
         {children && (
           <div className="relative z-10 flex flex-col items-center justify-center text-center px-6">
             {children}
