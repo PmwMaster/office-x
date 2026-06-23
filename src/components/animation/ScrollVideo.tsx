@@ -68,7 +68,8 @@ export function ScrollVideo({ src, children }: ScrollVideoProps) {
         <video
           ref={videoRef}
           src={src}
-          className="absolute inset-0 w-full h-full object-cover scale-105"
+          className="absolute inset-0 w-full h-full object-contain"
+          style={{ imageRendering: 'auto', willChange: 'transform' }}
           muted playsInline preload="auto"
           onLoadedData={handleLoaded}
         />
