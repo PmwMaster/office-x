@@ -4,20 +4,17 @@ import { useCartStore } from '../../stores/cartStore';
 export function Navbar() {
   const total = useCartStore((s) => s.totalItems());
 
-  const handleCartClick = () => {
-    setTimeout(() => {
-      document.getElementById('comprar')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  };
-
   return (
-    <header className="fixed top-0 w-full z-50 bg-black/30 backdrop-blur-xl border-b border-white/5">
-      <nav className="flex justify-between items-center w-full px-8 py-4 mx-auto max-w-[1440px] h-16">
-        <span className="text-xl font-black tracking-tighter text-primary">OFFICE-X</span>
-        <button onClick={handleCartClick} className="relative" aria-label="Carrinho">
-          <ShoppingCart size={22} className="text-on-surface-variant hover:text-primary transition-colors" />
+    <header className="fixed top-0 inset-x-0 z-50 glass border-b border-border">
+      <nav className="flex justify-between items-center max-w-5xl mx-auto px-6 h-14">
+        <span className="text-[17px] font-semibold tracking-tight text-text select-none">Office‑X</span>
+        <button
+          onClick={() => document.getElementById('comprar')?.scrollIntoView({ behavior: 'smooth' })}
+          className="relative p-2 -mr-2 rounded-full hover:bg-white/5 transition-colors"
+        >
+          <ShoppingCart size={18} className="text-text-secondary" />
           {total > 0 && (
-            <span className="absolute -top-2 -right-2 w-5 h-5 bg-primary text-on-primary-fixed text-[10px] font-bold rounded-full flex items-center justify-center font-mono">
+            <span className="absolute top-0 right-0 w-[18px] h-[18px] bg-primary text-white text-[10px] font-semibold rounded-full flex items-center justify-center">
               {total}
             </span>
           )}

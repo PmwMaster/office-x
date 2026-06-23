@@ -1,16 +1,19 @@
-import { type ButtonHTMLAttributes, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'ghost';
+export function Button({ children, onClick, className = '', variant = 'primary' }: {
   children: ReactNode;
-}
-
-export function Button({ variant = 'primary', children, className = '', ...props }: ButtonProps) {
-  const base = variant === 'primary'
-    ? 'bg-primary text-on-primary-fixed hover:bg-primary/80'
-    : 'text-on-surface-variant hover:text-primary hover:bg-white/5';
+  onClick?: () => void;
+  className?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+}) {
+  const base = 'inline-flex items-center justify-center rounded-full text-[15px] font-medium px-7 py-3 transition-all duration-300 active:scale-[0.97]';
+  const styles = {
+    primary: 'bg-primary text-white hover:bg-primary-dim',
+    secondary: 'bg-white/[0.06] text-text hover:bg-white/[0.10]',
+    ghost: 'text-primary hover:bg-primary/10',
+  };
   return (
-    <button className={`rounded-xl font-semibold uppercase tracking-wide text-sm px-6 py-3 transition-all duration-200 active:scale-95 ${base} ${className}`} {...props}>
+    <button onClick={onClick} className={`${base} ${styles[variant]} ${className}`}>
       {children}
     </button>
   );

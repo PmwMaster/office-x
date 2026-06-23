@@ -1,75 +1,86 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 interface ScrollVideoProps {
   src: string;
-  totalFrames?: number;
-  className?: string;
   children?: React.ReactNode;
 }
 
-export function ScrollVideo({ src, totalFrames = 120, className = '', children }: ScrollVideoProps) {
+export function ScrollVideo({ src, children }: ScrollVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const rafRef = useRef<number>(0);
+  const currentFrame = useRef(0);
+  const targetFrame = useRef(0);
+  const [opacity, setOpacity] = useState(1);
 
-  const handleScroll = useCallback(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const viewH = window.innerHeight;
-    const scrollStart = rect.top;
-    const totalScroll = rect.height - viewH;
-    if (totalScroll <= 0) { setProgress(1); return; }
-    const scrolled = Math.max(0, -scrollStart);
-    const p = Math.min(1, scrolled / totalScroll);
-    setProgress(p);
+  useEffect(() => {
+    const loop = () => {
+      const diff = targetFrame.current - currentFrame.current;
+      if (Math.abs(diff) < 0.001) {
+        rafRef.current = requestAnimationFrame(loop);
+        return;
+      }
+      currentFrame.current += diff * 0.08;
+      const video = videoRef.current;
+      if (video && video.duration > 0) {
+        video.currentTime = currentFrame.current * video.duration;
+      }
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    animationRef.current = loop;
+    rafRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    const el = containerRef.current;
+    if (!el) return;
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !loaded || video.readyState < 2) return;
-    const frame = Math.floor(progress * totalFrames);
-    if (video.duration > 0) {
-      video.currentTime = (frame / totalFrames) * video.duration;
-    }
-  }, [progress, totalFrames, loaded]);
+    const onScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      const totalH = rect.height;
+      const scrolled = Math.max(0, -rect.top);
+      const maxScroll = totalH - viewH;
+      if (maxScroll <= 0) { targetFrame.current = 1; return; }
+      targetFrame.current = Math.min(1, Math.max(0, scrolled / maxScroll));
+
+      const fadeStart = totalH * 0.85;
+      if (scrolled > fadeStart) {
+        setOpacity(Math.max(0, 1 - (scrolled - fadeStart) / (totalH - fadeStart)));
+      } else {
+        setOpacity(1);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleLoaded = () => {
     const video = videoRef.current;
-    if (!video) return;
-    video.pause();
-    setLoaded(true);
+    if (video) { video.pause(); video.currentTime = 0; }
   };
 
   return (
-    <div ref={containerRef} className={`relative ${className}`}>
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-background">
+    <div ref={containerRef} className="relative">
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-black" style={{ opacity }}>
         <video
           ref={videoRef}
           src={src}
-          className="w-full h-full object-cover"
-          muted
-          playsInline
-          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+          muted playsInline preload="auto"
           onLoadedData={handleLoaded}
         />
-        {/* Purple overlay gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background pointer-events-none" />
-        <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-primary/5" />
         {children && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <div className="relative z-10 flex flex-col items-center justify-center text-center px-6">
             {children}
           </div>
         )}
       </div>
-      {/* Scrollable area */}
       <div style={{ height: '400vh' }} />
     </div>
   );

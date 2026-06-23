@@ -1,8 +1,8 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export function GlassCard({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <div className={`bg-white/[0.03] backdrop-blur-xl border border-white/5 rounded-2xl ${className}`}>
+    <div className={`bg-surface/50 backdrop-blur-2xl border border-border rounded-3xl ${className}`}>
       {children}
     </div>
   );
