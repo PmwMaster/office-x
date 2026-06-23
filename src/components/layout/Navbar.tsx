@@ -14,9 +14,9 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 glass border-b border-border">
-      <nav className="flex justify-between items-center max-w-5xl mx-auto px-6 h-14">
+      <nav className="flex justify-between items-center max-w-6xl mx-auto px-6 h-14">
         <Link to="/" className="text-[17px] font-semibold tracking-tight text-text select-none">Office‑X</Link>
-        <div className="hidden sm:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10">
           {links.map((l) => (
             <Link
               key={l.to}
