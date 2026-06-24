@@ -14,9 +14,9 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-black border-b border-border">
-      <nav className="flex justify-between items-center max-w-6xl mx-auto px-6 h-20">
+      <nav className="flex justify-between items-center max-w-6xl mx-auto px-6 h-24">
         <Link to="/" className="flex items-center select-none">
-          <img src="/vortex-logo.png" alt="VORTEX" className="h-12 sm:h-16 w-auto" />
+          <img src="/vortex-logo.png" alt="VORTEX" className="h-20 w-auto" />
         </Link>
         <div className="hidden md:flex items-center gap-10">
           {links.map((l) => (
