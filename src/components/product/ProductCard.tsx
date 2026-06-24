@@ -14,11 +14,11 @@ export const ProductCard = memo(function ProductCard({ product }: { product: Pro
 
   const content = (
     <>
-      <div className="aspect-[4/3] bg-gradient-to-br from-surface to-black flex items-center justify-center relative overflow-hidden">
+      <div className="aspect-[4/3] bg-gradient-to-br from-surface to-black flex items-center justify-center overflow-hidden p-6">
         <img
           src={product.image}
           alt={product.imageAlt}
-          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
         />
       </div>
       <div className="p-5 space-y-3">
