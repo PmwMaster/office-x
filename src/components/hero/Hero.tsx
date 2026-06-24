@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 export function Hero() {
   return (
-    <section id="visao-geral" className="relative">
+    <section id="visao-geral" className="relative pb-16">
       <ScrollVideo src="/fonesite.mp4">
-        <div className="max-w-xl space-y-8">
+        <div className="max-w-xl space-y-8 lg:-translate-x-8">
           <p className="text-[13px] font-medium tracking-[0.2em] uppercase text-primary/90 font-mono">
             Series One
           </p>

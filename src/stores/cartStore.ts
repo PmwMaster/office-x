@@ -53,6 +53,6 @@ export const useCartStore = create<CartState>()(
       totalItems: () => get().items.reduce((s, i) => s + i.quantity, 0),
       totalPrice: () => get().items.reduce((s, i) => s + i.product.price * i.quantity, 0),
     }),
-    { name: 'officex-cart' },
+    { name: 'vortex-cart' },
   ),
 );

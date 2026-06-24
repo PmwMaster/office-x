@@ -4,7 +4,7 @@ import { useCartStore } from '../../stores/cartStore';
 
 const links = [
   { to: '/', label: 'Visão Geral' },
-  { to: '/especificacoes', label: 'Especificações' },
+  { to: '/especificacoes', label: 'Catálogo' },
   { to: '/comprar', label: 'Comprar' },
 ];
 
@@ -13,9 +13,9 @@ export function Navbar() {
   const loc = useLocation();
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 glass border-b border-border">
+    <header className="fixed top-0 inset-x-0 z-50 bg-black border-b border-border">
       <nav className="flex justify-between items-center max-w-6xl mx-auto px-6 h-14">
-        <Link to="/" className="text-[17px] font-semibold tracking-tight text-text select-none">Office‑X</Link>
+        <Link to="/" className="text-[17px] font-semibold tracking-tight text-text select-none">VORTEX</Link>
         <div className="hidden md:flex items-center gap-10">
           {links.map((l) => (
             <Link

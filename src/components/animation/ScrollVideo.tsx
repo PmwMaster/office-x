@@ -23,7 +23,7 @@ export function ScrollVideo({ src, children }: { src: string; children?: React.R
 
     const loop = () => {
       const diff = targetFrame - currentFrame;
-      currentFrame += diff * 0.1;
+      currentFrame += diff * 0.4;
       if (duration > 0 && video.readyState >= 2) {
         video.currentTime = currentFrame * duration;
       }
@@ -50,15 +50,16 @@ export function ScrollVideo({ src, children }: { src: string; children?: React.R
   }, []);
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: '500vh' }}>
+    <div ref={containerRef} className="relative" style={{ height: '240vh' }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
         <video
           ref={videoRef}
           src={src}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute top-1/2 left-1/2 -translate-x-[30%] -translate-y-1/2 h-[105%] w-[105%] max-w-none object-cover"
+          style={{ filter: 'brightness(1.3)' }}
           muted playsInline preload="auto"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
+        
         {children && (
           <div className="relative z-10 h-full flex items-center px-6 md:px-16 lg:px-24">
             {children}

@@ -76,7 +76,7 @@ export function Comprar() {
       )}
 
       <footer className="border-t border-border py-10 text-center">
-        <p className="text-[11px] text-text-tertiary font-mono tracking-widest uppercase">Office‑X Audio · 2026</p>
+        <p className="text-[11px] text-text-tertiary font-mono tracking-widest uppercase">VORTEX Audio Labs · 2026</p>
       </footer>
     </div>
   );

@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, HTMLAttributes } from 'react';
 
-export function GlassCard({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function GlassCard({ children, className = '', ...props }: { children: ReactNode; className?: string } & HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={`bg-surface/50 backdrop-blur-2xl border border-border rounded-3xl ${className}`}>
+    <div className={`bg-surface/50 backdrop-blur-2xl border border-border rounded-3xl ${className}`} {...props}>
       {children}
     </div>
   );
