@@ -22,12 +22,9 @@ export function Login() {
     e.preventDefault();
     try {
       if (isRegister) {
-        const ok = await signUp(email, password);
-        if (ok) navigate(redirect, { replace: true });
-        // if !ok, confirmationSent is now true — stay on page
+        await signUp(email, password);
       } else {
         await signIn(email, password);
-        navigate(redirect, { replace: true });
       }
     } catch {
       // error is handled in store
