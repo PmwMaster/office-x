@@ -3,9 +3,13 @@ import { supabase } from '../lib/supabase';
 import type { User, Session } from '@supabase/supabase-js';
 
 function translateError(message: string): string {
+  const lower = message.toLowerCase();
+  if (lower.includes('fetch') || lower.includes('network') || lower.includes('timeout')) {
+    return 'Erro de conexão. Verifique sua internet e tente novamente.';
+  }
   const map: Record<string, string> = {
     'Invalid login credentials': 'E-mail ou senha inválidos.',
-    'User already registered': 'Este e-mail já está cadastrado.',
+    'User already registered': 'Este e-mail já está cadastrado. Clique em "Entrar" para acessar.',
     'Email not confirmed': 'E-mail ainda não foi confirmado. Verifique sua caixa de entrada.',
     'Password should be at least 6 characters': 'A senha deve ter pelo menos 6 caracteres.',
     'Email rate limit exceeded': 'Muitas tentativas. Aguarde um momento para tentar novamente.',
@@ -43,38 +47,51 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   signUp: async (email, password) => {
     set({ error: null, loading: true, confirmationSent: false });
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/login`,
-      },
-    });
-    if (error) {
-      set({ error: translateError(error.message), loading: false });
-      throw error;
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/login`,
+        },
+      });
+      if (error) {
+        set({ error: translateError(error.message), loading: false });
+        throw error;
+      }
+      if (data.user && !data.session) {
+        const isNewUser = data.user.identities && data.user.identities.length > 0;
+        if (!isNewUser) {
+          set({ error: 'Este e-mail já está cadastrado. Clique em "Entrar" para acessar.', loading: false });
+          return false;
+        }
+        set({ loading: false, confirmationSent: true });
+        return false;
+      }
+      if (data.user && data.session) {
+        set({ user: data.user, session: data.session, loading: false });
+        return true;
+      }
+      set({ loading: false });
+      return false;
+    } catch (err: any) {
+      set({ error: translateError(err?.message ?? 'Erro inesperado'), loading: false });
+      return false;
     }
-    if (data.user && !data.session) {
-      set({ loading: false, confirmationSent: true });
-      return false; // needs confirmation
-    }
-    // Auto-confirmed (email confirmation disabled in Supabase)
-    if (data.user && data.session) {
-      set({ user: data.user, session: data.session, loading: false });
-      return true; // logged in
-    }
-    set({ loading: false });
-    return false;
   },
 
   signIn: async (email, password) => {
     set({ error: null, loading: true });
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      set({ error: translateError(error.message), loading: false });
-      throw error;
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        set({ error: translateError(error.message), loading: false });
+        throw error;
+      }
+      set({ user: data.user, session: data.session, loading: false });
+    } catch (err: any) {
+      set({ error: translateError(err?.message ?? 'Erro inesperado'), loading: false });
     }
-    set({ user: data.user, session: data.session, loading: false });
   },
 
   signOut: async () => {
