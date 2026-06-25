@@ -43,7 +43,7 @@ export function Login() {
 
         <div className="space-y-3 mb-10">
           <p className="text-[13px] font-medium tracking-[0.2em] uppercase text-primary/70 font-mono">
-            VORTEX Account
+            Conta VORTEX
           </p>
           <h1 className="text-[36px] font-bold tracking-[-0.02em] text-text leading-tight">
             {isRegister ? 'Criar conta' : 'Entrar'}

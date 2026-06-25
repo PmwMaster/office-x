@@ -2,6 +2,19 @@ import { create } from 'zustand';
 import { supabase } from '../lib/supabase';
 import type { User, Session } from '@supabase/supabase-js';
 
+function translateError(message: string): string {
+  const map: Record<string, string> = {
+    'Invalid login credentials': 'E-mail ou senha inválidos.',
+    'User already registered': 'Este e-mail já está cadastrado.',
+    'Email not confirmed': 'E-mail ainda não foi confirmado. Verifique sua caixa de entrada.',
+    'Password should be at least 6 characters': 'A senha deve ter pelo menos 6 caracteres.',
+    'Email rate limit exceeded': 'Muitas tentativas. Aguarde um momento para tentar novamente.',
+    'For security purposes, you can only request this once every 60 seconds': 'Por segurança, aguarde 60 segundos para tentar novamente.',
+    'Unable to validate email address: invalid format': 'Formato de e-mail inválido.',
+  };
+  return map[message] ?? message;
+}
+
 interface AuthState {
   user: User | null;
   session: Session | null;
@@ -38,10 +51,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       },
     });
     if (error) {
-      set({ error: error.message, loading: false });
+      set({ error: translateError(error.message), loading: false });
       throw error;
     }
-    // If user exists but no session, email confirmation is required
     if (data.user && !data.session) {
       set({ loading: false, confirmationSent: true });
       return false; // needs confirmation
@@ -59,7 +71,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ error: null, loading: true });
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      set({ error: error.message, loading: false });
+      set({ error: translateError(error.message), loading: false });
       throw error;
     }
     set({ user: data.user, session: data.session, loading: false });
