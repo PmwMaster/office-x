@@ -11,7 +11,7 @@ export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
-  const { signIn, signUp, loading, error, clearError, confirmationSent, clearConfirmation, user } = useAuthStore();
+  const { signIn, signUp, loading, error, clearError, confirmationSent, clearConfirmation, user, resendConfirmation } = useAuthStore();
   const navigate = useNavigate();
 
   if (!loading && user) {
@@ -22,7 +22,7 @@ export function Login() {
     e.preventDefault();
     try {
       if (isRegister) {
-        await signUp(email, password);
+        await signUp(email, password, redirect !== '/' ? redirect : undefined);
       } else {
         await signIn(email, password);
       }
@@ -77,8 +77,18 @@ export function Login() {
                 Clique no link para ativar sua conta.
               </p>
             </div>
-            <p className="text-[12px] text-text-tertiary font-mono">
-              Não recebeu? Verifique a pasta de spam ou{' '}
+            <p className="text-[12px] text-text-tertiary font-mono space-y-2">
+              <span>Não recebeu? Verifique a pasta de spam.</span>
+              <br />
+              <button
+                type="button"
+                disabled={loading}
+                onClick={() => resendConfirmation(email)}
+                className="text-primary hover:text-primary/70 transition-colors disabled:opacity-50"
+              >
+                {loading ? 'Reenviando...' : 'Reenviar e-mail'}
+              </button>
+              {' ou '}
               <button
                 type="button"
                 onClick={() => { clearConfirmation(); setEmail(''); setPassword(''); }}

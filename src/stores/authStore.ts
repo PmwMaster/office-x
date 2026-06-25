@@ -27,11 +27,12 @@ interface AuthState {
   confirmationSent: boolean;
   setUser: (user: User | null) => void;
   setSession: (session: Session | null) => void;
-  signUp: (email: string, password: string) => Promise<boolean>;
+  signUp: (email: string, password: string, redirectTo?: string) => Promise<boolean>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   clearError: () => void;
   clearConfirmation: () => void;
+  resendConfirmation: (email: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -45,14 +46,15 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   setSession: (session) => set({ session, user: session?.user ?? null, loading: false, confirmationSent: false }),
 
-  signUp: async (email, password) => {
+  signUp: async (email, password, redirectTo) => {
     set({ error: null, loading: true, confirmationSent: false });
+    const redirectParam = redirectTo ? `?redirect=${encodeURIComponent(redirectTo)}` : '';
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/login`,
+          emailRedirectTo: `${window.location.origin}/login${redirectParam}`,
         },
       });
       if (error) {
@@ -103,4 +105,24 @@ export const useAuthStore = create<AuthState>((set) => ({
   clearError: () => set({ error: null }),
 
   clearConfirmation: () => set({ confirmationSent: false }),
+
+  resendConfirmation: async (email) => {
+    set({ error: null, loading: true });
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/login`,
+        },
+      });
+      if (error) {
+        set({ error: translateError(error.message), loading: false });
+        return;
+      }
+      set({ loading: false, confirmationSent: true });
+    } catch (err: any) {
+      set({ error: translateError(err?.message ?? 'Erro inesperado'), loading: false });
+    }
+  },
 }));
