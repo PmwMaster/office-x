@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Trash2, CreditCard, Barcode, QrCode, Check, ArrowLeft, Truck, Shield, LogIn } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ShoppingCart, Trash2, CreditCard, Barcode, QrCode, Check, ArrowLeft, Truck, Shield, Loader2 } from 'lucide-react';
 import { GlassCard } from '../components/ui';
 import { useCartStore } from '../stores/cartStore';
 import { useAuthStore } from '../stores/authStore';
@@ -14,8 +14,6 @@ export function Comprar() {
   const [step, setStep] = useState<Step>('cart');
   const { items, remove, increase, decrease, clear, totalPrice, totalItems } = useCartStore();
   const { user, session } = useAuthStore();
-  const isLoggedIn = !!session;
-  const navigate = useNavigate();
 
   // Customer info
   const [name, setName] = useState('');
@@ -25,6 +23,7 @@ export function Comprar() {
   // Payment
   const [payment, setPayment] = useState<'credit' | 'pix' | 'boleto'>('pix');
   const [installments, setInstallments] = useState(1);
+  const [processing, setProcessing] = useState(false);
 
   const subtotal = totalPrice();
   const shipping = subtotal > 500 ? 0 : subtotal > 0 ? 29.90 : 0;
@@ -33,17 +32,46 @@ export function Comprar() {
   const isValidInfo = name.trim() && email.trim() && phone.trim().length >= 10;
 
   const handleContinue = () => {
-    if (!isLoggedIn) {
-      navigate('/login?redirect=/comprar');
-      return;
-    }
     if (!name.trim()) setName(user?.user_metadata?.full_name ?? '');
     if (!email.trim()) setEmail(user.email ?? '');
     setStep('info');
   };
 
-  const handleFinish = () => {
-    setStep('done');
+  const handleFinish = async () => {
+    setProcessing(true);
+    try {
+      const res = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.access_token}`,
+        },
+        body: JSON.stringify({
+          items: items.map((i) => ({
+            name: i.product.name,
+            price: i.product.price,
+            quantity: i.quantity,
+            image: i.product.image?.startsWith('http')
+              ? i.product.image
+              : `${window.location.origin}${i.product.image}`,
+          })),
+          customerEmail: email,
+          customerName: name,
+          paymentMethod: payment,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Erro ao processar pagamento. Tente novamente.');
+        setProcessing(false);
+      }
+    } catch {
+      alert('Erro de conexão. Verifique sua internet.');
+      setProcessing(false);
+    }
   };
 
   const handleReset = () => {
@@ -265,9 +293,17 @@ export function Comprar() {
                     </button>
                     <button
                       onClick={handleFinish}
-                      className="px-6 py-2.5 rounded-full text-[14px] font-medium bg-primary text-white hover:bg-primary-dim transition-all duration-300 active:scale-[0.97]"
+                      disabled={processing}
+                      className="px-6 py-2.5 rounded-full text-[14px] font-medium bg-primary text-white hover:bg-primary-dim transition-all duration-300 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     >
-                      Finalizar pedido
+                      {processing ? (
+                        <>
+                          <Loader2 size={15} className="animate-spin" />
+                          Processando...
+                        </>
+                      ) : (
+                        'Finalizar pedido'
+                      )}
                     </button>
                   </div>
                 </GlassCard>
@@ -387,21 +423,11 @@ export function Comprar() {
 
                 {step === 'cart' && (
                   <>
-                    {!isLoggedIn && (
-                      <p className="text-[12px] text-text-tertiary text-center font-mono">
-                        Faça login para continuar com a compra
-                      </p>
-                    )}
                     <button
                       onClick={handleContinue}
-                    className="w-full rounded-full text-[15px] font-medium py-3.5 bg-primary text-white hover:bg-primary-dim transition-all duration-300 active:scale-[0.97] flex items-center justify-center gap-2"
+                    className="w-full rounded-full text-[15px] font-medium py-3.5 bg-primary text-white hover:bg-primary-dim transition-all duration-300 active:scale-[0.97]"
                   >
-                    {isLoggedIn ? 'Continuar' : (
-                      <>
-                        <LogIn size={16} />
-                        Entrar para comprar
-                      </>
-                    )}
+                    Continuar
                   </button>
                   </>
                 )}

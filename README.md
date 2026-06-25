@@ -38,6 +38,7 @@ src/
 | `/comparar` | Comparação ficha técnica |
 | `/comprar` | Carrinho + checkout |
 | `/login` | Login / Cadastro |
+| `/sucesso` | Confirmação de pagamento |
 
 ## Setup local
 
@@ -51,7 +52,15 @@ npm run dev
 ```env
 VITE_SUPABASE_URL=https://seu-projeto.supabase.co
 VITE_SUPABASE_ANON_KEY=sua-chave-anon
+STRIPE_SECRET_KEY=sk_test_...
 ```
+
+### Stripe (pagamento)
+
+1. Crie uma conta em [stripe.com](https://stripe.com)
+2. Pegue a `STRIPE_SECRET_KEY` no dashboard (modo teste)
+3. Adicione ao `.env` e às env vars do Vercel
+4. O checkout redireciona para a página hospedada do Stripe
 
 ## Banco de dados
 

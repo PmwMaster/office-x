@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, Navigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Mail, Lock, Eye, EyeOff, Loader2, AlertCircle, MailCheck } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 import { Footer } from '../components/layout/Footer';
@@ -11,8 +11,12 @@ export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
-  const { signIn, signUp, loading, error, clearError, confirmationSent, clearConfirmation } = useAuthStore();
+  const { signIn, signUp, loading, error, clearError, confirmationSent, clearConfirmation, user } = useAuthStore();
   const navigate = useNavigate();
+
+  if (!loading && user) {
+    return <Navigate to={redirect} replace />;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

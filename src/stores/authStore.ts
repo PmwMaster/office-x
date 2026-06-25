@@ -26,7 +26,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   setUser: (user) => set({ user, loading: false }),
 
-  setSession: (session) => set({ session, user: session?.user ?? null }),
+  setSession: (session) => set({ session, user: session?.user ?? null, loading: false, confirmationSent: false }),
 
   signUp: async (email, password) => {
     set({ error: null, loading: true, confirmationSent: false });
