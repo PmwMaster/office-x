@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useRef, useEffect } from 'react';
 import { ProductGrid } from '../components/product/ProductGrid';
 import { CATALOG } from '../data/headset-catalog';
@@ -105,7 +106,7 @@ export function Especificacoes() {
 
   return (
     <div className="min-h-screen bg-black text-text pt-20">
-      <section className="max-w-5xl mx-auto px-6 py-12">
+      <section className="max-w-6xl mx-auto px-6 py-12">
         <div className="mb-8 space-y-3">
           <h1 className="text-[40px] font-bold tracking-[-0.02em] text-text leading-tight">
             Escolha o que melhor
@@ -114,20 +115,20 @@ export function Especificacoes() {
           </h1>
         </div>
 
-        <div className="relative mb-12 flex flex-col items-center justify-center py-12">
+        <Link to="/produto/vortex-pulse-overdrive" className="block relative mb-12 flex flex-col items-center justify-center py-12 group cursor-pointer">
           <span className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-            <span className="text-[12vw] font-black text-white/[0.06] tracking-[-0.04em] leading-none">
+            <span className="text-[12vw] font-black text-white/[0.06] tracking-[-0.04em] leading-none transition-colors duration-500 group-hover:text-white/[0.10]">
               VORTEX<br />PULSE
             </span>
           </span>
           <canvas
             ref={canvasRef}
-            className="relative z-10 w-full max-w-3xl aspect-[4/3]"
+            className="relative z-10 w-full max-w-3xl aspect-[4/3] transition-transform duration-500 group-hover:scale-[1.02]"
             style={{
               filter: 'drop-shadow(0 0 80px rgba(175,82,222,0.2))',
             }}
           />
-        </div>
+        </Link>
 
         <ProductGrid products={CATALOG} />
       </section>

@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# VORTEX Audio Labs
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site oficial da **VORTEX Audio Labs** — linha premium de equipamentos de áudio, fones esportivos e acessórios táticos.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend:** React 19 + TypeScript + Vite 8
+- **Estilo:** Tailwind CSS 4
+- **Roteamento:** React Router 7
+- **Estado:** Zustand 5 (carrinho + autenticação)
+- **Backend:** Supabase (Auth + Database)
+- **Deploy:** Vercel
 
-## React Compiler
+## Estrutura
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/
+│   ├── animation/     # ScrollVideo, ScrollFrames
+│   ├── hero/          # Hero, CoreSection, Commercial
+│   ├── layout/        # Navbar, Footer, VortexRibbon
+│   ├── product/       # ProductCard, ProductGrid, ProductDetailModal
+│   └── ui/            # GlassCard, Button
+├── data/              # Catálogo de produtos (headset-catalog.ts)
+├── lib/               # Cliente Supabase
+├── pages/             # Home, Especificacoes, Comparar, Comprar, Login, ProdutoDetalhe
+├── stores/            # cartStore, authStore
+└── main.tsx           # Entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Rotas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Rota | Página |
+|------|--------|
+| `/` | Home — Visão Geral |
+| `/especificacoes` | Catálogo de produtos |
+| `/produto/:id` | Detalhe do produto |
+| `/comparar` | Comparação ficha técnica |
+| `/comprar` | Carrinho + checkout |
+| `/login` | Login / Cadastro |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Setup local
+
+```bash
+npm install
+npm run dev
 ```
+
+## Variáveis de ambiente
+
+```env
+VITE_SUPABASE_URL=https://seu-projeto.supabase.co
+VITE_SUPABASE_ANON_KEY=sua-chave-anon
+```
+
+## Banco de dados
+
+As migrations estão em `supabase/migrations/`. Execute em ordem no SQL Editor do Supabase.
+
+## Deploy
+
+```bash
+npm run build
+vercel --prod
+```
+
+## Licença
+
+Proprietário — VORTEX Audio Labs.

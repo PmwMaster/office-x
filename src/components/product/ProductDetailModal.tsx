@@ -11,6 +11,22 @@ const DETAIL_IMAGES: Record<string, { gallery: string[]; specs: string }> = {
     gallery: ['/vortex-core-ultra-1.png', '/vortex-core-ultra-2.png'],
     specs: '/vortex-core-ultra-especif.png',
   },
+  'vortex-lab-shield': {
+    gallery: ['/vortex-lab-shield-core-pro.png', '/vortex-lab-shield-core-ultra.png'],
+    specs: '/vortex-lab-shield-especif.png',
+  },
+  'vortex-pulse-overdrive': {
+    gallery: ['/vortex-pulse-overdrive-carbon.png', '/vortex-pulse-overdrive-branco.png', '/vortex-pulse-overdrive-azul.png', '/vortex-pulse-overdrive-rosa.png'],
+    specs: '/vortex-pulse-overdrive-especif.png',
+  },
+  'vortex-pulse-wraith': {
+    gallery: ['/vortex-pulse-wraith-1.png'],
+    specs: '/vortex-pulse-wraith-especif.png',
+  },
+  'vortex-apex-prime': {
+    gallery: ['/vortex-apex-prime-1.png', '/vortex-apex-prime-main.png'],
+    specs: '/vortex-apex-prime-2.png',
+  },
 };
 
 const fmt = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
