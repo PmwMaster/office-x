@@ -1,42 +1,138 @@
+import { useRef, useEffect } from 'react';
 import { ProductGrid } from '../components/product/ProductGrid';
-import { GlassCard } from '../components/ui';
 import { CATALOG } from '../data/headset-catalog';
+import { Footer } from '../components/layout/Footer';
+
+const COLORS = [
+  { name: 'Obsidian', file: 'carbon.png', hex: '#1a1a1a' },
+  { name: 'Glacial', file: 'azul.png', hex: '#3b82f6' },
+  { name: 'Lunar', file: 'branco.png', hex: '#e5e5e5' },
+  { name: 'Nébula', file: 'rosa.png', hex: '#ec4899' },
+];
 
 export function Especificacoes() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const frames: HTMLImageElement[] = [];
+    let loaded = 0;
+
+    COLORS.forEach((c) => {
+      const img = new Image();
+      img.onload = () => { loaded++; };
+      img.src = `/corfone/${c.file}`;
+      frames.push(img);
+    });
+
+    let w = 0;
+    let h = 0;
+
+    const resize = () => {
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const drawCover = (img: HTMLImageElement, opacity: number) => {
+      const iw = img.naturalWidth || img.width;
+      const ih = img.naturalHeight || img.height;
+      if (!iw || !ih) return;
+
+      const scale = Math.min(w / iw, h / ih) * 0.95;
+      const dw = iw * scale;
+      const dh = ih * scale;
+      const dx = (w - dw) / 2;
+      const dy = (h - dh) / 2;
+
+      ctx.globalAlpha = opacity;
+      ctx.drawImage(img, dx, dy, dw, dh);
+    };
+
+    let current = 0;
+    let target = 0;
+    let rafId = 0;
+
+    const loop = () => {
+      const diff = target - current;
+      current += diff * 0.06;
+
+      if (loaded >= COLORS.length) {
+        ctx.clearRect(0, 0, w, h);
+
+        const t = ((current % COLORS.length) + COLORS.length) % COLORS.length;
+        const floorIdx = Math.floor(t);
+        const ceilIdx = (floorIdx + 1) % COLORS.length;
+        const alpha = t - floorIdx;
+
+        const a = frames[floorIdx];
+        const b = frames[ceilIdx];
+        if (a) drawCover(a, 1 - alpha);
+        if (b && alpha > 0.001) drawCover(b, alpha);
+        ctx.globalAlpha = 1;
+      }
+
+      rafId = requestAnimationFrame(loop);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    let colorStep = 0;
+    const advance = () => {
+      colorStep++;
+      target = colorStep;
+    };
+
+    const interval = setInterval(advance, 3500);
+    advance();
+    rafId = requestAnimationFrame(loop);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearInterval(interval);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-text pt-20">
-      <section className="max-w-5xl mx-auto px-6 py-24">
-        <div className="mb-16 space-y-3">
-          <p className="text-[13px] font-medium tracking-[0.2em] uppercase text-primary/70 font-mono">Catálogo</p>
+      <section className="max-w-5xl mx-auto px-6 py-12">
+        <div className="mb-8 space-y-3">
           <h1 className="text-[40px] font-bold tracking-[-0.02em] text-text leading-tight">
-            Escolha
+            Escolha o que melhor
             <br />
-            <span className="text-text-secondary">o seu.</span>
+            <span className="text-text-secondary">combine com você</span>
           </h1>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-24">
-          {[
-            { label: 'Driver', value: '100mm', sub: 'Planar Magnético' },
-            { label: 'Resposta', value: '5Hz–50kHz', sub: 'Ultra-wide' },
-            { label: 'Impedância', value: '32Ω', sub: 'Alta sensibilidade' },
-            { label: 'Peso', value: '380g', sub: 'Fibra de carbono' },
-            { label: 'THD', value: '<0.02%', sub: 'Distorção inaudível' },
-            { label: 'Conectividade', value: '4.4mm + XLR', sub: 'Balanceado' },
-          ].map((s) => (
-            <GlassCard key={s.label} className="p-6 space-y-1">
-              <p className="text-[11px] font-mono text-text-tertiary uppercase tracking-widest">{s.label}</p>
-              <p className="text-[28px] font-bold text-text tracking-tight">{s.value}</p>
-              <p className="text-[13px] text-text-secondary">{s.sub}</p>
-            </GlassCard>
-          ))}
+
+        <div className="relative mb-12 flex flex-col items-center justify-center py-12">
+          <span className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+            <span className="text-[12vw] font-black text-white/[0.06] tracking-[-0.04em] leading-none">
+              VORTEX<br />PULSE
+            </span>
+          </span>
+          <canvas
+            ref={canvasRef}
+            className="relative z-10 w-full max-w-3xl aspect-[4/3]"
+            style={{
+              filter: 'drop-shadow(0 0 80px rgba(175,82,222,0.2))',
+            }}
+          />
         </div>
 
         <ProductGrid products={CATALOG} />
       </section>
 
-      <footer className="border-t border-border py-10 text-center">
-        <p className="text-[11px] text-text-tertiary font-mono tracking-widest uppercase">VORTEX Audio Labs · 2026</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

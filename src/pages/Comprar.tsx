@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Trash2 } from 'lucide-react';
 import { Button, GlassCard } from '../components/ui';
 import { useCartStore } from '../stores/cartStore';
+import { Footer } from '../components/layout/Footer';
 
 const fmt = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
@@ -75,9 +76,7 @@ export function Comprar() {
         </div>
       )}
 
-      <footer className="border-t border-border py-10 text-center">
-        <p className="text-[11px] text-text-tertiary font-mono tracking-widest uppercase">VORTEX Audio Labs · 2026</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -12,6 +12,7 @@ export function ScrollVideo({ src, children }: { src: string; children?: React.R
     let duration = 0;
     let currentFrame = 0;
     let targetFrame = 0;
+    let lastSeek = -1;
     let rafId = 0;
 
     const onLoaded = () => {
@@ -23,9 +24,13 @@ export function ScrollVideo({ src, children }: { src: string; children?: React.R
 
     const loop = () => {
       const diff = targetFrame - currentFrame;
-      currentFrame += diff * 0.4;
+      currentFrame += diff * 0.5;
       if (duration > 0 && video.readyState >= 2) {
-        video.currentTime = currentFrame * duration;
+        const seek = currentFrame * duration;
+        if (Math.abs(seek - lastSeek) > 0.03) {
+          video.currentTime = seek;
+          lastSeek = seek;
+        }
       }
       rafId = requestAnimationFrame(loop);
     };
@@ -56,10 +61,10 @@ export function ScrollVideo({ src, children }: { src: string; children?: React.R
           ref={videoRef}
           src={src}
           className="absolute top-1/2 left-1/2 -translate-x-[30%] -translate-y-1/2 h-[105%] w-[105%] max-w-none object-cover"
-          style={{ filter: 'brightness(1.3)' }}
+          style={{ filter: 'brightness(1.3)', willChange: 'transform' }}
           muted playsInline preload="auto"
         />
-        
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
         {children && (
           <div className="relative z-10 h-full flex items-center px-6 md:px-16 lg:px-24">
             {children}

@@ -1,23 +1,36 @@
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { VortexRibbon } from '../layout/VortexRibbon';
 
 export function CoreSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    const section = sectionRef.current;
+    if (!video || !section) return;
+
     video.playbackRate = 0.8;
-    video.play().catch(() => {});
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="relative bg-black pt-12">
-      <div className="w-full h-12 bg-gradient-to-r from-transparent via-primary to-transparent flex items-center overflow-hidden relative">
-        <div className="animate-marquee whitespace-nowrap text-[11px] font-bold tracking-[0.3em] text-white/90 font-mono">
-          VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX &nbsp;—&nbsp; VORTEX
-        </div>
-      </div>
+    <section ref={sectionRef} className="relative bg-black pt-12">
+      <VortexRibbon />
 
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="relative w-full overflow-hidden" style={{ minHeight: '50vh' }}>

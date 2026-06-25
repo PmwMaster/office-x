@@ -4,6 +4,7 @@ import { ArrowLeft, ShoppingCart, Check, Star } from 'lucide-react';
 import { Button, GlassCard } from '../components/ui';
 import { useCartStore } from '../stores/cartStore';
 import { CATALOG } from '../data/headset-catalog';
+import { Footer } from '../components/layout/Footer';
 
 const PRODUCT_DETAILS: Record<string, {
   variants: { label: string; color: string; gallery: string[] }[];
@@ -262,9 +263,7 @@ export function ProdutoDetalhe() {
         </div>
       </div>
 
-      <footer className="border-t border-border mt-24 py-10 text-center">
-        <p className="text-[11px] text-text-tertiary font-mono tracking-widest uppercase">VORTEX Audio Labs · 2026</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
