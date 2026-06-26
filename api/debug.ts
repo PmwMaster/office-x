@@ -27,5 +27,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     results.stripeInit = 'FAIL: ' + e.message;
   }
 
+  // Test getUser with a dummy token (should fail gracefully)
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    try {
+      const supabaseUrl = process.env.SUPABASE_URL ?? '';
+      const supabaseAnonKey = process.env.SUPABASE_ANON_KEY ?? '';
+      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      const token = authHeader.replace('Bearer ', '');
+      const { data, error } = await supabase.auth.getUser(token);
+      results.getUserTest = error ? 'FAIL: ' + error.message : `OK (${data.user?.email})`;
+    } catch (e: any) {
+      results.getUserTest = 'FAIL: ' + e.message;
+    }
+  } else {
+    results.getUserTest = 'no token provided';
+  }
+
   return res.status(200).json(results);
 }
