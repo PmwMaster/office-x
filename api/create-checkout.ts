@@ -45,14 +45,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       quantity: item.quantity,
     }));
 
-    const paymentMethodTypes: Stripe.Checkout.SessionCreateParams.PaymentMethodType[] = ['card'];
-
+    const origin = req.headers.origin || `https://${req.headers.host}`;
     const stripe = new Stripe(stripeKey);
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: paymentMethodTypes,
+      payment_method_types: ['card'],
       mode: 'payment',
-      success_url: `${req.headers.origin}/sucesso?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin}/comprar?cancelado=true`,
+      success_url: `${origin}/sucesso?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/comprar?cancelado=true`,
       customer_email: customerEmail || undefined,
       metadata: {
         customer_name: customerName || '',
