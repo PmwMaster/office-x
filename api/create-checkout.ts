@@ -2,15 +2,14 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '');
-
-const supabaseUrl = process.env.SUPABASE_URL ?? '';
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY ?? '';
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const supabaseUrl = process.env.SUPABASE_URL ?? '';
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY ?? '';
+  const stripeKey = process.env.STRIPE_SECRET_KEY ?? '';
 
   try {
     const authHeader = req.headers.authorization;
@@ -32,7 +31,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'No items in cart' });
     }
 
-    // Apply PIX/Boleto discount (5%)
     const discountMultiplier = paymentMethod === 'pix' ? 0.95 : 1;
 
     const lineItems = items.map((item: { name: string; price: number; quantity: number; image: string }) => ({
@@ -49,6 +47,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const paymentMethodTypes: Stripe.Checkout.SessionCreateParams.PaymentMethodType[] = ['card'];
 
+    const stripe = new Stripe(stripeKey);
     const session = await stripe.checkout.sessions.create({
       payment_method_types: paymentMethodTypes,
       mode: 'payment',
@@ -64,7 +63,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(200).json({ url: session.url });
   } catch (error: any) {
-    console.error('Stripe checkout error:', error.message);
-    return res.status(500).json({ error: 'Failed to create checkout session' });
+    return res.status(500).json({ error: error?.message || error?.toString() || 'Falha ao processar checkout' });
   }
 }
